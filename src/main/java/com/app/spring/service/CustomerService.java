@@ -7,7 +7,7 @@ import com.app.spring.model.Customer;
 /**
  * 
  * @author malalanayake
- *
+ * 
  */
 public interface CustomerService {
 

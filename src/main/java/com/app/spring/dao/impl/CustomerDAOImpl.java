@@ -14,7 +14,7 @@ import com.app.spring.model.Customer;
 /**
  * 
  * @author malalanayake
- *
+ * 
  */
 @Repository
 public class CustomerDAOImpl implements CustomerDAO {
@@ -32,14 +32,15 @@ public class CustomerDAOImpl implements CustomerDAO {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.persist(p);
 		logger.info("Customer saved successfully, Customer Details=" + p);
-                return p;
+		return p;
 	}
 
 	@Override
-	public void updateCustomer(Customer p) {
+	public Customer updateCustomer(Customer p) {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.update(p);
 		logger.info("Customer updated successfully, Customer Details=" + p);
+		return p;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -62,13 +63,14 @@ public class CustomerDAOImpl implements CustomerDAO {
 	}
 
 	@Override
-	public void removeCustomer(int id) {
+	public Customer removeCustomer(int id) {
 		Session session = this.sessionFactory.getCurrentSession();
 		Customer c = (Customer) session.load(Customer.class, new Integer(id));
 		if (null != c) {
 			session.delete(c);
 		}
 		logger.info("Customer deleted successfully, Customer details=" + c);
+		return c;
 	}
 
 }

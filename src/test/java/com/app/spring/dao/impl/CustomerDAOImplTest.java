@@ -6,11 +6,11 @@
 
 package com.app.spring.dao.impl;
 
-import com.app.spring.dao.CustomerDAO;
-import com.app.spring.model.Customer;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import org.junit.After;
 import org.junit.AfterClass;
-import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -20,79 +20,91 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.app.spring.dao.CustomerDAO;
+import com.app.spring.model.Customer;
+
 /**
- *
+ * 
  * @author malalanayake
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:/servlet-context-test.xml"})
+@ContextConfiguration(locations = { "classpath:/servlet-context-test.xml" })
 @Transactional
 public class CustomerDAOImplTest {
-    @Autowired
-    private CustomerDAO customerDAO;
-    
-    public CustomerDAOImplTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
+	@Autowired
+	private CustomerDAO customerDAO;
 
-    /**
-     * Test of addCustomer method, of class CustomerDAOImpl.
-     */
-    @Test
-    public void testAddCustomer() {
-        System.out.println("addCustomer");
-        Customer p = new Customer();
-        p.setName("Malinda");
-        p.setAddress("Colombo");
-        p = customerDAO.addCustomer(p);
-        assertNotNull(p.getId());
-    }
+	public CustomerDAOImplTest() {
+	}
 
-    /**
-     * Test of updateCustomer method, of class CustomerDAOImpl.
-     */
-    @Test
-    public void testUpdateCustomer() {
-        
-    }
+	@BeforeClass
+	public static void setUpClass() {
+	}
 
-    /**
-     * Test of listCustomers method, of class CustomerDAOImpl.
-     */
-    @Test
-    public void testListCustomers() {
-        
-    }
+	@AfterClass
+	public static void tearDownClass() {
+	}
 
-    /**
-     * Test of getCustomerById method, of class CustomerDAOImpl.
-     */
-    @Test
-    public void testGetCustomerById() {
-        
-    }
+	@Before
+	public void setUp() {
+	}
 
-    /**
-     * Test of removeCustomer method, of class CustomerDAOImpl.
-     */
-    @Test
-    public void testRemoveCustomer() {
-        
-    }
-    
+	@After
+	public void tearDown() {
+	}
+
+	/**
+	 * Test of addCustomer method, of class CustomerDAOImpl.
+	 */
+	@Test
+	public void testAddCustomer() {
+		System.out.println("addCustomer");
+		Customer p = new Customer();
+		p.setName("Malinda");
+		p.setAddress("Colombo");
+		p = customerDAO.addCustomer(p);
+		assertNotNull(p.getId());
+	}
+
+	/**
+	 * Test of updateCustomer method, of class CustomerDAOImpl.
+	 */
+	@Test
+	public void testUpdateCustomer() {
+		System.out.println("addCustomer");
+		Customer p = new Customer();
+		p.setName("Malinda");
+		p.setAddress("Colombo");
+		p = customerDAO.addCustomer(p);
+		assertNotNull(p.getId());
+
+		p.setName("Juan");
+		Customer cus = customerDAO.updateCustomer(p);
+		assertEquals("Juan", cus.getName());
+	}
+
+	/**
+	 * Test of listCustomers method, of class CustomerDAOImpl.
+	 */
+	@Test
+	public void testListCustomers() {
+
+	}
+
+	/**
+	 * Test of getCustomerById method, of class CustomerDAOImpl.
+	 */
+	@Test
+	public void testGetCustomerById() {
+
+	}
+
+	/**
+	 * Test of removeCustomer method, of class CustomerDAOImpl.
+	 */
+	@Test
+	public void testRemoveCustomer() {
+
+	}
+
 }
