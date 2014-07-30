@@ -1,13 +1,13 @@
-package com.app.spring.service.impl;
+package com.app.studio.service.impl;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.app.spring.dao.CustomerDAO;
-import com.app.spring.model.Customer;
-import com.app.spring.service.CustomerService;
+import com.app.studio.dao.CustomerDAO;
+import com.app.studio.model.Customer;
+import com.app.studio.service.CustomerService;
 
 /**
  * 

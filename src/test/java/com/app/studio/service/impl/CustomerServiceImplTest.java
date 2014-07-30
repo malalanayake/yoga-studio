@@ -1,4 +1,4 @@
-package com.app.spring.service.impl;
+package com.app.studio.service.impl;
 
 import javax.transaction.Transactional;
 
@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.app.spring.model.Customer;
-import com.app.spring.service.CustomerService;
+import com.app.studio.model.Customer;
+import com.app.studio.service.CustomerService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/servlet-context-test.xml" })

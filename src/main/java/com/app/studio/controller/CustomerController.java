@@ -1,4 +1,4 @@
-package com.app.spring.controller;
+package com.app.studio.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.app.spring.model.Customer;
-import com.app.spring.service.CustomerService;
+import com.app.studio.model.Customer;
+import com.app.studio.service.CustomerService;
 
 /**
  * 

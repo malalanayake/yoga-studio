@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package com.app.spring.dao.impl;
+package com.app.studio.dao.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -20,8 +20,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.app.spring.dao.CustomerDAO;
-import com.app.spring.model.Customer;
+import com.app.studio.dao.CustomerDAO;
+import com.app.studio.model.Customer;
 
 /**
  * 

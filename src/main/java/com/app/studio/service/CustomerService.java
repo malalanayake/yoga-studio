@@ -1,8 +1,8 @@
-package com.app.spring.service;
+package com.app.studio.service;
 
 import java.util.List;
 
-import com.app.spring.model.Customer;
+import com.app.studio.model.Customer;
 
 /**
  * 

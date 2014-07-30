@@ -1,4 +1,4 @@
-package com.app.spring.dao.impl;
+package com.app.studio.dao.impl;
 
 import java.util.List;
 
@@ -8,8 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import com.app.spring.dao.CustomerDAO;
-import com.app.spring.model.Customer;
+import com.app.studio.dao.CustomerDAO;
+import com.app.studio.model.Customer;
 
 /**
  * 

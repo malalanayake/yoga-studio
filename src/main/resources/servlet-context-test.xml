@@ -37,7 +37,7 @@
 		<beans:property name="dataSource" ref="dataSource" />
 		<beans:property name="annotatedClasses">
             <beans:list>
-                <beans:value>com.app.spring.model.Customer</beans:value>
+                <beans:value>com.app.studio.model.Customer</beans:value>
             </beans:list>
         </beans:property>
 		<beans:property name="hibernateProperties">
@@ -57,15 +57,15 @@
 	</beans:bean>
 	
 	<!-- Inject the instance to customerDAO reference with adding sessionFactory -->
-	<beans:bean id="customerDAO" class="com.app.spring.dao.impl.CustomerDAOImpl">
+	<beans:bean id="customerDAO" class="com.app.studio.dao.impl.CustomerDAOImpl">
 		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
 	</beans:bean>
 	<!-- Inject the instance to service reference with adding customerDao instance -->
-	<beans:bean id="customerService" class="com.app.spring.service.impl.CustomerServiceImpl">
+	<beans:bean id="customerService" class="com.app.studio.service.impl.CustomerServiceImpl">
 		<beans:property name="customerDAO" ref="customerDAO"></beans:property>
 	</beans:bean>
 	<!-- Set the package where the annotated classes located at ex @Controller -->
-	<context:component-scan base-package="com.app.spring" />
+	<context:component-scan base-package="com.app.studio" />
 
 
 </beans:beans>

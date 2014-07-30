@@ -1,8 +1,8 @@
-package com.app.spring.dao;
+package com.app.studio.dao;
 
 import java.util.List;
 
-import com.app.spring.model.Customer;
+import com.app.studio.model.Customer;
 
 /**
  * 

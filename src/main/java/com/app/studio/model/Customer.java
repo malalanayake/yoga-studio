@@ -1,4 +1,4 @@
-package com.app.spring.model;
+package com.app.studio.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
