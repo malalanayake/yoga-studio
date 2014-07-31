@@ -5,6 +5,7 @@ import java.util.List;
 import com.app.studio.model.Customer;
 
 /**
+ * CustomerDAO operations
  * 
  * @author malalanayake
  * 

@@ -2,6 +2,7 @@ package com.app.studio.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -10,9 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.app.studio.model.Customer;
+import com.app.studio.security.Roles;
 import com.app.studio.service.CustomerService;
 
 /**
+ * Mediate the customer operations
  * 
  * @author malalanayake
  * 
@@ -35,15 +38,18 @@ public class CustomerController {
 		return "customer";
 	}
 
-	// For add and update person both
+	/**
+	 * For add and update customer both
+	 * 
+	 * @param c
+	 * @return
+	 */
 	@RequestMapping(value = "/customer/add", method = RequestMethod.POST)
 	public String addCustomer(@ModelAttribute("customer") Customer c) {
 
 		if (c.getId() == 0) {
-			// new person, add it
 			this.customerService.addCustomer(c);
 		} else {
-			// existing person, call update
 			this.customerService.updateCustomer(c);
 		}
 

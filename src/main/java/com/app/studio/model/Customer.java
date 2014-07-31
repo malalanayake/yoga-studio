@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
+ * Entity class which is holding the customer data
  * 
  * @author malalanayake
  * 

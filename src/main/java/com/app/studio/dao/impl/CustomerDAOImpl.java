@@ -12,6 +12,7 @@ import com.app.studio.dao.CustomerDAO;
 import com.app.studio.model.Customer;
 
 /**
+ * DAO class which is providing the customer data access
  * 
  * @author malalanayake
  * 

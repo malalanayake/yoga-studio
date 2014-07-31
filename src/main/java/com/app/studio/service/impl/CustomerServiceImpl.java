@@ -10,6 +10,8 @@ import com.app.studio.model.Customer;
 import com.app.studio.service.CustomerService;
 
 /**
+ * Custom user detail service which is going to provide the user details to the
+ * spring framework
  * 
  * @author malalanayake
  * 
