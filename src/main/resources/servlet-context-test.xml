@@ -39,6 +39,7 @@
             <beans:list>
                 <beans:value>com.app.studio.model.Customer</beans:value>
                 <beans:value>com.app.studio.model.User</beans:value>
+                <beans:value>com.app.studio.model.Faculty</beans:value>
             </beans:list>
         </beans:property>
 		<beans:property name="hibernateProperties">
@@ -63,6 +64,10 @@
 	</beans:bean>
         
         <beans:bean id="userDAO" class="com.app.studio.dao.impl.UserDAOImpl">
+		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</beans:bean>
+        
+        <beans:bean id="facultyDAO" class="com.app.studio.dao.impl.FacultyDAOImpl">
 		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
 	</beans:bean>
         
