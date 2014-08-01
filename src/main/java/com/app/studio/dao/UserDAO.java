@@ -9,13 +9,42 @@ import java.util.List;
  */
 public interface UserDAO {
 
+    /**
+     * Create new User
+     *
+     * @param user
+     * @return
+     */
     public User create(User user);
 
+    /**
+     * Update existing User
+     *
+     * @param user
+     * @return
+     */
     public User update(User user);
 
+    /**
+     * List all users
+     *
+     * @return
+     */
     public List<User> list();
 
+    /**
+     * List user by ID
+     *
+     * @param id
+     * @return
+     */
     public User getById(int id);
 
+    /**
+     * Remove user
+     *
+     * @param id
+     * @return
+     */
     public User remove(int id);
 }

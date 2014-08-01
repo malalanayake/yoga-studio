@@ -10,13 +10,42 @@ import java.util.List;
  */
 public interface WaiverRequestDAO {
 
+    /**
+     * Create a new WaiverRequest
+     *
+     * @param p
+     * @return
+     */
     public WaiverRequest create(WaiverRequest p);
 
+    /**
+     * Update existing WaiverRequest
+     *
+     * @param p
+     * @return
+     */
     public WaiverRequest update(WaiverRequest p);
 
+    /**
+     * List all WaiverRequest
+     *
+     * @return
+     */
     public List<WaiverRequest> list();
 
+    /**
+     * Get WaiverRequest by ID
+     *
+     * @param id
+     * @return
+     */
     public WaiverRequest getById(int id);
-    
+
+    /**
+     * Remove WaiverRequest
+     *
+     * @param id
+     * @return
+     */
     public WaiverRequest remove(int id);
 }
