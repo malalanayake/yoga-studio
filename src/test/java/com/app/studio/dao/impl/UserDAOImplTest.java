@@ -2,13 +2,7 @@ package com.app.studio.dao.impl;
 
 import com.app.studio.dao.UserDAO;
 import com.app.studio.model.User;
-import java.util.List;
-import org.hibernate.SessionFactory;
-import org.junit.After;
-import org.junit.AfterClass;
 import static org.junit.Assert.*;
-import org.junit.Before;
-import org.junit.BeforeClass;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

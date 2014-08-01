@@ -6,19 +6,19 @@ import com.app.studio.model.Customer;
 
 /**
  * CustomerDAO operations
- * 
+ *
  * @author malalanayake
- * 
+ *
  */
 public interface CustomerDAO {
 
-	public Customer create(Customer p);
+    public Customer create(Customer p);
 
-	public Customer update(Customer p);
+    public Customer update(Customer p);
 
-	public List<Customer> list();
+    public List<Customer> list();
 
-	public Customer getById(int id);
+    public Customer getById(int id);
 
-	public Customer remove(int id);
+    public Customer remove(int id);
 }
