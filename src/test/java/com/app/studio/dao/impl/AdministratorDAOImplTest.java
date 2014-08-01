@@ -75,19 +75,13 @@ public class AdministratorDAOImplTest {
         int id = a.getId();
         Administrator result = administratorDAO.remove(id);
         assertEquals(a, result);
+
+        try {
+            Administrator nullResult = administratorDAO.getById(id);
+            assertNull(nullResult);
+        } catch (Exception e) {
+            assertEquals(org.hibernate.ObjectNotFoundException.class, e.getClass());
+        }
     }
 
-    /**
-     * Test of list method, of class AdministratorDAOImpl.
-     */
-//    @Test
-//    public void testList() {
-//        System.out.println("list");
-//        AdministratorDAOImpl instance = new AdministratorDAOImpl();
-//        List<Administrator> expResult = null;
-//        List<Administrator> result = instance.list();
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
 }

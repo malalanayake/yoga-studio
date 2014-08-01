@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
  */
 public class AdministratorDAOImpl implements AdministratorDAO {
 
-    private static final Logger logger = LoggerFactory.getLogger(CustomerDAOImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(AdministratorDAOImpl.class);
 
     private SessionFactory sessionFactory;
 

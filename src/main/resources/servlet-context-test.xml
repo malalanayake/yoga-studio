@@ -44,6 +44,7 @@
                 <beans:value>com.app.studio.model.Administrator</beans:value>
                 <beans:value>com.app.studio.model.Semester</beans:value>
                 <beans:value>com.app.studio.model.Product</beans:value>
+                <beans:value>com.app.studio.model.Section</beans:value>
             </beans:list>
         </beans:property>
         <beans:property name="hibernateProperties">
@@ -88,6 +89,10 @@
     </beans:bean>
     
     <beans:bean id="productDAO" class="com.app.studio.dao.impl.ProductDAOImpl">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+    </beans:bean>
+
+    <beans:bean id="sectionDAO" class="com.app.studio.dao.impl.SectionDAOImpl">
         <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
     </beans:bean>
 
