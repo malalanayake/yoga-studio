@@ -1,5 +1,8 @@
 package com.app.studio.dao.impl;
 
+import com.app.studio.dao.CustomerDAO;
+import com.app.studio.model.Customer;
+import java.util.Date;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -9,9 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.app.studio.dao.CustomerDAO;
-import com.app.studio.model.Customer;
 
 /**
  *
@@ -32,30 +32,29 @@ public class CustomerDAOImplTest {
      * Test of addCustomer method, of class CustomerDAOImpl.
      */
     @Test
-    public void testAddCustomer() {
+    public void testAdd() {
         System.out.println("addCustomer");
-        Customer p = new Customer();
-        p.setName("Malinda");
-        p.setAddress("Colombo");
-        p = customerDAO.addCustomer(p);
-        assertNotNull(p.getId());
+        Customer cus = new Customer();
+        cus.setAddress("Colombo");
+        cus.setSignUpDate(new Date().toString());
+        Customer expectCus = customerDAO.create(cus);
+        assertNotNull(expectCus.getId());
     }
 
     /**
      * Test of updateCustomer method, of class CustomerDAOImpl.
      */
     @Test
-    public void testUpdateCustomer() {
+    public void testUpdate() {
         System.out.println("addCustomer");
         Customer p = new Customer();
-        p.setName("Malinda");
         p.setAddress("Colombo");
-        p = customerDAO.addCustomer(p);
+        p = customerDAO.create(p);
         assertNotNull(p.getId());
 
-        p.setName("Juan");
-        Customer cus = customerDAO.updateCustomer(p);
-        assertEquals("Juan", cus.getName());
+        p.setAddress("Ames");
+        Customer cus = customerDAO.update(p);
+        assertEquals(cus.getAddress(), "Ames");
     }
 
 }

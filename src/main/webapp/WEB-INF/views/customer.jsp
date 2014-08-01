@@ -54,7 +54,7 @@
 
 	<form:form action="${addAction}" commandName="customer">
 		<table>
-			<c:if test="${!empty customer.name}">
+			<c:if test="${!empty customer.address}">
 				<tr>
 					<td><form:label path="id">
 							<spring:message text="ID" />
@@ -62,13 +62,14 @@
 					<td><form:input path="id" readonly="true" size="8"
 							disabled="true" /> <form:hidden path="id" /></td>
 				</tr>
+                                <tr>
+					<td><form:label path="signUpDate">
+							<spring:message text="SignUp Date" />
+						</form:label></td>
+					<td><form:input path="signUpDate" readonly="true" size="8"
+							disabled="true" /> <form:hidden path="signUpDate" /></td>
+				</tr>
 			</c:if>
-			<tr>
-				<td><form:label path="name">
-						<spring:message text="Name" />
-					</form:label></td>
-				<td><form:input path="name" /></td>
-			</tr>
 			<tr>
 				<td><form:label path="address">
 						<spring:message text="Address" />
@@ -76,10 +77,10 @@
 				<td><form:input path="address" /></td>
 			</tr>
 			<tr>
-				<td colspan="2"><c:if test="${!empty customer.name}">
+				<td colspan="2"><c:if test="${!empty customer.address}">
 						<input type="submit"
 							value="<spring:message text="Edit Customer"/>" />
-					</c:if> <c:if test="${empty customer.name}">
+					</c:if> <c:if test="${empty customer.address}">
 						<input type="submit" value="<spring:message text="Add Customer"/>" />
 					</c:if></td>
 			</tr>
@@ -90,8 +91,8 @@
 	<table class="tg">
 		<tr>
 			<th width="80">Customer ID</th>
-			<th width="120">Customer Name</th>
 			<th width="120">Customer Address</th>
+			<th width="120">SignUp Date</th>
 			<th width="60">Edit</th>
 			<th width="60">Delete</th>
 		</tr>
@@ -99,8 +100,8 @@
 			<c:forEach items="${listCustomers}" var="customer">
 				<tr>
 					<td>${customer.id}</td>
-					<td>${customer.name}</td>
 					<td>${customer.address}</td>
+					<td>${customer.signUpDate}</td>
 					<td><a href="<c:url value='/customer/edit/${customer.id}' />">Edit</a></td>
 					<td><a
 						href="<c:url value='/customer/remove/${customer.id}' />">Delete</a></td>

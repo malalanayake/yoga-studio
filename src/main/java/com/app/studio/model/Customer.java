@@ -21,8 +21,8 @@ public class Customer {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String name;
     private String address;
+    private String signUpDate;
 
     public String getAddress() {
         return address;
@@ -40,16 +40,17 @@ public class Customer {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getSignUpDate() {
+        return signUpDate;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setSignUpDate(String signUpDate) {
+        this.signUpDate = signUpDate;
     }
 
     @Override
     public String toString() {
-        return "id=" + id + ", name=" + name + ", address=" + address;
+        return "Customer{" + "id=" + id + ", address=" + address + ", signUpDate=" + signUpDate + '}';
     }
+
 }

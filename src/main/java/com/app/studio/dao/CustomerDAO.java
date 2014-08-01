@@ -12,13 +12,13 @@ import com.app.studio.model.Customer;
  */
 public interface CustomerDAO {
 
-	public Customer addCustomer(Customer p);
+	public Customer create(Customer p);
 
-	public Customer updateCustomer(Customer p);
+	public Customer update(Customer p);
 
-	public List<Customer> listCustomers();
+	public List<Customer> list();
 
-	public Customer getCustomerById(int id);
+	public Customer getById(int id);
 
-	public Customer removeCustomer(int id);
+	public Customer remove(int id);
 }
