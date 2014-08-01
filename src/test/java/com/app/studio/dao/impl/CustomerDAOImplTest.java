@@ -46,7 +46,7 @@ public class CustomerDAOImplTest {
      */
     @Test
     public void testUpdate() {
-        System.out.println("addCustomer");
+        System.out.println("updateCustomer");
         Customer p = new Customer();
         p.setAddress("Colombo");
         p = customerDAO.create(p);

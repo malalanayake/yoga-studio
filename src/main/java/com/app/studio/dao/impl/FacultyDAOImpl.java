@@ -62,7 +62,7 @@ public class FacultyDAOImpl implements FacultyDAO {
         Session session = this.sessionFactory.getCurrentSession();
         Faculty faculty = (Faculty) session.load(Faculty.class, new Integer(id));
         if (logger.isDebugEnabled()) {
-            logger.info("Faculty loaded successfully, Faculty details=" + faculty);
+            logger.debug("Faculty loaded successfully, Faculty details=" + faculty);
         }
         return faculty;
     }
@@ -75,7 +75,7 @@ public class FacultyDAOImpl implements FacultyDAO {
             session.delete(faculty);
         }
         if (logger.isDebugEnabled()) {
-            logger.info("Faculty deleted successfully, Faculty details=" + faculty);
+            logger.debug("Faculty deleted successfully, Faculty details=" + faculty);
         }
         return faculty;
     }

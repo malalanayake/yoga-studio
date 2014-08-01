@@ -62,7 +62,7 @@ public class UserDAOImpl implements UserDAO {
         Session session = this.sessionFactory.getCurrentSession();
         User user = (User) session.load(User.class, new Integer(id));
         if (logger.isDebugEnabled()) {
-            logger.info("User loaded successfully, User details=" + user);
+            logger.debug("User loaded successfully, User details=" + user);
         }
         return user;
     }
@@ -75,7 +75,7 @@ public class UserDAOImpl implements UserDAO {
             session.delete(user);
         }
         if (logger.isDebugEnabled()) {
-            logger.info("User deleted successfully, User details=" + user);
+            logger.debug("User deleted successfully, User details=" + user);
         }
         return user;
     }

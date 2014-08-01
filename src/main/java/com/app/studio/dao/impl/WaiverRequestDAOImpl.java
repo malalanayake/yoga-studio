@@ -41,7 +41,7 @@ public class WaiverRequestDAOImpl implements WaiverRequestDAO {
         Session session = this.sessionFactory.getCurrentSession();
         session.update(waiverRequest);
         if (logger.isDebugEnabled()) {
-            logger.info("WaiverRequest updated successfully, WaiverRequest Details=" + waiverRequest);
+            logger.debug("WaiverRequest updated successfully, WaiverRequest Details=" + waiverRequest);
         }
         return waiverRequest;
     }
@@ -52,7 +52,7 @@ public class WaiverRequestDAOImpl implements WaiverRequestDAO {
         List<WaiverRequest> waiverRequestList = session.createQuery("from WaiverRequest").list();
         if (logger.isDebugEnabled()) {
             for (WaiverRequest c : waiverRequestList) {
-                logger.info("WaiverRequest List::" + c);
+                logger.debug("WaiverRequest List::" + c);
             }
         }
         return waiverRequestList;
@@ -63,7 +63,7 @@ public class WaiverRequestDAOImpl implements WaiverRequestDAO {
         Session session = this.sessionFactory.getCurrentSession();
         WaiverRequest waiverRequest = (WaiverRequest) session.load(WaiverRequest.class, new Integer(id));
         if (logger.isDebugEnabled()) {
-            logger.info("WaiverRequest loaded successfully, WaiverRequest details=" + waiverRequest);
+            logger.debug("WaiverRequest loaded successfully, WaiverRequest details=" + waiverRequest);
         }
         return waiverRequest;
     }
@@ -76,7 +76,7 @@ public class WaiverRequestDAOImpl implements WaiverRequestDAO {
             session.delete(waiverRequest);
         }
         if (logger.isDebugEnabled()) {
-            logger.info("WaiverRequest deleted successfully, WaiverRequest details=" + waiverRequest);
+            logger.debug("WaiverRequest deleted successfully, WaiverRequest details=" + waiverRequest);
         }
         return waiverRequest;
     }

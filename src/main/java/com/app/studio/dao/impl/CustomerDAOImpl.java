@@ -43,7 +43,7 @@ public class CustomerDAOImpl implements CustomerDAO {
         Session session = this.sessionFactory.getCurrentSession();
         session.update(p);
         if (logger.isDebugEnabled()) {
-            logger.info("Customer updated successfully, Customer Details=" + p);
+            logger.debug("Customer updated successfully, Customer Details=" + p);
         }
         return p;
     }
@@ -55,7 +55,7 @@ public class CustomerDAOImpl implements CustomerDAO {
         List<Customer> customersList = session.createQuery("from Customer").list();
         if (logger.isDebugEnabled()) {
             for (Customer c : customersList) {
-                logger.info("Customer List::" + c);
+                logger.debug("Customer List::" + c);
             }
         }
         return customersList;
@@ -66,7 +66,7 @@ public class CustomerDAOImpl implements CustomerDAO {
         Session session = this.sessionFactory.getCurrentSession();
         Customer c = (Customer) session.load(Customer.class, new Integer(id));
         if (logger.isDebugEnabled()) {
-            logger.info("Customer loaded successfully, Customer details=" + c);
+            logger.debug("Customer loaded successfully, Customer details=" + c);
         }
         return c;
     }
@@ -79,7 +79,7 @@ public class CustomerDAOImpl implements CustomerDAO {
             session.delete(c);
         }
         if (logger.isDebugEnabled()) {
-            logger.info("Customer deleted successfully, Customer details=" + c);
+            logger.debug("Customer deleted successfully, Customer details=" + c);
         }
         return c;
     }
