@@ -38,6 +38,7 @@
 		<beans:property name="annotatedClasses">
 			<beans:list>
 				<beans:value>com.app.studio.model.Customer</beans:value>
+                                <beans:value>com.app.studio.model.Administrator</beans:value>
 			</beans:list>
 		</beans:property>
 		<beans:property name="hibernateProperties">
@@ -63,6 +64,13 @@
 		<beans:property name="sessionFactory"
 			ref="hibernate4AnnotatedSessionFactory" />
 	</beans:bean>
+
+        <!-- Inject the instance to customerDAO reference with adding sessionFactory -->
+	<beans:bean id="administratorDAO" class="com.app.studio.dao.impl.AdministratorDAOImpl">
+		<beans:property name="sessionFactory"
+			ref="hibernate4AnnotatedSessionFactory" />
+	</beans:bean>
+
 	<!-- Inject the instance to service reference with adding customerDao instance -->
 	<beans:bean id="customerService"
 		class="com.app.studio.service.impl.CustomerServiceImpl">

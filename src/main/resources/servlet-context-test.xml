@@ -41,6 +41,7 @@
                 <beans:value>com.app.studio.model.User</beans:value>
                 <beans:value>com.app.studio.model.Faculty</beans:value>
                 <beans:value>com.app.studio.model.WaiverRequest</beans:value>
+                <beans:value>com.app.studio.model.Administrator</beans:value>
             </beans:list>
         </beans:property>
         <beans:property name="hibernateProperties">
@@ -75,7 +76,11 @@
     <beans:bean id="waiverRequestDAO" class="com.app.studio.dao.impl.WaiverRequestDAOImpl">
         <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
     </beans:bean>
-        
+    
+    <beans:bean id="administratorDAO" class="com.app.studio.dao.impl.AdministratorDAOImpl">
+	<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+    </beans:bean>
+
     <!-- Inject the instance to service reference with adding customerDao instance -->
     <beans:bean id="customerService" class="com.app.studio.service.impl.CustomerServiceImpl">
         <beans:property name="customerDAO" ref="customerDAO"></beans:property>
