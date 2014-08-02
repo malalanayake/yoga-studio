@@ -13,7 +13,7 @@ import javax.persistence.Table;
  * @author Yen
  */
 @Entity
-@Table(name = "YOGAORDER")
+@Table(name = "YOGA_ORDER")
 public class Order {
 
     @Id
