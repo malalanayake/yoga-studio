@@ -49,6 +49,8 @@
                 <beans:value>com.app.studio.model.ShoppingCart</beans:value>
                 <beans:value>com.app.studio.model.Order</beans:value>
                 <beans:value>com.app.studio.model.YogaClass</beans:value>
+                <beans:value>com.app.studio.model.WaitingRequest</beans:value>
+              
             </beans:list>
         </beans:property>
         <beans:property name="hibernateProperties">
@@ -116,6 +118,9 @@
         <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
     </beans:bean>
     
+     <beans:bean id="waitingRequestDAO" class="com.app.studio.dao.impl.WaitingRequestDAOImpl">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+    </beans:bean>
 
     <!-- Inject the instance to service reference with adding customerDao instance -->
     <beans:bean id="customerService" class="com.app.studio.service.impl.CustomerServiceImpl">
