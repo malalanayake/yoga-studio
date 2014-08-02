@@ -4,6 +4,8 @@ import com.app.studio.dao.AdministratorDAO;
 import com.app.studio.dao.UserDAO;
 import com.app.studio.model.Administrator;
 import com.app.studio.model.User;
+import java.util.ArrayList;
+import java.util.List;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,11 +29,11 @@ public class AdministratorDAOImplTest {
     private UserDAO userDAO;
 
     /**
-     * Test of add method, of class AdministratorDAOImpl.
+     * Test of create method, of class AdministratorDAOImpl.
      */
     @Test
-    public void testAdd() {
-        System.out.println("Add Administrator");
+    public void testCreate() {
+        System.out.println("Create Administrator");
         User user = new User("dinuka", "dinuka", "Dinuka", "Malalanayake",
                 "What is your favorit car?", "Benz");
         user = userDAO.create(user);
@@ -65,6 +67,37 @@ public class AdministratorDAOImplTest {
         Administrator result = administratorDAO.getById(administrator.getId());
         User finalUser = result.getUser();
         assertEquals(userOld.getPassword(), finalUser.getPassword());
+    }
+
+    /**
+     * Test of list method, of class AdministratorDAOImpl.
+     */
+    @Test
+    public void testList() {
+        System.out.println("Administrator List");
+
+        List<Administrator> expResult = new ArrayList<Administrator>();
+
+        User u1 = userDAO.create(
+                new User("dinuka1", "dinuka1", "Dinuka", "Malalanayake",
+                        "What is your favorit car?", "Benz"));
+        expResult.add(administratorDAO.create(
+                new Administrator(u1)));
+
+        User u2 = userDAO.create(
+                new User("dinuka2", "dinuka2", "Dinuka", "Malalanayake",
+                        "What is your favorit car?", "Benz"));
+        expResult.add(administratorDAO.create(
+                new Administrator(u2)));
+
+        User u3 = userDAO.create(
+                new User("dinuka3", "dinuka3", "Dinuka", "Malalanayake",
+                        "What is your favorit car?", "Benz"));
+        expResult.add(administratorDAO.create(
+                new Administrator(u3)));
+
+        List<Administrator> result = administratorDAO.list();
+        assertEquals(expResult, result);
     }
 
     /**

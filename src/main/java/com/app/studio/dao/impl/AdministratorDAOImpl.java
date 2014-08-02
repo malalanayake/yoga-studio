@@ -38,7 +38,7 @@ public class AdministratorDAOImpl implements AdministratorDAO {
         Session session = this.sessionFactory.getCurrentSession();
         session.update(a);
         if (logger.isDebugEnabled()) {
-            logger.debug("Administrator saved successfully, Administrator Details=" + a);
+            logger.debug("Administrator updated successfully, Administrator Details=" + a);
         }
         return a;
     }

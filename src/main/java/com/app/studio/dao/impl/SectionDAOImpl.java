@@ -38,7 +38,7 @@ public class SectionDAOImpl implements SectionDAO {
         Session session = this.sessionFactory.getCurrentSession();
         session.update(s);
         if (logger.isDebugEnabled()) {
-            logger.debug("Section saved successfully, Section Details=" + s);
+            logger.debug("Section updated successfully, Section Details=" + s);
         }
         return s;
     }

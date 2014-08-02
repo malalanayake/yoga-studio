@@ -47,6 +47,7 @@
                 <beans:value>com.app.studio.model.Section</beans:value>
                 <beans:value>com.app.studio.model.EnrolledSection</beans:value>
                 <beans:value>com.app.studio.model.ShoppingCart</beans:value>
+                <beans:value>com.app.studio.model.Order</beans:value>
             </beans:list>
         </beans:property>
         <beans:property name="hibernateProperties">
@@ -103,6 +104,10 @@
     </beans:bean>
     
     <beans:bean id="shoppingCartDAO" class="com.app.studio.dao.impl.ShoppingCartDAOImpl">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+    </beans:bean>
+
+    <beans:bean id="orderDAO" class="com.app.studio.dao.impl.OrderDAOImpl">
         <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
     </beans:bean>
 
