@@ -1,9 +1,11 @@
 package com.app.studio.dao.impl;
 
 import com.app.studio.dao.AdministratorDAO;
+import com.app.studio.dao.UserDAO;
 import com.app.studio.model.Administrator;
-import org.junit.Test;
+import com.app.studio.model.User;
 import static org.junit.Assert.*;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -21,17 +23,28 @@ public class AdministratorDAOImplTest {
 
     @Autowired
     private AdministratorDAO administratorDAO;
+    @Autowired
+    private UserDAO userDAO;
 
     /**
      * Test of add method, of class AdministratorDAOImpl.
      */
     @Test
     public void testAdd() {
-        System.out.println("add");
-        Administrator a = new Administrator();
+        System.out.println("Add Administrator");
+        User user = new User("dinuka", "dinuka", "Dinuka", "Malalanayake",
+                "What is your favorit car?", "Benz");
+        user = userDAO.create(user);
+        assertEquals(0, user.getRoles().size());
+
+        Administrator a = new Administrator(user);
         Administrator result = administratorDAO.create(a);
         assertNotNull(result);
         assertNotNull(result.getId());
+        assertNotNull(result.getUser());
+
+        User userNew = userDAO.getById(user.getId());
+        assertEquals(1, userNew.getRoles().size());
     }
 
     /**
@@ -39,14 +52,19 @@ public class AdministratorDAOImplTest {
      */
     @Test
     public void testUpdate() {
-        System.out.println("update");
-        Administrator a = administratorDAO.create(new Administrator());
-        assertNotNull(a.getId());
+        System.out.println("Update Administrator");
+        User user = new User("dinuka", "dinuka", "Dinuka", "Malalanayake",
+                "What is your favorit car?", "Benz");
+        user = userDAO.create(user);
+        Administrator administrator = administratorDAO.create(new Administrator(user));
+        assertNotNull(administrator.getId());
+        User userOld = administrator.getUser();
+        userOld.setPassword("test");
+        userDAO.update(userOld);
 
-        int newId = a.getId() + 1;
-        a.setId(newId);
-        Administrator result = administratorDAO.update(a);
-        assertEquals(newId, result.getId());
+        Administrator result = administratorDAO.getById(administrator.getId());
+        User finalUser = result.getUser();
+        assertEquals(userOld.getPassword(), finalUser.getPassword());
     }
 
     /**
@@ -54,8 +72,11 @@ public class AdministratorDAOImplTest {
      */
     @Test
     public void testGetById() {
-        System.out.println("getById");
-        Administrator a = administratorDAO.create(new Administrator());
+        System.out.println("Administrator getById");
+        User user = new User("dinuka", "dinuka", "Dinuka", "Malalanayake",
+                "What is your favorit car?", "Benz");
+        user = userDAO.create(user);
+        Administrator a = administratorDAO.create(new Administrator(user));
         assertNotNull(a.getId());
 
         int id = a.getId();
@@ -68,16 +89,21 @@ public class AdministratorDAOImplTest {
      */
     @Test
     public void testRemove() {
-        System.out.println("remove");
-        Administrator a = administratorDAO.create(new Administrator());
+        System.out.println("Remove Administrator");
+        User user = new User("dinuka", "dinuka", "Dinuka", "Malalanayake",
+                "What is your favorit car?", "Benz");
+        user = userDAO.create(user);
+        Administrator a = administratorDAO.create(new Administrator(user));
         assertNotNull(a.getId());
 
-        int id = a.getId();
-        Administrator result = administratorDAO.remove(id);
+        User userOld = a.getUser();
+        Administrator result = administratorDAO.remove(a.getId());
         assertEquals(a, result);
+        User afterRemove = userDAO.getById(userOld.getId());
+        assertEquals(userOld, afterRemove);
 
         try {
-            Administrator nullResult = administratorDAO.getById(id);
+            Administrator nullResult = administratorDAO.getById(a.getId());
             assertNull(nullResult);
         } catch (Exception e) {
             assertEquals(org.hibernate.ObjectNotFoundException.class, e.getClass());

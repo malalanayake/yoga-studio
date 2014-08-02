@@ -38,10 +38,10 @@
         <beans:property name="annotatedClasses">
             <beans:list>
                 <beans:value>com.app.studio.model.Customer</beans:value>
-                <beans:value>com.app.studio.model.User</beans:value>
+                <beans:value>com.app.studio.model.Administrator</beans:value>
                 <beans:value>com.app.studio.model.Faculty</beans:value>
                 <beans:value>com.app.studio.model.WaiverRequest</beans:value>
-                <beans:value>com.app.studio.model.Administrator</beans:value>
+                <beans:value>com.app.studio.model.User</beans:value>
                 <beans:value>com.app.studio.model.Semester</beans:value>
                 <beans:value>com.app.studio.model.Product</beans:value>
                 <beans:value>com.app.studio.model.Section</beans:value>

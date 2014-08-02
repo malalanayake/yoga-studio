@@ -1,10 +1,13 @@
 package com.app.studio.model;
 
+import com.app.studio.security.Roles;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -20,6 +23,13 @@ public class Administrator {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @OneToOne(fetch = FetchType.EAGER)
+    private User user;
+
+    public Administrator(User user) {
+        this.user = user;
+        this.user.addRole(Roles.ROLE_ADMIN);
+    }
 
     public int getId() {
         return id;
@@ -27,6 +37,14 @@ public class Administrator {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
