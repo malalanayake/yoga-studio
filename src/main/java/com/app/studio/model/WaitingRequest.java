@@ -10,10 +10,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
+ * Entity which is going to hold the Waiting Request for the waiting list
  *
  * @author jCalles
  */
-
 @Entity
 @Table(name = "WAITING_REQUEST")
 public class WaitingRequest {
@@ -25,6 +25,8 @@ public class WaitingRequest {
     private String date;
     @ManyToOne(fetch = FetchType.EAGER)
     private Customer customer;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Section section;
 
     public int getId() {
         return id;
@@ -40,6 +42,15 @@ public class WaitingRequest {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public Section getSection() {
+        return section;
+    }
+
+    public void setSection(Section section) {
+        this.section = section;
+        this.section.addToWaitingList(this);
     }
 
     public String getDate() {
@@ -61,6 +72,7 @@ public class WaitingRequest {
         hash = 97 * hash + this.id;
         hash = 97 * hash + (this.date != null ? this.date.hashCode() : 0);
         hash = 97 * hash + (this.customer != null ? this.customer.hashCode() : 0);
+        hash = 97 * hash + (this.section != null ? this.section.hashCode() : 0);
         return hash;
     }
 
@@ -80,6 +92,9 @@ public class WaitingRequest {
             return false;
         }
         if (this.customer != other.customer && (this.customer == null || !this.customer.equals(other.customer))) {
+            return false;
+        }
+        if (this.section != other.section && (this.section == null || !this.section.equals(other.section))) {
             return false;
         }
         return true;
