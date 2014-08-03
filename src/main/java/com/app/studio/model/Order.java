@@ -1,5 +1,7 @@
 package com.app.studio.model;
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -7,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -26,6 +29,20 @@ public class Order {
     private double totalPrice;
     @ManyToOne(fetch = FetchType.EAGER)
     private Customer customer;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
+    private Set<OrderItem> setOfOrderItems;
+
+    public Order() {
+        this.setOfOrderItems = new HashSet<OrderItem>();
+    }
+
+    public void addOrderItem(OrderItem orderItem) {
+        this.setOfOrderItems.add(orderItem);
+    }
+
+    public Set<OrderItem> getSetOfOrderItems() {
+        return setOfOrderItems;
+    }
 
     public int getId() {
         return id;
