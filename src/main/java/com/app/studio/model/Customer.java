@@ -40,7 +40,7 @@ public class Customer {
     private Set<EnrolledSection> setOfEnrolledSections;
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "customer")
     private Set<WaitingRequest> setOfWaitingRequests;
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private ShoppingCart shoppingCart;
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "customer")
     private Set<Order> setOfOrders;
