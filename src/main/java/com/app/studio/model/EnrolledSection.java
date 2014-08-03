@@ -26,6 +26,8 @@ public class EnrolledSection {
     private String date;
     @ManyToOne(fetch = FetchType.EAGER)
     private Customer customer;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Section section;
 
     public int getId() {
         return id;
@@ -59,6 +61,15 @@ public class EnrolledSection {
         this.date = date;
     }
 
+    public Section getSection() {
+        return section;
+    }
+
+    public void setSection(Section section) {
+        this.section = section;
+        this.section.addEnrolledSection(this);
+    }
+
     @Override
     public String toString() {
         return "EnrolledSection{" + "id=" + id + ", status=" + status + ", date=" + date + '}';
@@ -71,6 +82,7 @@ public class EnrolledSection {
         hash = 71 * hash + (this.status != null ? this.status.hashCode() : 0);
         hash = 71 * hash + (this.date != null ? this.date.hashCode() : 0);
         hash = 71 * hash + (this.customer != null ? this.customer.hashCode() : 0);
+        hash = 71 * hash + (this.section != null ? this.section.hashCode() : 0);
         return hash;
     }
 
@@ -93,6 +105,9 @@ public class EnrolledSection {
             return false;
         }
         if (this.customer != other.customer && (this.customer == null || !this.customer.equals(other.customer))) {
+            return false;
+        }
+        if (this.section != other.section && (this.section == null || !this.section.equals(other.section))) {
             return false;
         }
         return true;

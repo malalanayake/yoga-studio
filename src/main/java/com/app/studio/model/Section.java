@@ -1,5 +1,8 @@
 package com.app.studio.model;
 
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -7,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -31,6 +35,31 @@ public class Section {
     private Semester semester;
     @ManyToOne(fetch = FetchType.EAGER)
     private YogaClass yogaClass;
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "section")
+    private Set<EnrolledSection> setOfEnrolledSections;
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "section")
+    private Set<WaitingRequest> setOfWaitingRequests;
+
+    public Section() {
+        this.setOfEnrolledSections = new HashSet<EnrolledSection>();
+        this.setOfWaitingRequests = new HashSet<WaitingRequest>();
+    }
+
+    public void addToWaitingList(WaitingRequest waitingRequest) {
+        this.setOfWaitingRequests.add(waitingRequest);
+    }
+
+    public Set<WaitingRequest> getSetOfWaitingRequests() {
+        return setOfWaitingRequests;
+    }
+
+    public void addEnrolledSection(EnrolledSection enrolledSection) {
+        this.setOfEnrolledSections.add(enrolledSection);
+    }
+
+    public Set<EnrolledSection> getSetOfEnrolledSections() {
+        return setOfEnrolledSections;
+    }
 
     public YogaClass getYogaClass() {
         return yogaClass;
