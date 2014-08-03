@@ -69,4 +69,16 @@ public class WaitingRequestDAOImpl implements WaitingRequestDAO {
         return waitingRequest;
     }
 
+    @Override
+    public List<WaitingRequest> list() {
+        Session session = this.sessionFactory.getCurrentSession();
+        List<WaitingRequest> waitingList = session.createQuery("from WaitingRequest").list();
+        if (logger.isDebugEnabled()) {
+            for (WaitingRequest waitingRequest : waitingList) {
+                logger.debug("WaitingRequest List::" + waitingRequest);
+            }
+        }
+        return waitingList;
+    }
+
 }

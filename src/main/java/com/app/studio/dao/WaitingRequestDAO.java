@@ -4,7 +4,7 @@ import com.app.studio.model.WaitingRequest;
 import java.util.List;
 
 /**
- *
+ * Interface which is provide the operations for WaitingRequest
  * @author jCalles
  */
 public interface WaitingRequestDAO {
@@ -46,4 +46,5 @@ public interface WaitingRequestDAO {
      *
      * @return
      */
+    public List<WaitingRequest> list();
 }
