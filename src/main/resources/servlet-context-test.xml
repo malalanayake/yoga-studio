@@ -50,7 +50,7 @@
                 <beans:value>com.app.studio.model.Order</beans:value>
                 <beans:value>com.app.studio.model.YogaClass</beans:value>
                 <beans:value>com.app.studio.model.WaitingRequest</beans:value>
-                <beans:value>com.app.studio.model.OrderItem</beans:value>
+              
             </beans:list>
         </beans:property>
         <beans:property name="hibernateProperties">
@@ -114,15 +114,11 @@
         <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
     </beans:bean>
     
-    <beans:bean id="orderItemDAO" class="com.app.studio.dao.impl.OrderItemDAOImpl">
-        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
-    </beans:bean>
-    
     <beans:bean id="yogaClassDAO" class="com.app.studio.dao.impl.YogaClassDAOImpl">
         <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
     </beans:bean>
     
-    <beans:bean id="waitingRequestDAO" class="com.app.studio.dao.impl.WaitingRequestDAOImpl">
+     <beans:bean id="waitingRequestDAO" class="com.app.studio.dao.impl.WaitingRequestDAOImpl">
         <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
     </beans:bean>
 
