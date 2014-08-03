@@ -29,6 +29,17 @@ public class Section {
     private Faculty faculty;
     @ManyToOne(fetch = FetchType.EAGER)
     private Semester semester;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private YogaClass yogaClass;
+
+    public YogaClass getYogaClass() {
+        return yogaClass;
+    }
+
+    public void setYogaClass(YogaClass yogaClass) {
+        this.yogaClass = yogaClass;
+        this.yogaClass.addSection(this);
+    }
 
     public Semester getSemester() {
         return semester;
@@ -94,6 +105,7 @@ public class Section {
         hash = 17 * hash + (this.schedule != null ? this.schedule.hashCode() : 0);
         hash = 17 * hash + (this.faculty != null ? this.faculty.hashCode() : 0);
         hash = 17 * hash + (this.semester != null ? this.semester.hashCode() : 0);
+        hash = 17 * hash + (this.yogaClass != null ? this.yogaClass.hashCode() : 0);
         return hash;
     }
 
@@ -122,6 +134,9 @@ public class Section {
             return false;
         }
         if (this.semester != other.semester && (this.semester == null || !this.semester.equals(other.semester))) {
+            return false;
+        }
+        if (this.yogaClass != other.yogaClass && (this.yogaClass == null || !this.yogaClass.equals(other.yogaClass))) {
             return false;
         }
         return true;
