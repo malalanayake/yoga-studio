@@ -2,6 +2,7 @@ package com.app.studio.dao.impl;
 
 import com.app.studio.dao.CustomerDAO;
 import com.app.studio.model.Customer;
+import com.app.studio.model.User;
 import java.util.Date;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -34,7 +35,9 @@ public class CustomerDAOImplTest {
     @Test
     public void testAdd() {
         System.out.println("addCustomer");
-        Customer cus = new Customer();
+        User userForCustomer = new User("dinuka1", "dinuka1", "Dinuka", "Malalanayake",
+                "What is your favorit car?", "Benz");
+        Customer cus = new Customer(userForCustomer);
         cus.setAddress("Colombo");
         cus.setSignUpDate(new Date().toString());
         Customer expectCus = customerDAO.create(cus);
@@ -47,7 +50,9 @@ public class CustomerDAOImplTest {
     @Test
     public void testUpdate() {
         System.out.println("updateCustomer");
-        Customer p = new Customer();
+        User userForCustomer = new User("dinuka1", "dinuka1", "Dinuka", "Malalanayake",
+                "What is your favorit car?", "Benz");
+        Customer p = new Customer(userForCustomer);
         p.setAddress("Colombo");
         p = customerDAO.create(p);
         assertNotNull(p.getId());

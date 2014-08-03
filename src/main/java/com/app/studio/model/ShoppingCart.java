@@ -2,9 +2,11 @@ package com.app.studio.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -20,6 +22,8 @@ public class ShoppingCart {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Customer customer;
 
     public int getId() {
         return id;
@@ -29,9 +33,43 @@ public class ShoppingCart {
         this.id = id;
     }
 
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
     @Override
     public String toString() {
         return "ShoppingCart{" + "id=" + id + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 19 * hash + this.id;
+        hash = 19 * hash + (this.customer != null ? this.customer.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ShoppingCart other = (ShoppingCart) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (this.customer != other.customer && (this.customer == null || !this.customer.equals(other.customer))) {
+            return false;
+        }
+        return true;
     }
 
 }

@@ -74,7 +74,9 @@ public class FacultyDAOImplTest {
         Faculty faculty = new Faculty(user);
         Faculty result = facultyDAO.create(faculty);
 
-        Customer customer = new Customer();
+        User userForCustomer = new User("dinuka1", "dinuka1", "Dinuka", "Malalanayake",
+                "What is your favorit car?", "Benz");
+        Customer customer = new Customer(userForCustomer);
         customer = customerDAO.create(customer);
         customer.setAdvisor(result);
         customer = customerDAO.update(customer);
@@ -169,7 +171,9 @@ public class FacultyDAOImplTest {
         Faculty faculty = new Faculty(user);
         Faculty result = facultyDAO.create(faculty);
 
-        Customer customer = new Customer();
+        User userForCustomer = new User("dinuka1", "dinuka1", "Dinuka", "Malalanayake",
+                "What is your favorit car?", "Benz");
+        Customer customer = new Customer(userForCustomer);
         customer = customerDAO.create(customer);
         customer.setAdvisor(result);
         customer = customerDAO.update(customer);

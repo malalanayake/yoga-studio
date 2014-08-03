@@ -24,7 +24,9 @@ public class WaiverRequest {
     private int id;
     private String status;
     @ManyToOne(fetch = FetchType.EAGER)
-    private Faculty faculty;
+    private Faculty faculty;   
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Customer customer;
     
     public Faculty getFaculty() {
         return faculty;
@@ -49,6 +51,14 @@ public class WaiverRequest {
     
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
     
     @Override

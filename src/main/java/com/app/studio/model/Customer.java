@@ -1,5 +1,8 @@
 package com.app.studio.model;
 
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -7,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -27,7 +32,75 @@ public class Customer {
     private String signUpDate;
     @ManyToOne(fetch = FetchType.EAGER)
     private Faculty advisor;
-    
+    @OneToOne(fetch = FetchType.EAGER)
+    private User user;
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "customer")
+    private Set<WaiverRequest> setOfWaiverRequests;
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "customer")
+    private Set<EnrolledSection> setOfEnrolledSections;
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "customer")
+    private Set<WaitingRequest> setOfWaitingRequests;
+    @OneToOne(fetch = FetchType.LAZY)
+    private ShoppingCart shoppingCart;
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "customer")
+    private Set<Order> setOfOrders;
+
+    public Customer(User user) {
+        this.user = user;
+        this.setOfEnrolledSections = new HashSet<EnrolledSection>();
+        this.setOfWaiverRequests = new HashSet<WaiverRequest>();
+        this.setOfWaitingRequests = new HashSet<WaitingRequest>();
+        this.setOfOrders = new HashSet<Order>();
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public ShoppingCart getShoppingCart() {
+        return shoppingCart;
+    }
+
+    public void setShoppingCart(ShoppingCart shoppingCart) {
+        this.shoppingCart = shoppingCart;
+    }
+
+    public void addWaitingRequest(WaitingRequest waitingRequest) {
+        this.setOfWaitingRequests.add(waitingRequest);
+    }
+
+    public Set<WaitingRequest> getSetOfWaitingRequests() {
+        return setOfWaitingRequests;
+    }
+
+    public Set<Order> getSetOfOrders() {
+        return setOfOrders;
+    }
+
+    public void addOrder(Order order) {
+        this.setOfOrders.add(order);
+    }
+
+    public Set<EnrolledSection> getSetOfEnrolledSections() {
+        return setOfEnrolledSections;
+    }
+
+    public void addEnrolledSection(EnrolledSection enrolledSection) {
+        this.setOfEnrolledSections.add(enrolledSection);
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Set<WaiverRequest> getSetOfWaiverRequests() {
+        return setOfWaiverRequests;
+    }
+
+    public void addWaiverRequest(WaiverRequest waiverRequest) {
+        this.setOfWaiverRequests.add(waiverRequest);
+    }
+
     public Faculty getAdvisor() {
         return advisor;
     }

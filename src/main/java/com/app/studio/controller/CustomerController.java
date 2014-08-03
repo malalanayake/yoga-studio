@@ -1,5 +1,9 @@
 package com.app.studio.controller;
 
+import com.app.studio.model.Customer;
+import com.app.studio.model.User;
+import com.app.studio.security.Roles;
+import com.app.studio.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.annotation.Secured;
@@ -9,10 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import com.app.studio.model.Customer;
-import com.app.studio.security.Roles;
-import com.app.studio.service.CustomerService;
 
 /**
  * Mediate the customer operations
@@ -33,7 +33,7 @@ public class CustomerController {
 
 	@RequestMapping(value = "/customers", method = RequestMethod.GET)
 	public String listCustomers(Model model) {
-		model.addAttribute("customer", new Customer());
+		//model.addAttribute("customer", new Customer(new User("")));
 		model.addAttribute("listCustomers", this.customerService.listCustomers());
 		return "customer";
 	}
