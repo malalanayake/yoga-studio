@@ -47,4 +47,12 @@ public interface UserDAO {
      * @return
      */
     public User remove(int id);
+
+    /**
+     * Get the user by using username
+     *
+     * @param userName
+     * @return
+     */
+    public User getByUserName(String userName);
 }

@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -15,8 +17,19 @@ import javax.persistence.Table;
  * @author malalanayake
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "findByUserName", query = "select u from User u where u.username=:userName")})
 @Table(name = "USER")
 public class User {
+
+    /**
+     * Interface which is provide the name queries and parameters
+     */
+    public static interface Constants {
+
+        public static final String NAME_QUERY_FIND_BY_USER_NAME = "findByUserName";
+        public static final String PARAM_USER_NAME = "userName";
+    }
 
     @Id
     @Column(name = "id")

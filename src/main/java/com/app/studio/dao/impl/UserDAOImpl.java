@@ -80,4 +80,16 @@ public class UserDAOImpl implements UserDAO {
         return user;
     }
 
+    @Override
+    public User getByUserName(String userName) {
+        Session session = this.sessionFactory.getCurrentSession();
+        List<User> userList = session.getNamedQuery(User.Constants.NAME_QUERY_FIND_BY_USER_NAME)
+                .setParameter(User.Constants.PARAM_USER_NAME, userName).list();
+        User user = null;
+        if (!userList.isEmpty()) {
+            user = userList.get(0);
+        }
+        return user;
+    }
+
 }
