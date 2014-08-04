@@ -92,16 +92,21 @@ public class FacultyDAOImplTest {
         YogaClass yogaclass = new YogaClass();
         YogaClass expect = yogaClassDAO.create(yogaclass);
         assertNotNull(expect.getId());
-        WaiverRequest waiverRequest = new WaiverRequest(yogaclass,customer);
+        WaiverRequest waiverRequest = new WaiverRequest(yogaclass, customer);
         waiverRequest = waiverRequestDAO.create(waiverRequest);
-        
+
         Semester sem = new Semester();
         sem.setSignUpDate("2014-03-03");
         sem = semesterDAO.create(sem);
-        
-        Section section = new Section(sem);
+
+        YogaClass Yogaclass = new YogaClass();
+        Yogaclass.setName("Yoga Principles");
+        Yogaclass.setPrice(10);
+        Yogaclass.setLocation("Mc Laughlin Building, 115");
+
+        Section section = new Section(sem, Yogaclass);
         section = sectionDAO.create(section);
-        
+
         faculty.addCustomer(customer);
         faculty.addsection(section);
         faculty = facultyDAO.update(faculty);
@@ -196,14 +201,19 @@ public class FacultyDAOImplTest {
         YogaClass yogaclass = new YogaClass();
         YogaClass expect = yogaClassDAO.create(yogaclass);
         assertNotNull(expect.getId());
-        WaiverRequest waiverRequest = new WaiverRequest(yogaclass,customer);
+        WaiverRequest waiverRequest = new WaiverRequest(yogaclass, customer);
         waiverRequest = waiverRequestDAO.create(waiverRequest);
-        
+
         Semester sem = new Semester();
         sem.setSignUpDate("2014-03-03");
         sem = semesterDAO.create(sem);
-        
-        Section section = new Section(sem);
+
+        YogaClass Yogaclass = new YogaClass();
+        Yogaclass.setName("Yoga Principles");
+        Yogaclass.setPrice(10);
+        Yogaclass.setLocation("Mc Laughlin Building, 115");
+
+        Section section = new Section(sem, Yogaclass);
         section = sectionDAO.create(section);
 
         faculty.addWaiverRequest(waiverRequest);

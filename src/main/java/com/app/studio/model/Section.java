@@ -40,9 +40,11 @@ public class Section {
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "section")
     private Set<WaitingRequest> setOfWaitingRequests;
 
-    public Section(Semester semester) {
+    public Section(Semester semester, YogaClass yogaClass) {
         this.semester = semester;
         this.semester.addSection(this);
+        this.yogaClass  = yogaClass;
+        this.yogaClass.addSection(this);
         this.setOfEnrolledSections = new HashSet<EnrolledSection>();
         this.setOfWaitingRequests = new HashSet<WaitingRequest>();
     }
