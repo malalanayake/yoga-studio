@@ -48,4 +48,6 @@ public interface FacultyDAO {
      * @return
      */
     public Faculty remove(int id);
+    
+    public Faculty getByUserName(String userName);
 }

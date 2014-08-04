@@ -80,4 +80,15 @@ public class FacultyDAOImpl implements FacultyDAO {
         return faculty;
     }
 
+    @Override
+    public Faculty getByUserName(String userName) {
+        Session session = this.sessionFactory.getCurrentSession();
+        List<Faculty> facultyList = session.getNamedQuery(Faculty.Constants.NAME_QUERY_FIND_BY_USER_NAME)
+                .setParameter(Faculty.Constants.PARAM_USER_NAME, userName).list();
+        Faculty faculty = null;
+        if (!facultyList.isEmpty()) {
+            faculty = facultyList.get(0);
+        }
+        return faculty;
+    }
 }
