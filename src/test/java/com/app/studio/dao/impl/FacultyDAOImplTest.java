@@ -6,12 +6,14 @@ import com.app.studio.dao.SectionDAO;
 import com.app.studio.dao.SemesterDAO;
 import com.app.studio.dao.UserDAO;
 import com.app.studio.dao.WaiverRequestDAO;
+import com.app.studio.dao.YogaClassDAO;
 import com.app.studio.model.Customer;
 import com.app.studio.model.Faculty;
 import com.app.studio.model.Section;
 import com.app.studio.model.Semester;
 import com.app.studio.model.User;
 import com.app.studio.model.WaiverRequest;
+import com.app.studio.model.YogaClass;
 import com.app.studio.security.Roles;
 import java.util.Iterator;
 import static org.junit.Assert.*;
@@ -43,6 +45,8 @@ public class FacultyDAOImplTest {
     private SectionDAO sectionDAO;
     @Autowired
     private SemesterDAO semesterDAO;
+    @Autowired
+    private YogaClassDAO yogaClassDAO;
 
     public FacultyDAOImplTest() {
     }
@@ -85,7 +89,10 @@ public class FacultyDAOImplTest {
         customer.setAdvisor(result);
         customer = customerDAO.update(customer);
 
-        WaiverRequest waiverRequest = new WaiverRequest();
+        YogaClass yogaclass = new YogaClass();
+        YogaClass expect = yogaClassDAO.create(yogaclass);
+        assertNotNull(expect.getId());
+        WaiverRequest waiverRequest = new WaiverRequest(yogaclass,customer);
         waiverRequest = waiverRequestDAO.create(waiverRequest);
         
         Semester sem = new Semester();
@@ -94,8 +101,7 @@ public class FacultyDAOImplTest {
         
         Section section = new Section(sem);
         section = sectionDAO.create(section);
-
-        faculty.addWaiverRequest(waiverRequest);
+        
         faculty.addCustomer(customer);
         faculty.addsection(section);
         faculty = facultyDAO.update(faculty);
@@ -187,7 +193,10 @@ public class FacultyDAOImplTest {
         customer.setAdvisor(result);
         customer = customerDAO.update(customer);
 
-        WaiverRequest waiverRequest = new WaiverRequest();
+        YogaClass yogaclass = new YogaClass();
+        YogaClass expect = yogaClassDAO.create(yogaclass);
+        assertNotNull(expect.getId());
+        WaiverRequest waiverRequest = new WaiverRequest(yogaclass,customer);
         waiverRequest = waiverRequestDAO.create(waiverRequest);
         
         Semester sem = new Semester();

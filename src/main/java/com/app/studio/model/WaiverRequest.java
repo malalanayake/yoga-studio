@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -27,7 +28,15 @@ public class WaiverRequest {
     private Faculty faculty;   
     @ManyToOne(fetch = FetchType.EAGER)
     private Customer customer;
-    
+    @OneToOne(fetch = FetchType.EAGER)
+    private YogaClass yogaClass;
+
+    public WaiverRequest(YogaClass yogaClass, Customer customer) {
+        this.yogaClass = yogaClass;
+        this.customer = customer;
+        this.setFaculty(this.customer.getAdvisor());
+    }
+
     public Faculty getFaculty() {
         return faculty;
     }
@@ -55,6 +64,14 @@ public class WaiverRequest {
 
     public Customer getCustomer() {
         return customer;
+    }
+
+    public YogaClass getYogaClass() {
+        return yogaClass;
+    }
+
+    public void setYogaClass(YogaClass yogaClass) {
+        this.yogaClass = yogaClass;
     }
 
     public void setCustomer(Customer customer) {
