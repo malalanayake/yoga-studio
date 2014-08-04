@@ -17,6 +17,15 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "WAITING_REQUEST")
 public class WaitingRequest {
+    
+    public WaitingRequest(Section section, Customer customer)
+    {
+        this.section=section;
+        this.section.addToWaitingList(this);
+        this.customer=customer;
+        this.customer.addWaitingRequest(this);
+    }
+    
 
     @Id
     @Column(name = "id")
