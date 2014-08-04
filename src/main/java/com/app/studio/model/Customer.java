@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -21,9 +23,20 @@ import javax.persistence.Table;
  *
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "findByCustomerUserName", query = "select u from Customer u where u.user.username=:userName")})
 @Table(name = "CUSTOMER")
 public class Customer {
 
+    /**
+     * Interface which is provide the name queries and parameters
+     */
+    public static interface Constants {
+
+        public static final String NAME_QUERY_FIND_BY_USER_NAME = "findByCustomerUserName";
+        public static final String PARAM_USER_NAME = "userName";
+    }
+    
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

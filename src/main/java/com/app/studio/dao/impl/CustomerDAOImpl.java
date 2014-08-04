@@ -84,4 +84,16 @@ public class CustomerDAOImpl implements CustomerDAO {
         return c;
     }
 
+    @Override
+    public Customer getByUserName(String userName) {
+        Session session = this.sessionFactory.getCurrentSession();
+        List<Customer> customerList = session.getNamedQuery(Customer.Constants.NAME_QUERY_FIND_BY_USER_NAME)
+                .setParameter(Customer.Constants.PARAM_USER_NAME, userName).list();
+        Customer customer = null;
+        if (!customerList.isEmpty()) {
+            customer = customerList.get(0);
+        }
+        return customer;
+    }
+
 }
