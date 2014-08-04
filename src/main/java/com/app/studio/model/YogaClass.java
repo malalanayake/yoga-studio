@@ -9,6 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -18,8 +20,19 @@ import javax.persistence.Table;
  * @author jCalles
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "findByYogaClassName", query = "select u from YogaClass u where u.name like:yogaClassName")})
 @Table(name = "YOGA_CLASS")
 public class YogaClass {
+
+    /**
+     * Interface which is provide the name queries and parameters
+     */
+    public static interface Constants {
+
+        public static final String NAME_QUERY_FIND_BY_NAME = "findByYogaClassName";
+        public static final String PARAM_NAME = "yogaClassName";
+    }
 
     @Id
     @Column(name = "id")
