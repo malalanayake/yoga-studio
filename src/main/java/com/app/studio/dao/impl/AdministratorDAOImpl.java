@@ -79,4 +79,16 @@ public class AdministratorDAOImpl implements AdministratorDAO {
         return a;
     }
 
+    @Override
+    public Administrator getByUserName(String userName) {
+        Session session = this.sessionFactory.getCurrentSession();
+        List<Administrator> adminList = session.getNamedQuery(Administrator.Constants.NAME_QUERY_FIND_BY_USER_NAME)
+                .setParameter(Administrator.Constants.PARAM_USER_NAME, userName).list();
+        Administrator admin = null;
+        if (!adminList.isEmpty()) {
+            admin = adminList.get(0);
+        }
+        return admin;
+    }
+
 }
