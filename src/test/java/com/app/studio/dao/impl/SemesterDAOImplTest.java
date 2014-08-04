@@ -1,8 +1,13 @@
 package com.app.studio.dao.impl;
 
+import com.app.studio.dao.SectionDAO;
 import com.app.studio.dao.SemesterDAO;
+import com.app.studio.model.Section;
 import com.app.studio.model.Semester;
+import java.util.Set;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +26,9 @@ public class SemesterDAOImplTest {
 
     @Autowired
     private SemesterDAO semesterDAO;
+
+    @Autowired
+    private SectionDAO sectionDAO;
 
     public SemesterDAOImplTest() {
     }
@@ -48,7 +56,81 @@ public class SemesterDAOImplTest {
         Semester expectSem;
         expectSem = semesterDAO.update(sem);
         assertNotNull(expectSem.getId());
-
     }
 
+    @Test
+    public void testCreateAssociations() {
+        // Create associated entities
+        Semester expectSemester = new Semester();
+        expectSemester.setSignUpDate("2014-03-03");
+        expectSemester = semesterDAO.create(expectSemester);
+
+        Section section1 = new Section(expectSemester);
+        section1.setLocation("Room1");
+        section1.setSchedule("M 1700-1800");
+        section1.setMaxStudents(20);
+        section1 = sectionDAO.create(section1);
+
+        Section section2 = new Section(expectSemester);
+        section2.setLocation("Room2");
+        section2.setSchedule("M 1700-1800");
+        section2.setMaxStudents(20);
+        section2 = sectionDAO.create(section2);
+
+        Set<Section> expectSetOfSections = expectSemester.getSetOfSections();
+
+        // Check if entities are the same
+        Semester resultSemester = semesterDAO.getById(expectSemester.getId());
+        assertEquals(expectSemester, resultSemester);
+
+        // Check if size of set is the same
+        Set<Section> resultSetOfSections = resultSemester.getSetOfSections();
+        assertEquals(expectSetOfSections.size(), resultSetOfSections.size());
+        System.out.println("Num of Sections: " + resultSetOfSections.size());
+
+        // Check if set contents are the same
+        for (Section expectSection : expectSetOfSections) {
+            boolean found = false;
+            for (Section resultSection : resultSetOfSections) {
+                if (expectSection.equals(resultSection)) {
+                    found = true;
+                    break;
+                }
+            }
+            assertEquals(true, found);
+        }
+    }
+
+    @Test
+    public void testRemoveAssociations() {
+        Semester expectSemester = new Semester();
+        expectSemester.setSignUpDate("2014-03-03");
+        expectSemester = semesterDAO.create(expectSemester);
+
+        Section section1 = new Section(expectSemester);
+        section1.setLocation("Room1");
+        section1.setSchedule("M 1700-1800");
+        section1.setMaxStudents(20);
+        section1 = sectionDAO.create(section1);
+
+        Section section2 = new Section(expectSemester);
+        section2.setLocation("Room2");
+        section2.setSchedule("M 1700-1800");
+        section2.setMaxStudents(20);
+        section2 = sectionDAO.create(section2);
+
+        Semester removedSemester = semesterDAO.remove(expectSemester.getId());
+        for (Section removedSection : expectSemester.getSetOfSections()) {
+            try {
+                System.out.println("Checking section " + removedSection.getId());
+                Section nullResult = sectionDAO.getById(removedSection.getId());
+                assertNull(nullResult);
+                System.out.println("Null: section " + removedSection.getId());
+            } catch (Exception e) {
+                assertEquals(org.hibernate.ObjectNotFoundException.class, e.getClass());
+                System.out.println("Not found: section " + removedSection.getId());
+            }
+        }
+
+    }
 }

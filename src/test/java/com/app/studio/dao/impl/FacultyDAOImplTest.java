@@ -3,11 +3,13 @@ package com.app.studio.dao.impl;
 import com.app.studio.dao.CustomerDAO;
 import com.app.studio.dao.FacultyDAO;
 import com.app.studio.dao.SectionDAO;
+import com.app.studio.dao.SemesterDAO;
 import com.app.studio.dao.UserDAO;
 import com.app.studio.dao.WaiverRequestDAO;
 import com.app.studio.model.Customer;
 import com.app.studio.model.Faculty;
 import com.app.studio.model.Section;
+import com.app.studio.model.Semester;
 import com.app.studio.model.User;
 import com.app.studio.model.WaiverRequest;
 import com.app.studio.security.Roles;
@@ -39,6 +41,8 @@ public class FacultyDAOImplTest {
     private CustomerDAO customerDAO;
     @Autowired
     private SectionDAO sectionDAO;
+    @Autowired
+    private SemesterDAO semesterDAO;
 
     public FacultyDAOImplTest() {
     }
@@ -83,7 +87,12 @@ public class FacultyDAOImplTest {
 
         WaiverRequest waiverRequest = new WaiverRequest();
         waiverRequest = waiverRequestDAO.create(waiverRequest);
-        Section section = new Section();
+        
+        Semester sem = new Semester();
+        sem.setSignUpDate("2014-03-03");
+        sem = semesterDAO.create(sem);
+        
+        Section section = new Section(sem);
         section = sectionDAO.create(section);
 
         faculty.addWaiverRequest(waiverRequest);
@@ -180,7 +189,12 @@ public class FacultyDAOImplTest {
 
         WaiverRequest waiverRequest = new WaiverRequest();
         waiverRequest = waiverRequestDAO.create(waiverRequest);
-        Section section = new Section();
+        
+        Semester sem = new Semester();
+        sem.setSignUpDate("2014-03-03");
+        sem = semesterDAO.create(sem);
+        
+        Section section = new Section(sem);
         section = sectionDAO.create(section);
 
         faculty.addWaiverRequest(waiverRequest);
