@@ -1,9 +1,14 @@
 package com.app.studio.dao.impl;
 
 import com.app.studio.dao.OrderDAO;
+import com.app.studio.dao.OrderItemDAO;
+import com.app.studio.dao.ProductDAO;
 import com.app.studio.model.Order;
+import com.app.studio.model.OrderItem;
+import com.app.studio.model.Product;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
@@ -23,6 +28,10 @@ public class OrderDAOImplTest {
 
     @Autowired
     private OrderDAO orderDAO;
+    @Autowired
+    private ProductDAO productDAO;
+    @Autowired
+    private OrderItemDAO orderItemDAO;
 
     /**
      * Test of create method, of class OrderDAOImpl.
@@ -33,9 +42,34 @@ public class OrderDAOImplTest {
         Order o = new Order();
         o.setStatus("A");
         o.setTotalPrice(1.23);
+
+        Product product = new Product();
+        product.setName("HP");
+        product.setType("Computer");
+        product.setPrice(1300);
+        product.setAvailableQuantity(3);
+        product.setDescription("HP123");
+        Product resultProduct = productDAO.create(product);
+        assertNotNull(resultProduct.getId());
+        assertEquals(product, resultProduct);
+
+        OrderItem orderItem = new OrderItem();
+        orderItem.setQuantity(3);
+        orderItem.setProduct(product);
+
+        o.addOrderItem(orderItem);
         Order result = orderDAO.create(o);
-        assertNotNull(result);
+        assertNotNull(result.getId());
         assertEquals(o, result);
+
+        Order or = orderDAO.getById(result.getId());
+        Set<OrderItem> itemList = or.getSetOfOrderItems();
+        for (OrderItem orderItem1 : itemList) {
+            if (orderItem1.getProduct().equals(orderItem.getProduct())) {
+                assertEquals(orderItem1, orderItem);
+            }
+
+        }
     }
 
     /**
@@ -122,6 +156,45 @@ public class OrderDAOImplTest {
             assertNull(nullResult);
         } catch (Exception e) {
             assertEquals(org.hibernate.ObjectNotFoundException.class, e.getClass());
+        }
+    }
+
+    @Test
+    public void testRemoveAssociations() {
+        Order o = new Order();
+        o.setStatus("A");
+        o.setTotalPrice(1.23);
+
+        Product product = new Product();
+        product.setName("HP");
+        product.setType("Computer");
+        product.setPrice(1300);
+        product.setAvailableQuantity(3);
+        product.setDescription("HP123");
+        Product resultProduct = productDAO.create(product);
+
+
+        OrderItem orderItem = new OrderItem();
+        orderItem.setQuantity(3);
+        orderItem.setProduct(product);
+
+        o.addOrderItem(orderItem);
+        Order result = orderDAO.create(o);
+
+
+        Order or = orderDAO.remove(result.getId());
+        for (OrderItem removedOrder : or.getSetOfOrderItems()) {
+
+            try {
+                System.out.println("Checking Order " + removedOrder.getId());
+                OrderItem nullResult = orderItemDAO.getById(removedOrder.getId());
+                assertNull(nullResult);
+                System.out.println("Null: order " + removedOrder.getId());
+            } catch (Exception e) {
+                assertEquals(org.hibernate.ObjectNotFoundException.class, e.getClass());
+                System.out.println("Not found: order " + removedOrder.getId());
+            }
+
         }
     }
 
