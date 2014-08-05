@@ -1,9 +1,13 @@
 package com.app.studio.controller;
 
+import com.app.studio.exception.RecordAlreadyExistException;
+import com.app.studio.exception.RequiredDataNotPresent;
 import com.app.studio.model.Customer;
 import com.app.studio.model.User;
 import com.app.studio.security.Roles;
 import com.app.studio.service.CustomerService;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.annotation.Secured;
@@ -16,66 +20,77 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * Mediate the customer operations
- * 
+ *
  * @author malalanayake
- * 
+ *
  */
 @Controller
 public class CustomerController {
 
-	private CustomerService customerService;
+    private CustomerService customerService;
 
-	@Autowired(required = true)
-	@Qualifier(value = "customerService")
-	public void setPersonService(CustomerService cs) {
-		this.customerService = cs;
-	}
+    @Autowired(required = true)
+    @Qualifier(value = "customerService")
+    public void setPersonService(CustomerService cs) {
+        this.customerService = cs;
+    }
 
-	@RequestMapping(value = "/customers", method = RequestMethod.GET)
-	public String listCustomers(Model model) {
+    @RequestMapping(value = "/customers", method = RequestMethod.GET)
+    public String listCustomers(Model model) {
+        //model.addAttribute("customer", new Customer(new User("")));
+        model.addAttribute("listCustomers", this.customerService.listCustomers());
+        return "customer";
+    }
+
+    @RequestMapping(value = "/main", method = RequestMethod.GET)
+    public String listCustomersw(Model model) {
 		//model.addAttribute("customer", new Customer(new User("")));
-		model.addAttribute("listCustomers", this.customerService.listCustomers());
-		return "customer";
-	}
-        
-        @RequestMapping(value = "/main", method = RequestMethod.GET)
-	public String listCustomersw(Model model) {
-		//model.addAttribute("customer", new Customer(new User("")));
-		//model.addAttribute("listCustomers", this.customerService.listCustomers());
-		return "main";
-	}
+        //model.addAttribute("listCustomers", this.customerService.listCustomers());
+        return "main";
+    }
 
-	/**
-	 * For add and update customer both
-	 * 
-	 * @param c
-	 * @return
-	 */
-	@RequestMapping(value = "/customer/add", method = RequestMethod.POST)
-	public String addCustomer(@ModelAttribute("customer") Customer c) {
+    /**
+     * For add and update customer both
+     *
+     * @param c
+     * @return
+     */
+    @RequestMapping(value = "/customer/add", method = RequestMethod.POST)
+    public String addCustomer(@ModelAttribute("customer") Customer c) {
+        try {
+            if (c.getId() == 0) {
 
-		if (c.getId() == 0) {
-			this.customerService.addCustomer(c);
-		} else {
-			this.customerService.updateCustomer(c);
-		}
+                this.customerService.addCustomer(c);
 
-		return "redirect:/customers";
+            } else {
+                this.customerService.updateCustomer(c);
+            }
+        } catch (RequiredDataNotPresent ex) {
+           
+        } catch (RecordAlreadyExistException ex) {
+            
+        }
+        return "redirect:/customers";
 
-	}
+    }
 
-	@RequestMapping("/customer/remove/{id}")
-	public String removeCustomer(@PathVariable("id") int id) {
+    @RequestMapping("/customer/remove/{id}")
+    public String removeCustomer(@PathVariable("id") int id) {
 
-		this.customerService.removeCustomer(id);
-		return "redirect:/customers";
-	}
+        this.customerService.removeCustomer(id);
+        return "redirect:/customers";
+    }
 
-	@RequestMapping("/customer/edit/{id}")
-	public String editCustomer(@PathVariable("id") int id, Model model) {
-		model.addAttribute("customer", this.customerService.getCustomerById(id));
-		model.addAttribute("listCustomers", this.customerService.listCustomers());
-		return "customer";
-	}
+    @RequestMapping("/customer/edit/{id}")
+    public String editCustomer(@PathVariable("id") int id, Model model) {
+        model.addAttribute("customer", this.customerService.getCustomerById(id));
+        model.addAttribute("listCustomers", this.customerService.listCustomers());
+        return "customer";
+    }
+    
+    @RequestMapping("/signup")
+    public String editCustomer(Model model) {
+        return "signup";
+    }
 
 }

@@ -1,11 +1,11 @@
 package com.app.studio.service;
 
-import java.util.List;
-
-import org.springframework.security.access.annotation.Secured;
-
+import com.app.studio.exception.RecordAlreadyExistException;
+import com.app.studio.exception.RequiredDataNotPresent;
 import com.app.studio.model.Customer;
 import com.app.studio.security.Roles;
+import java.util.List;
+import org.springframework.security.access.annotation.Secured;
 
 /**
  * Interface which is providing the customer service operations
@@ -15,7 +15,7 @@ import com.app.studio.security.Roles;
  */
 public interface CustomerService {
 
-	public void addCustomer(Customer p);
+	public Customer addCustomer(Customer p) throws RequiredDataNotPresent, RecordAlreadyExistException;
 
 	public void updateCustomer(Customer p);
 
@@ -24,5 +24,7 @@ public interface CustomerService {
 	public Customer getCustomerById(int id);
 
 	public void removeCustomer(int id);
+        
+        
 
 }

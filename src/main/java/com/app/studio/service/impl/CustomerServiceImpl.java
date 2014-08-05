@@ -1,6 +1,9 @@
 package com.app.studio.service.impl;
 
 import com.app.studio.dao.CustomerDAO;
+import com.app.studio.dao.UserDAO;
+import com.app.studio.exception.RecordAlreadyExistException;
+import com.app.studio.exception.RequiredDataNotPresent;
 import com.app.studio.model.Customer;
 import com.app.studio.service.CustomerService;
 import java.util.Date;
@@ -19,16 +22,21 @@ import org.springframework.transaction.annotation.Transactional;
 public class CustomerServiceImpl implements CustomerService {
 
 	private CustomerDAO customerDAO;
+        private UserDAO userDAO;
 
 	public void setCustomerDAO(CustomerDAO customerDAO) {
 		this.customerDAO = customerDAO;
 	}
 
+        //SignUp Service
 	@Override
 	@Transactional
-	public void addCustomer(Customer c) {
+	public Customer addCustomer(Customer c) throws RequiredDataNotPresent, RecordAlreadyExistException {
                 c.setSignUpDate(new Date().toString());
-		this.customerDAO.create(c);
+                if(userDAO.getByUserName(c.getUser().getUsername()) == null)
+		return this.customerDAO.create(c);
+                else
+                throw new RecordAlreadyExistException("User already exists");
 	}
 
 	@Override
