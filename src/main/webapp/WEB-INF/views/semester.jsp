@@ -23,6 +23,49 @@
             <div id="content-container">
                 <%@include file="template/sidebar.jsp"%>
                 <div id="content">
+                    <c:url var="addSemester" value="/semesters/add"></c:url>
+                    <form:form action="${addSemester}" commandName="semester">
+                        <table>
+                            <c:if test="${semester.id > 0}">
+                                <tr>
+                                    <td><form:label path="id">
+                                            <spring:message text="ID" />
+                                        </form:label></td>
+                                    <td><form:input path="id" readonly="true" size="8"
+                                                disabled="true" /> <form:hidden path="id" /></td>
+                                </tr> 
+                            </c:if>
+                            <tr>
+                                <td><form:label path="startdate">
+                                        <spring:message text="Start Date" />
+                                    </form:label></td>
+                                <td><form:input path="startdate" /></td>
+                            </tr>
+                            <tr>
+                                <td><form:label path="enddate">
+                                        <spring:message text="End Date" />
+                                    </form:label></td>
+                                <td><form:input path="enddate" /></td>
+                            </tr>
+                            <tr>
+                                <td><form:label path="signUpDate">
+                                        <spring:message text="SignUp Date" />
+                                    </form:label></td>
+                                <td><form:input path="signUpDate" /></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <c:if test="${semester.id gt 0}">
+                                        <input type="submit"
+                                               value="<spring:message text="Edit Semester"/>" />
+                                    </c:if>
+                                    <c:if test="${semester.id == 0}">
+                                        <input type="submit" value="<spring:message text="Add New Semeter"/>" />
+                                    </c:if></td>
+                            </tr>
+                        </table>
+                    </form:form>
+
                     <h2>
                         Semester List
                     </h2>
@@ -42,9 +85,9 @@
                                     <td>${semester.startdate}</td>
                                     <td>${semester.enddate}</td>
                                     <td>${semester.signUpDate}</td>
-                                    <td><a href="<c:url value='/customer/edit/${semester.id}' />">Edit</a></td>
+                                    <td><a href="<c:url value='/semesters/edit/${semester.id}' />">Edit</a></td>
                                     <td><a
-                                            href="<c:url value='/customer/remove/${semester.id}' />">Delete</a></td>
+                                            href="<c:url value='/semesters/remove/${semester.id}' />">Delete</a></td>
                                 </tr>
                             </c:forEach>
                         </c:if>

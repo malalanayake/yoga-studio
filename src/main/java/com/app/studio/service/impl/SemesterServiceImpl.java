@@ -79,4 +79,10 @@ public class SemesterServiceImpl implements SemesterService {
         this.semesterDAO = semesterDAO;
     }
 
+    @Override
+    @Transactional
+    public Semester getSemeterByID(int id) {
+        return this.semesterDAO.getById(id);
+    }
+
 }

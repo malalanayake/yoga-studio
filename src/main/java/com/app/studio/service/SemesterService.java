@@ -45,4 +45,6 @@ public interface SemesterService {
      * @return
      */
     public List<Semester> listOfAllSemesters();
+    
+    public Semester getSemeterByID(int id);
 }
