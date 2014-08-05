@@ -84,7 +84,6 @@ public class SemesterDAOImplTest {
         YogaClass expectYogaclass = new YogaClass();
         expectYogaclass.setName("Yoga Principles");
         expectYogaclass.setPrice(10);
-        expectYogaclass.setLocation("Mc Laughlin Building, 115");
         expectYogaclass = yogaClassDAO.create(expectYogaclass);
 
         // Create associated entities (Faculty)
@@ -142,7 +141,6 @@ public class SemesterDAOImplTest {
         YogaClass expectYogaclass = new YogaClass();
         expectYogaclass.setName("Yoga Principles");
         expectYogaclass.setPrice(10);
-        expectYogaclass.setLocation("Mc Laughlin Building, 115");
         expectYogaclass = yogaClassDAO.create(expectYogaclass);
 
         // Create associated entities (Faculty)

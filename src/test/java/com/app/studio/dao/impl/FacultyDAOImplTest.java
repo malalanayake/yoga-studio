@@ -103,7 +103,7 @@ public class FacultyDAOImplTest {
         YogaClass Yogaclass = new YogaClass();
         Yogaclass.setName("Yoga Principles");
         Yogaclass.setPrice(10);
-        Yogaclass.setLocation("Mc Laughlin Building, 115");
+       
 
         Section section = new Section(sem, Yogaclass, faculty);
         section = sectionDAO.create(section);
@@ -214,7 +214,7 @@ public class FacultyDAOImplTest {
         YogaClass Yogaclass = new YogaClass();
         Yogaclass.setName("Yoga Principles");
         Yogaclass.setPrice(10);
-        Yogaclass.setLocation("Mc Laughlin Building, 115");
+      
 
         Section section = new Section(sem, Yogaclass, faculty);
         section = sectionDAO.create(section);

@@ -1,16 +1,20 @@
 package com.app.studio.dao.impl;
 
+import com.app.studio.dao.CustomerDAO;
 import com.app.studio.dao.OrderDAO;
 import com.app.studio.dao.OrderItemDAO;
 import com.app.studio.dao.ProductDAO;
+import com.app.studio.dao.UserDAO;
+import com.app.studio.model.Customer;
 import com.app.studio.model.Order;
 import com.app.studio.model.OrderItem;
 import com.app.studio.model.Product;
+import com.app.studio.model.User;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -32,14 +36,26 @@ public class OrderDAOImplTest {
     private ProductDAO productDAO;
     @Autowired
     private OrderItemDAO orderItemDAO;
+    @Autowired
+    private UserDAO userDAO;
+    @Autowired
+    private CustomerDAO customerDAO;
 
     /**
      * Test of create method, of class OrderDAOImpl.
      */
     @Test
     public void testCreate() {
+        
+        User user1 = new User("yogamaster", "yogamaster", "Yoga", "Master",
+        "What is your favorit car?", "Benz");
+        user1 = userDAO.create(user1);
+
+        Customer customer1 = new Customer(user1);
+        customer1 = customerDAO.create(customer1);
+        
         System.out.println("Create Order");
-        Order o = new Order();
+        Order o = new Order(customer1);
         o.setStatus("A");
         o.setTotalPrice(1.23);
 
@@ -77,11 +93,19 @@ public class OrderDAOImplTest {
      */
     @Test
     public void testUpdate() {
+       
+        User user1 = new User("yogamaster", "yogamaster", "Yoga", "Master",
+        "What is your favorit car?", "Benz");
+        user1 = userDAO.create(user1);
+
+        Customer customer1 = new Customer(user1);
+        customer1 = customerDAO.create(customer1);
+        
         System.out.println("Update Order");
-        Order o = new Order();
+        Order o = new Order(customer1);
         o.setStatus("A");
         o.setTotalPrice(1.23);
-        o = orderDAO.create(o);
+        o = orderDAO.update(o);
         assertNotNull(o);
 
         o.setStatus("B");
@@ -95,21 +119,32 @@ public class OrderDAOImplTest {
      */
     @Test
     public void testList() {
+        
+        User user1 = new User("yogamaster", "yogamaster", "Yoga", "Master",
+        "What is your favorit car?", "Benz");
+        user1 = userDAO.create(user1);
+        
+
+        Customer customer1 = new Customer(user1);
+        customer1 = customerDAO.create(customer1);
+      
+        
+        
         System.out.println("Order List");
 
         List<Order> expResult = new ArrayList<Order>();
 
-        Order o1 = new Order();
+        Order o1 = new Order(customer1);
         o1.setStatus("1");
         o1.setTotalPrice(1.11);
         expResult.add(orderDAO.create(o1));
 
-        Order o2 = new Order();
+        Order o2 = new Order(customer1);
         o2.setStatus("2");
         o2.setTotalPrice(2.22);
         expResult.add(orderDAO.create(o2));
 
-        Order o3 = new Order();
+        Order o3 = new Order(customer1);
         o3.setStatus("3");
         o3.setTotalPrice(3.33);
         expResult.add(orderDAO.create(o3));
@@ -124,7 +159,16 @@ public class OrderDAOImplTest {
     @Test
     public void testGetById() {
         System.out.println("Order getById");
-        Order o = new Order();
+        
+        User user1 = new User("yogamaster", "yogamaster", "Yoga", "Master",
+        "What is your favorit car?", "Benz");
+        user1 = userDAO.create(user1);
+
+        Customer customer1 = new Customer(user1);
+        customer1 = customerDAO.create(customer1);
+        
+  
+        Order o = new Order(customer1);
         o.setStatus("A");
         o.setTotalPrice(1.23);
         o = orderDAO.create(o);
@@ -141,7 +185,15 @@ public class OrderDAOImplTest {
     @Test
     public void testRemove() {
         System.out.println("Remove Order");
-        Order o = new Order();
+        User user1 = new User("yogamaster", "yogamaster", "Yoga", "Master",
+        "What is your favorit car?", "Benz");
+        user1 = userDAO.create(user1);
+
+        Customer customer1 = new Customer(user1);
+        customer1 = customerDAO.create(customer1);
+        
+  
+        Order o = new Order(customer1);
         o.setStatus("A");
         o.setTotalPrice(1.23);
         o = orderDAO.create(o);
@@ -161,7 +213,15 @@ public class OrderDAOImplTest {
 
     @Test
     public void testRemoveAssociations() {
-        Order o = new Order();
+        User user1 = new User("yogamaster", "yogamaster", "Yoga", "Master",
+        "What is your favorit car?", "Benz");
+        user1 = userDAO.create(user1);
+
+        Customer customer1 = new Customer(user1);
+        customer1 = customerDAO.create(customer1);
+        
+  
+        Order o = new Order(customer1);
         o.setStatus("A");
         o.setTotalPrice(1.23);
 

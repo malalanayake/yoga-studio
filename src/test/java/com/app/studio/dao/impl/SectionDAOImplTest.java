@@ -58,7 +58,6 @@ public class SectionDAOImplTest {
         YogaClass Yogaclass = new YogaClass();
         Yogaclass.setName("Yoga Principles");
         Yogaclass.setPrice(10);
-        Yogaclass.setLocation("Mc Laughlin Building, 115");
 
         User expectUser = new User("yogamaster", "yogamaster", "Yoga", "Master",
                 "What is your favorit car?", "Benz");
@@ -90,7 +89,6 @@ public class SectionDAOImplTest {
         YogaClass Yogaclass = new YogaClass();
         Yogaclass.setName("Yoga Principles");
         Yogaclass.setPrice(10);
-        Yogaclass.setLocation("Mc Laughlin Building, 115");
 
         User expectUser = new User("yogamaster", "yogamaster", "Yoga", "Master",
                 "What is your favorit car?", "Benz");
@@ -129,7 +127,6 @@ public class SectionDAOImplTest {
         YogaClass yogaclass = new YogaClass();
         yogaclass.setName("Yoga Principles");
         yogaclass.setPrice(10);
-        yogaclass.setLocation("Mc Laughlin Building, 115");
         yogaclass = yogaClassDAO.create(yogaclass);
 
         User expectUser = new User("yogamaster", "yogamaster", "Yoga", "Master",
@@ -175,7 +172,6 @@ public class SectionDAOImplTest {
         YogaClass Yogaclass = new YogaClass();
         Yogaclass.setName("Yoga Principles");
         Yogaclass.setPrice(10);
-        Yogaclass.setLocation("Mc Laughlin Building, 115");
 
         User expectUser = new User("yogamaster", "yogamaster", "Yoga", "Master",
                 "What is your favorit car?", "Benz");
@@ -206,7 +202,6 @@ public class SectionDAOImplTest {
         YogaClass Yogaclass = new YogaClass();
         Yogaclass.setName("Yoga Principles");
         Yogaclass.setPrice(10);
-        Yogaclass.setLocation("Mc Laughlin Building, 115");
 
         User expectUser = new User("yogamaster", "yogamaster", "Yoga", "Master",
                 "What is your favorit car?", "Benz");

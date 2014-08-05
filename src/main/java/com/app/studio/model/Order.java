@@ -33,8 +33,10 @@ public class Order {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "order")
     private Set<OrderItem> setOfOrderItems;
 
-    public Order() {
+    public Order(Customer customer) {
+        this.customer=customer;
         this.setOfOrderItems = new HashSet<OrderItem>();
+        
     }
 
     public void addOrderItem(OrderItem orderItem) {

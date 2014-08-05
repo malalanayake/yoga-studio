@@ -40,7 +40,6 @@ public class YogaClass {
     private int id;
     private String name;
     private double price;
-    private String location;
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "yogaClass")
     private Set<Section> setOfSections;
     @OneToMany(fetch = FetchType.LAZY)
@@ -91,26 +90,18 @@ public class YogaClass {
         this.price = price;
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
     @Override
     public String toString() {
-        return "YogaClass{" + "id=" + id + ", name=" + name + ", price=" + price + ", location=" + location + '}';
+        return "YogaClass{" + "id=" + id + ", name=" + name + ", price=" + price + ", setOfSections=" + setOfSections + ", setOfPrerequisites=" + setOfPrerequisites + '}';
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 97 * hash + this.id;
-        hash = 97 * hash + (this.name != null ? this.name.hashCode() : 0);
-        hash = 97 * hash + (int) (Double.doubleToLongBits(this.price) ^ (Double.doubleToLongBits(this.price) >>> 32));
-        hash = 97 * hash + (this.location != null ? this.location.hashCode() : 0);
+        int hash = 3;
+        hash = 67 * hash + this.id;
+        hash = 67 * hash + (this.name != null ? this.name.hashCode() : 0);
+        hash = 67 * hash + (int) (Double.doubleToLongBits(this.price) ^ (Double.doubleToLongBits(this.price) >>> 32));
+        hash = 67 * hash + (this.setOfSections != null ? this.setOfSections.hashCode() : 0);
         return hash;
     }
 
@@ -132,7 +123,10 @@ public class YogaClass {
         if (Double.doubleToLongBits(this.price) != Double.doubleToLongBits(other.price)) {
             return false;
         }
-        if ((this.location == null) ? (other.location != null) : !this.location.equals(other.location)) {
+        if (this.setOfSections != other.setOfSections && (this.setOfSections == null || !this.setOfSections.equals(other.setOfSections))) {
+            return false;
+        }
+        if (this.setOfPrerequisites != other.setOfPrerequisites && (this.setOfPrerequisites == null || !this.setOfPrerequisites.equals(other.setOfPrerequisites))) {
             return false;
         }
         return true;
