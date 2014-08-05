@@ -37,6 +37,13 @@ public class CustomerController {
 		model.addAttribute("listCustomers", this.customerService.listCustomers());
 		return "customer";
 	}
+        
+        @RequestMapping(value = "/main", method = RequestMethod.GET)
+	public String listCustomersw(Model model) {
+		//model.addAttribute("customer", new Customer(new User("")));
+		//model.addAttribute("listCustomers", this.customerService.listCustomers());
+		return "main";
+	}
 
 	/**
 	 * For add and update customer both
