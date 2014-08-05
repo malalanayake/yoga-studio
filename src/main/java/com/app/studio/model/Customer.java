@@ -36,7 +36,7 @@ public class Customer {
         public static final String NAME_QUERY_FIND_BY_USER_NAME = "findByCustomerUserName";
         public static final String PARAM_USER_NAME = "userName";
     }
-    
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,8 +51,6 @@ public class Customer {
     private Set<WaiverRequest> setOfWaiverRequests;
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "customer")
     private Set<EnrolledSection> setOfEnrolledSections;
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "customer")
-    private Set<WaitingRequest> setOfWaitingRequests;
     @OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private ShoppingCart shoppingCart;
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "customer")
@@ -62,7 +60,6 @@ public class Customer {
         this.user = user;
         this.setOfEnrolledSections = new HashSet<EnrolledSection>();
         this.setOfWaiverRequests = new HashSet<WaiverRequest>();
-        this.setOfWaitingRequests = new HashSet<WaitingRequest>();
         this.setOfOrders = new HashSet<Order>();
     }
 
@@ -76,14 +73,6 @@ public class Customer {
 
     public void setShoppingCart(ShoppingCart shoppingCart) {
         this.shoppingCart = shoppingCart;
-    }
-
-    public void addWaitingRequest(WaitingRequest waitingRequest) {
-        this.setOfWaitingRequests.add(waitingRequest);
-    }
-
-    public Set<WaitingRequest> getSetOfWaitingRequests() {
-        return setOfWaitingRequests;
     }
 
     public Set<Order> getSetOfOrders() {

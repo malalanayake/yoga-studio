@@ -143,4 +143,33 @@ public class AdministratorDAOImplTest {
         }
     }
 
+    @Test
+    public void testCreateAssociations() {
+        System.out.println("Create Administrator-User Association");
+
+        User expectUser = new User("yogamaster", "yogamaster", "Yoga", "Master",
+                "What is your favorit car?", "Benz");
+        expectUser = userDAO.create(expectUser);
+
+        Administrator admin = new Administrator(expectUser);
+        admin = administratorDAO.create(admin);
+
+        User resultUser = userDAO.getById(expectUser.getId());
+        assertEquals(expectUser, resultUser);
+    }
+
+    @Test
+    public void testRemoveAssociations() {
+        System.out.println("Remove Administrator-User Association");
+
+        User expectUser = new User("yogamaster", "yogamaster", "Yoga", "Master",
+                "What is your favorit car?", "Benz");
+        expectUser = userDAO.create(expectUser);
+
+        Administrator admin = new Administrator(expectUser);
+        admin = administratorDAO.create(admin);
+
+        Administrator removedAdmin = administratorDAO.remove(admin.getId());
+        assertNotNull(userDAO.getById(expectUser.getId()));
+    }
 }

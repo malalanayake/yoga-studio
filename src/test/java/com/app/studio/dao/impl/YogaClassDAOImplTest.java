@@ -1,10 +1,14 @@
 package com.app.studio.dao.impl;
 
+import com.app.studio.dao.FacultyDAO;
 import com.app.studio.dao.SectionDAO;
 import com.app.studio.dao.SemesterDAO;
+import com.app.studio.dao.UserDAO;
 import com.app.studio.dao.YogaClassDAO;
+import com.app.studio.model.Faculty;
 import com.app.studio.model.Section;
 import com.app.studio.model.Semester;
+import com.app.studio.model.User;
 import com.app.studio.model.YogaClass;
 import java.util.List;
 import java.util.Set;
@@ -33,6 +37,12 @@ public class YogaClassDAOImplTest {
 
     @Autowired
     private SemesterDAO semesterDAO;
+
+    @Autowired
+    private FacultyDAO facultyDAO;
+
+    @Autowired
+    private UserDAO userDAO;
 
     public YogaClassDAOImplTest() {
     }
@@ -119,14 +129,22 @@ public class YogaClassDAOImplTest {
         expectYogaclass.setLocation("Mc Laughlin Building, 115");
         expectYogaclass = yogaClassDAO.create(expectYogaclass);
 
-    // Create associated entities (Sections) 
-        Section section1 = new Section(expectSemester, expectYogaclass);
+        // Create associated entities (Faculty)
+        User expectUser = new User("yogamaster", "yogamaster", "Yoga", "Master",
+                "What is your favorit car?", "Benz");
+        expectUser = userDAO.create(expectUser);
+
+        Faculty expectFaculty = new Faculty(expectUser);
+        expectFaculty = facultyDAO.create(expectFaculty);
+
+        // Create associated entities (Sections) 
+        Section section1 = new Section(expectSemester, expectYogaclass, expectFaculty);
         section1.setLocation("Room1");
         section1.setSchedule("M 1700-1800");
         section1.setMaxStudents(20);
         section1 = sectionDAO.create(section1);
 
-        Section section2 = new Section(expectSemester, expectYogaclass);
+        Section section2 = new Section(expectSemester, expectYogaclass, expectFaculty);
         section2.setLocation("Room2");
         section2.setSchedule("M 1700-1800");
         section2.setMaxStudents(20);

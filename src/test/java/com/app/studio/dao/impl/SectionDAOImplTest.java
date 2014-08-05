@@ -1,10 +1,14 @@
 package com.app.studio.dao.impl;
 
+import com.app.studio.dao.FacultyDAO;
 import com.app.studio.dao.SectionDAO;
 import com.app.studio.dao.SemesterDAO;
+import com.app.studio.dao.UserDAO;
 import com.app.studio.dao.YogaClassDAO;
+import com.app.studio.model.Faculty;
 import com.app.studio.model.Section;
 import com.app.studio.model.Semester;
+import com.app.studio.model.User;
 import com.app.studio.model.YogaClass;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,9 +34,15 @@ public class SectionDAOImplTest {
 
     @Autowired
     private SemesterDAO semesterDAO;
-    
+
     @Autowired
     private YogaClassDAO yogaClassDAO;
+
+    @Autowired
+    private FacultyDAO facultyDAO;
+
+    @Autowired
+    private UserDAO userDAO;
 
     /**
      * Test of create method, of class SectionDAOImpl.
@@ -50,7 +60,14 @@ public class SectionDAOImplTest {
         Yogaclass.setPrice(10);
         Yogaclass.setLocation("Mc Laughlin Building, 115");
 
-        Section s = new Section(sem, Yogaclass);
+        User expectUser = new User("yogamaster", "yogamaster", "Yoga", "Master",
+                "What is your favorit car?", "Benz");
+        expectUser = userDAO.create(expectUser);
+
+        Faculty expectFaculty = new Faculty(expectUser);
+        expectFaculty = facultyDAO.create(expectFaculty);
+
+        Section s = new Section(sem, Yogaclass, expectFaculty);
         s.setLocation("Room1");
         s.setSchedule("M 1700-1800");
         s.setMaxStudents(20);
@@ -75,7 +92,14 @@ public class SectionDAOImplTest {
         Yogaclass.setPrice(10);
         Yogaclass.setLocation("Mc Laughlin Building, 115");
 
-        Section s = new Section(sem, Yogaclass);
+        User expectUser = new User("yogamaster", "yogamaster", "Yoga", "Master",
+                "What is your favorit car?", "Benz");
+        expectUser = userDAO.create(expectUser);
+
+        Faculty expectFaculty = new Faculty(expectUser);
+        expectFaculty = facultyDAO.create(expectFaculty);
+
+        Section s = new Section(sem, Yogaclass, expectFaculty);
         s.setLocation("Room1");
         s.setSchedule("M 1700-1800");
         s.setMaxStudents(20);
@@ -108,19 +132,26 @@ public class SectionDAOImplTest {
         yogaclass.setLocation("Mc Laughlin Building, 115");
         yogaclass = yogaClassDAO.create(yogaclass);
 
-        Section s1 = new Section(sem, yogaclass);
+        User expectUser = new User("yogamaster", "yogamaster", "Yoga", "Master",
+                "What is your favorit car?", "Benz");
+        expectUser = userDAO.create(expectUser);
+
+        Faculty expectFaculty = new Faculty(expectUser);
+        expectFaculty = facultyDAO.create(expectFaculty);
+
+        Section s1 = new Section(sem, yogaclass, expectFaculty);
         s1.setLocation("Room1");
         s1.setSchedule("M 1700-1800");
         s1.setMaxStudents(20);
         expResult.add(sectionDAO.create(s1));
 
-        Section s2 = new Section(sem, yogaclass);
+        Section s2 = new Section(sem, yogaclass, expectFaculty);
         s2.setLocation("Room2");
         s2.setSchedule("T 1700-1800");
         s2.setMaxStudents(20);
         expResult.add(sectionDAO.create(s2));
 
-        Section s3 = new Section(sem, yogaclass);
+        Section s3 = new Section(sem, yogaclass, expectFaculty);
         s3.setLocation("Room3");
         s3.setSchedule("W 1700-1800");
         s3.setMaxStudents(20);
@@ -146,7 +177,14 @@ public class SectionDAOImplTest {
         Yogaclass.setPrice(10);
         Yogaclass.setLocation("Mc Laughlin Building, 115");
 
-        Section s = sectionDAO.create(new Section(sem, Yogaclass));
+        User expectUser = new User("yogamaster", "yogamaster", "Yoga", "Master",
+                "What is your favorit car?", "Benz");
+        expectUser = userDAO.create(expectUser);
+
+        Faculty expectFaculty = new Faculty(expectUser);
+        expectFaculty = facultyDAO.create(expectFaculty);
+
+        Section s = sectionDAO.create(new Section(sem, Yogaclass, expectFaculty));
         assertNotNull(s.getId());
 
         int id = s.getId();
@@ -170,7 +208,14 @@ public class SectionDAOImplTest {
         Yogaclass.setPrice(10);
         Yogaclass.setLocation("Mc Laughlin Building, 115");
 
-        Section s = sectionDAO.create(new Section(sem, Yogaclass));
+        User expectUser = new User("yogamaster", "yogamaster", "Yoga", "Master",
+                "What is your favorit car?", "Benz");
+        expectUser = userDAO.create(expectUser);
+
+        Faculty expectFaculty = new Faculty(expectUser);
+        expectFaculty = facultyDAO.create(expectFaculty);
+
+        Section s = sectionDAO.create(new Section(sem, Yogaclass, expectFaculty));
         assertNotNull(s.getId());
 
         int id = s.getId();

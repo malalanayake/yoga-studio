@@ -2,6 +2,7 @@ package com.app.studio.dao.impl;
 
 import com.app.studio.dao.CustomerDAO;
 import com.app.studio.dao.FacultyDAO;
+import com.app.studio.dao.UserDAO;
 import com.app.studio.dao.WaiverRequestDAO;
 import com.app.studio.dao.YogaClassDAO;
 import com.app.studio.model.Customer;
@@ -34,6 +35,8 @@ public class WaiverRequestDAOImplTest {
     private YogaClassDAO yogaClassDAO;
     @Autowired
     private FacultyDAO facultyDAO;
+    @Autowired
+    private UserDAO userDAO;
 
     public WaiverRequestDAOImplTest() {
     }
@@ -46,6 +49,7 @@ public class WaiverRequestDAOImplTest {
         System.out.println("create");
         User userForCustomer = new User("dinuka1", "dinuka1", "Dinuka", "Malalanayake",
                 "What is your favorit car?", "Benz");
+        userForCustomer = userDAO.create(userForCustomer);
         Customer customer = new Customer(userForCustomer);
         
         Faculty faculty = new Faculty(userForCustomer);
