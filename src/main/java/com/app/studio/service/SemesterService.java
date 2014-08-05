@@ -29,7 +29,7 @@ public interface SemesterService {
      * @return
      * @throws RequiredDataNotPresent
      */
-    public Semester updateSemeter() throws RequiredDataNotPresent;
+    public Semester updateSemeter(Semester semester) throws RequiredDataNotPresent;
 
     /**
      * Delete Semester
@@ -37,7 +37,7 @@ public interface SemesterService {
      * @return
      * @throws RequiredDataNotPresent
      */
-    public Semester deleteSemester() throws RequiredDataNotPresent;
+    public Semester deleteSemester(Semester semester) throws RequiredDataNotPresent;
 
     /**
      * List all semesters
