@@ -49,4 +49,13 @@ public interface FacultyService {
      * @return
      */
     public List<Faculty> listAllFaculties(Faculty faculty);
+    
+    /**
+     * Get faculty by faculty ID
+     *
+     * @param facultyID
+     * @return
+     * @throws RequiredDataNotPresent
+     */
+    public Faculty getFacultyByID(int facultyID) throws RequiredDataNotPresent;
 }

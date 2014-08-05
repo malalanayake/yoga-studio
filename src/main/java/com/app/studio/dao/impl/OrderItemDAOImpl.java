@@ -6,11 +6,13 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author ahmadreza
  */
+@Repository
 public class OrderItemDAOImpl implements OrderItemDAO {
 
     private static final Logger logger = LoggerFactory.getLogger(OrderItemDAOImpl.class);
