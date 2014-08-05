@@ -91,17 +91,11 @@ public class YogaClass {
     }
 
     @Override
-    public String toString() {
-        return "YogaClass{" + "id=" + id + ", name=" + name + ", price=" + price + ", setOfSections=" + setOfSections + ", setOfPrerequisites=" + setOfPrerequisites + '}';
-    }
-
-    @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 67 * hash + this.id;
-        hash = 67 * hash + (this.name != null ? this.name.hashCode() : 0);
-        hash = 67 * hash + (int) (Double.doubleToLongBits(this.price) ^ (Double.doubleToLongBits(this.price) >>> 32));
-        hash = 67 * hash + (this.setOfSections != null ? this.setOfSections.hashCode() : 0);
+        int hash = 7;
+        hash = 53 * hash + this.id;
+        hash = 53 * hash + (this.name != null ? this.name.hashCode() : 0);
+        hash = 53 * hash + (int) (Double.doubleToLongBits(this.price) ^ (Double.doubleToLongBits(this.price) >>> 32));
         return hash;
     }
 
@@ -123,13 +117,14 @@ public class YogaClass {
         if (Double.doubleToLongBits(this.price) != Double.doubleToLongBits(other.price)) {
             return false;
         }
-        if (this.setOfSections != other.setOfSections && (this.setOfSections == null || !this.setOfSections.equals(other.setOfSections))) {
-            return false;
-        }
-        if (this.setOfPrerequisites != other.setOfPrerequisites && (this.setOfPrerequisites == null || !this.setOfPrerequisites.equals(other.setOfPrerequisites))) {
-            return false;
-        }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "YogaClass{" + "id=" + id + ", name=" + name + ", price=" + price + '}';
+    }
+
+   
 
 }
