@@ -60,7 +60,7 @@ public class ProductDAOImpl implements ProductDAO {
     @Override
     public Product getById(int id) {
         Session session = this.sessionFactory.getCurrentSession();
-        Product p = (Product) session.load(Product.class, Integer.valueOf(id));
+        Product p = (Product) session.get(Product.class, Integer.valueOf(id));
         if (logger.isDebugEnabled()) {
             logger.debug("Product loaded successfully, Product Details=" + p);
         }

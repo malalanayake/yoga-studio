@@ -35,14 +35,18 @@ public class Section {
     private Semester semester;
     @ManyToOne(fetch = FetchType.EAGER)
     private YogaClass yogaClass;
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "section")
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "section")
     private Set<EnrolledSection> setOfEnrolledSections;
 
+    public Section() {
+        this.setOfEnrolledSections = new HashSet<EnrolledSection>();
+    }
+
     public Section(Semester semester, YogaClass yogaClass, Faculty faculty) {
+        this();
         this.setSemester(semester);
         this.setYogaClass(yogaClass);
-        this.setFaculty(faculty);
-        this.setOfEnrolledSections = new HashSet<EnrolledSection>();
+        this.setFaculty(faculty);        
     }
 
     public void addEnrolledSection(EnrolledSection enrolledSection) {

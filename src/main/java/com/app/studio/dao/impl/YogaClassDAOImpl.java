@@ -61,7 +61,7 @@ public class YogaClassDAOImpl implements YogaClassDAO {
     @Override
     public YogaClass getById(int id) {
         Session session = this.sessionFactory.getCurrentSession();
-        YogaClass yogaclass = (YogaClass) session.load(YogaClass.class, new Integer(id));
+        YogaClass yogaclass = (YogaClass) session.get(YogaClass.class, new Integer(id));
         if (logger.isDebugEnabled()) {
             logger.debug("Yoga Class loaded successfully, Yoga Class details=" + yogaclass);
         }

@@ -39,6 +39,9 @@ public class Administrator {
     @OneToOne(fetch = FetchType.EAGER)
     private User user;
 
+    public Administrator() {
+    }
+
     public Administrator(User user) {
         this.user = user;
         this.user.addRole(Roles.ROLE_ADMIN);

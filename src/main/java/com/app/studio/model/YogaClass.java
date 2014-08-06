@@ -40,9 +40,9 @@ public class YogaClass {
     private int id;
     private String name;
     private double price;
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "yogaClass")
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "yogaClass")
     private Set<Section> setOfSections;
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<YogaClass> setOfPrerequisites;
 
     public YogaClass() {
@@ -124,7 +124,5 @@ public class YogaClass {
     public String toString() {
         return "YogaClass{" + "id=" + id + ", name=" + name + ", price=" + price + '}';
     }
-
-   
 
 }

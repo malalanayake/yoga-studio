@@ -61,7 +61,7 @@ public class OrderDAOImpl implements OrderDAO {
     @Override
     public Order getById(int id) {
         Session session = this.sessionFactory.getCurrentSession();
-        Order o = (Order) session.load(Order.class, Integer.valueOf(id));
+        Order o = (Order) session.get(Order.class, Integer.valueOf(id));
         if (logger.isDebugEnabled()) {
             logger.debug("Order loaded successfully, Order Details=" + o);
         }

@@ -64,7 +64,7 @@ public class CustomerDAOImpl implements CustomerDAO {
     @Override
     public Customer getById(int id) {
         Session session = this.sessionFactory.getCurrentSession();
-        Customer c = (Customer) session.load(Customer.class, new Integer(id));
+        Customer c = (Customer) session.get(Customer.class, new Integer(id));
         if (logger.isDebugEnabled()) {
             logger.debug("Customer loaded successfully, Customer details=" + c);
         }

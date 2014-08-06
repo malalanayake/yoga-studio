@@ -61,7 +61,7 @@ public class SectionDAOImpl implements SectionDAO {
     @Override
     public Section getById(int id) {
         Session session = this.sessionFactory.getCurrentSession();
-        Section s = (Section) session.load(Section.class, Integer.valueOf(id));
+        Section s = (Section) session.get(Section.class, Integer.valueOf(id));
         if (logger.isDebugEnabled()) {
             logger.debug("Section loaded successfully, Section Details=" + s);
         }

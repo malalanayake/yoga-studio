@@ -61,7 +61,7 @@ public class AdministratorDAOImpl implements AdministratorDAO {
     @Override
     public Administrator getById(int id) {
         Session session = this.sessionFactory.getCurrentSession();
-        Administrator a = (Administrator) session.load(Administrator.class, Integer.valueOf(id));
+        Administrator a = (Administrator) session.get(Administrator.class, Integer.valueOf(id));
         if (logger.isDebugEnabled()) {
             logger.debug("Administrator loaded successfully, Administrator Details=" + a);
         }

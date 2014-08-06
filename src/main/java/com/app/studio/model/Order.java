@@ -30,13 +30,16 @@ public class Order {
     private double totalPrice;
     @ManyToOne(fetch = FetchType.EAGER)
     private Customer customer;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "order")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "order")
     private Set<OrderItem> setOfOrderItems;
 
-    public Order(Customer customer) {
-        this.customer=customer;
+    public Order() {
         this.setOfOrderItems = new HashSet<OrderItem>();
-        
+    }
+
+    public Order(Customer customer) {
+        this();
+        this.customer = customer;
     }
 
     public void addOrderItem(OrderItem orderItem) {

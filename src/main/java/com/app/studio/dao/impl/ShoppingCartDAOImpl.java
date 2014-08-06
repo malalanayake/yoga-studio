@@ -60,7 +60,7 @@ public class ShoppingCartDAOImpl implements ShoppingCartDAO {
     @Override
     public ShoppingCart getById(int id) {
         Session session = this.sessionFactory.getCurrentSession();
-        ShoppingCart shoppingCart = (ShoppingCart) session.load(ShoppingCart.class, new Integer(id));
+        ShoppingCart shoppingCart = (ShoppingCart) session.get(ShoppingCart.class, new Integer(id));
         if (logger.isDebugEnabled()) {
             logger.debug("ShoppingCart loaded successfully, ShoppingCart details=" + shoppingCart);
         }
