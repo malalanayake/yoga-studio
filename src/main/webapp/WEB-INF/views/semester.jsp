@@ -66,9 +66,7 @@
                         </table>
                     </form:form>
 
-                    <h2>
-                        Semester List
-                    </h2>
+                    
                     <table class="tg">
                         <tr>
                             <th width="80">Semester ID</th>

@@ -63,6 +63,10 @@ public class Customer {
         this.setOfOrders = new HashSet<Order>();
     }
 
+    public Customer() {
+
+    }
+
     public User getUser() {
         return user;
     }

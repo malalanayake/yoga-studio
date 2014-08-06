@@ -3,16 +3,18 @@
     Created on : Aug 4, 2014, 10:59:13 PM
     Author     : malalanayake
 --%>
-
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page session="true"%>
 <!DOCTYPE html>
 <html>
     <div id="section-navigation">
         <ul>
-            <li><a href="#">Section page 1</a></li>
-            <li><a href="#">Section page 2</a></li>
-            <li><a href="#">Section page 3</a></li>
-            <li><a href="#">Section page 4</a></li>
+            <sec:authorize ifAnyGranted="ROLE_ADMIN">  
+                <li><a href="<c:url value='/semesters' />">Manage Semesters</a></li>
+                <li><a href="<c:url value='/view-customers' />">View Customers</a></li>
+                </sec:authorize>
         </ul>
     </div>
 </html>
