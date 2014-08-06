@@ -133,6 +133,7 @@
     
     <beans:bean id="facultyService" class="com.app.studio.service.impl.FacultyServiceImpl">
         <beans:property name="facultyDAO" ref="facultyDAO"></beans:property>
+        <beans:property name="waiverRequestDAO" ref="waiverRequestDAO"></beans:property>
     </beans:bean>
     
     <!-- Set the package where the annotated classes located at ex @Controller -->

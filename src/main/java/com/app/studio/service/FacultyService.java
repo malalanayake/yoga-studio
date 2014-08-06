@@ -4,6 +4,7 @@ import com.app.studio.exception.RecordAlreadyExistException;
 import com.app.studio.exception.RequiredDataNotPresent;
 import com.app.studio.model.Faculty;
 import com.app.studio.model.User;
+import com.app.studio.model.WaiverRequest;
 import java.util.List;
 
 /**
@@ -49,7 +50,7 @@ public interface FacultyService {
      * @return
      */
     public List<Faculty> listAllFaculties(Faculty faculty);
-    
+
     /**
      * Get faculty by faculty ID
      *
@@ -58,4 +59,23 @@ public interface FacultyService {
      * @throws RequiredDataNotPresent
      */
     public Faculty getFacultyByID(int facultyID) throws RequiredDataNotPresent;
+    
+    /**
+     * Get faculty by username
+     *
+     * @param username
+     * @return
+     * @throws RequiredDataNotPresent
+     */
+    public Faculty getFacultyByUsername(String username) throws RequiredDataNotPresent;
+
+    /**
+     * Approves or rejects a waiver request
+     *
+     * @param waiverRequestID
+     * @param isApproved
+     * @return
+     * @throws RequiredDataNotPresent
+     */
+    public WaiverRequest submitWaiverResponse(int waiverRequestID, boolean isApproved) throws RequiredDataNotPresent;
 }

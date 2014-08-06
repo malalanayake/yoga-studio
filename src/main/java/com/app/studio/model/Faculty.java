@@ -42,18 +42,22 @@ public class Faculty {
     private int id;
     @OneToOne(fetch = FetchType.EAGER)
     private User user;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "advisor")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "advisor")
     private Set<Customer> setOfCustomers;
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "faculty")
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "faculty")
     private Set<WaiverRequest> setOfWaiverRequests;
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "faculty")
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "faculty")
     private Set<Section> setOfSections;
 
-    public Faculty(User user) {
-        this.user = user;
+    public Faculty() {
         this.setOfCustomers = new HashSet<Customer>();
         this.setOfWaiverRequests = new HashSet<WaiverRequest>();
         this.setOfSections = new HashSet<Section>();
+    }
+
+    public Faculty(User user) {
+        this();
+        this.user = user;
         this.user.addRole(Roles.ROLE_FACULTY);
     }
 

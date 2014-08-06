@@ -60,7 +60,7 @@ public class FacultyDAOImpl implements FacultyDAO {
     @Override
     public Faculty getById(int id) {
         Session session = this.sessionFactory.getCurrentSession();
-        Faculty faculty = (Faculty) session.load(Faculty.class, new Integer(id));
+        Faculty faculty = (Faculty) session.get(Faculty.class, new Integer(id));
         if (logger.isDebugEnabled()) {
             logger.debug("Faculty loaded successfully, Faculty details=" + faculty);
         }

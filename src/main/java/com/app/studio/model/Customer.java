@@ -56,15 +56,15 @@ public class Customer {
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "customer")
     private Set<Order> setOfOrders;
 
-    public Customer(User user) {
-        this.user = user;
+    public Customer() {
         this.setOfEnrolledSections = new HashSet<EnrolledSection>();
         this.setOfWaiverRequests = new HashSet<WaiverRequest>();
         this.setOfOrders = new HashSet<Order>();
     }
 
-    public Customer() {
-
+    public Customer(User user) {
+        this();
+        this.user = user;
     }
 
     public User getUser() {

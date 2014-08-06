@@ -18,18 +18,28 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "WAIVER_REQUEST")
 public class WaiverRequest {
-    
+
+    public static interface Constants {
+
+        public static final String STATUS_PENDING = "PENDING";
+        public static final String STATUS_APPROVED = "APPROVED";
+        public static final String STATUS_REJECTED = "REJECTED";
+    }
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String status;
     @ManyToOne(fetch = FetchType.EAGER)
-    private Faculty faculty;   
+    private Faculty faculty;
     @ManyToOne(fetch = FetchType.EAGER)
     private Customer customer;
     @OneToOne(fetch = FetchType.EAGER)
     private YogaClass yogaClass;
+
+    public WaiverRequest() {
+    }
 
     public WaiverRequest(YogaClass yogaClass, Customer customer) {
         this.yogaClass = yogaClass;
@@ -40,24 +50,24 @@ public class WaiverRequest {
     public Faculty getFaculty() {
         return faculty;
     }
-    
+
     public void setFaculty(Faculty faculty) {
         this.faculty = faculty;
         this.faculty.addWaiverRequest(this);
     }
-    
+
     public int getId() {
         return id;
     }
-    
+
     public void setId(int id) {
         this.id = id;
     }
-    
+
     public String getStatus() {
         return status;
     }
-    
+
     public void setStatus(String status) {
         this.status = status;
     }
@@ -77,12 +87,12 @@ public class WaiverRequest {
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
-    
+
     @Override
     public String toString() {
         return "WaiverRequest{" + "id=" + id + ", status=" + status + '}';
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -91,7 +101,7 @@ public class WaiverRequest {
         hash = 17 * hash + (this.faculty != null ? this.faculty.hashCode() : 0);
         return hash;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -112,5 +122,5 @@ public class WaiverRequest {
         }
         return true;
     }
-    
+
 }

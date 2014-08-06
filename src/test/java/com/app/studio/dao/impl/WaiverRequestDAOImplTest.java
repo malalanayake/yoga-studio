@@ -61,7 +61,7 @@ public class WaiverRequestDAOImplTest {
         YogaClass expect = yogaClassDAO.create(yogaclass);
         assertNotNull(expect.getId());
         WaiverRequest waiverRequest = new WaiverRequest(yogaclass,customer);
-        waiverRequest.setStatus("HOLD");
+        waiverRequest.setStatus(WaiverRequest.Constants.STATUS_PENDING);
         WaiverRequest result = waiverRequestDAO.create(waiverRequest);
         assertNotNull(result.getId());
     }

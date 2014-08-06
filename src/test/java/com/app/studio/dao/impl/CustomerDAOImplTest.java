@@ -91,7 +91,7 @@ public class CustomerDAOImplTest {
         expectYogaclass = yogaClassDAO.create(expectYogaclass);
 
         WaiverRequest waiver = new WaiverRequest(expectYogaclass, cus);
-        waiver.setStatus("HOLD");
+        waiver.setStatus(WaiverRequest.Constants.STATUS_PENDING);
         waiver = waiverRequestDAO.create(waiver);
 
         WaiverRequest resultWaiver = waiverRequestDAO.getById(waiver.getId());
@@ -147,6 +147,20 @@ public class CustomerDAOImplTest {
     }
 
     @Test
+    public void testGetById() {
+        System.out.println("updateCustomer");
+        User userForCustomer = new User("dinuka1", "dinuka1", "Dinuka", "Malalanayake",
+                "What is your favorit car?", "Benz");
+        userForCustomer = userDAO.create(userForCustomer);
+        Customer p = new Customer(userForCustomer);
+        p.setAddress("Colombo");
+        p = customerDAO.create(p);
+
+        Customer result = customerDAO.getById(p.getId());
+        assertEquals(p, result);
+    }
+
+    @Test
     public void testRemoveAssociations() {
         User user = new User("yogaadvisor", "yogaadvisor", "Yoga", "Advisor",
                 "What is your favorit car?", "Benz");
@@ -170,7 +184,7 @@ public class CustomerDAOImplTest {
         expectYogaclass = yogaClassDAO.create(expectYogaclass);
 
         WaiverRequest waiver = new WaiverRequest(expectYogaclass, cus);
-        waiver.setStatus("HOLD");
+        waiver.setStatus(WaiverRequest.Constants.STATUS_PENDING);
         waiver = waiverRequestDAO.create(waiver);
 
         // Check enrolled section

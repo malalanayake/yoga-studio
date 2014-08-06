@@ -43,19 +43,19 @@ public class User {
     private String sequrityQuestion;
     private String answer;
 
+    public User() {
+        this.roles = new ArrayList<String>();
+    }
+
     public User(String username, String password, String firstName,
             String lastName, String sequrityQuestion, String answer) {
+        this();
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.sequrityQuestion = sequrityQuestion;
         this.answer = answer;
-        this.roles = new ArrayList<String>();
-    }
-
-    public User() {
-
     }
 
     public void addRole(String role) {
