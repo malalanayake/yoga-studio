@@ -2,6 +2,7 @@ package com.app.studio.dao.impl;
 
 import com.app.studio.dao.ProductDAO;
 import com.app.studio.model.Product;
+import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -41,6 +42,19 @@ public class ProductDAOImpl implements ProductDAO {
             logger.debug("Product saved successfully, Product Details=" + p);
         }
         return p;
+    }
+
+    @Override
+    public List<Product> list() {
+        Session session = this.sessionFactory.getCurrentSession();
+        List<Product> productList = session.createQuery("from Product").list();
+        if (logger.isDebugEnabled()) {
+            for (Product product : productList) {
+                logger.debug("Product List::" + product);
+            }
+        }
+        return productList;
+
     }
 
     @Override

@@ -31,8 +31,9 @@ public class ShoppingCart {
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private Set<Product> setOfProducts;
 
-    public ShoppingCart() {
+    public ShoppingCart(Customer customer) {
         this.setOfProducts = new HashSet<Product>();
+        this.customer=customer;
     }
 
     public int getId() {

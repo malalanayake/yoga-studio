@@ -1,6 +1,7 @@
 package com.app.studio.dao;
 
 import com.app.studio.model.Product;
+import java.util.List;
 
 /**
  *
@@ -23,6 +24,13 @@ public interface ProductDAO {
      * @return
      */
     public Product update(Product p);
+
+    /**
+     * List all the products
+     *
+     * @return
+     */
+    public List<Product> list();
 
     /**
      * Get product by ID

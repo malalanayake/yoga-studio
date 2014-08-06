@@ -29,7 +29,7 @@ public interface ProductService {
      * @return
      * @throws RequiredDataNotPresent
      */
-    public Product updateProduct() throws RequiredDataNotPresent;
+    public Product updateProduct(Product product) throws RequiredDataNotPresent;
 
     /**
      * Delete product
@@ -37,7 +37,7 @@ public interface ProductService {
      * @return
      * @throws RequiredDataNotPresent
      */
-    public Product deleteProduct() throws RequiredDataNotPresent;
+    public Product deleteProduct(Product product) throws RequiredDataNotPresent;
 
     /**
      * List of all products
@@ -45,4 +45,5 @@ public interface ProductService {
      * @return
      */
     public List<Product> listOfAllProducts();
+    public Product getProductByID(int id);
 }

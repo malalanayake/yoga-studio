@@ -119,9 +119,9 @@ public class CustomerDAOImplTest {
         section.setMaxStudents(20);
         section = sectionDAO.create(section);
 
-        EnrolledSection enrolledSection = new EnrolledSection();
-        enrolledSection.setCustomer(cus);
-        enrolledSection.setSection(section);
+        EnrolledSection enrolledSection = new EnrolledSection(cus, section);
+//        enrolledSection.setCustomer(cus);
+//        enrolledSection.setSection(section);
         enrolledSection = enrolledSectionDAO.create(enrolledSection);
         assertEquals(enrolledSection, enrolledSectionDAO.getById(enrolledSection.getId()));
 
@@ -205,9 +205,9 @@ public class CustomerDAOImplTest {
         section.setMaxStudents(20);
         section = sectionDAO.create(section);
 
-        EnrolledSection enrolledSection = new EnrolledSection();
-        enrolledSection.setCustomer(cus);
-        enrolledSection.setSection(section);
+        EnrolledSection enrolledSection = new EnrolledSection(cus, section);
+//        enrolledSection.setCustomer(cus);
+//        enrolledSection.setSection(section);
         enrolledSection = enrolledSectionDAO.create(enrolledSection);
 
         Customer removedCus = customerDAO.remove(cus.getId());

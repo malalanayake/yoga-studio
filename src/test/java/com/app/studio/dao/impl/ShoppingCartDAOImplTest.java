@@ -1,10 +1,13 @@
 package com.app.studio.dao.impl;
 
+import com.app.studio.dao.CustomerDAO;
 import com.app.studio.dao.ProductDAO;
 import com.app.studio.dao.ShoppingCartDAO;
+import com.app.studio.dao.UserDAO;
+import com.app.studio.model.Customer;
 import com.app.studio.model.Product;
 import com.app.studio.model.ShoppingCart;
-import com.sun.org.apache.xalan.internal.xsltc.runtime.BasisLibrary;
+import com.app.studio.model.User;
 import java.util.List;
 import java.util.Set;
 import static org.junit.Assert.*;
@@ -29,6 +32,12 @@ public class ShoppingCartDAOImplTest {
 
     @Autowired
     private ProductDAO productDAO;
+    
+    @Autowired
+    private UserDAO userDAO; 
+    
+    @Autowired
+    private CustomerDAO customerDAO;
 
     public ShoppingCartDAOImplTest() {
     }
@@ -39,7 +48,15 @@ public class ShoppingCartDAOImplTest {
     @Test
     public void testCreate() {
         System.out.println("Add new ShoppingCart");
-        ShoppingCart shoppingCart = new ShoppingCart();
+        
+        User expectUser = new User("yogamaster", "yogamaster", "Yoga", "Master",
+                "What is your favorit car?", "Benz");
+        expectUser = userDAO.create(expectUser);
+        
+        Customer expectCustomer = new Customer(expectUser);
+        expectCustomer = customerDAO.create(expectCustomer);
+        
+        ShoppingCart shoppingCart = new ShoppingCart(expectCustomer);
         ShoppingCart expect = shoppingCartDAO.create(shoppingCart);
         assertNotNull(expect.getId());
     }
@@ -51,7 +68,16 @@ public class ShoppingCartDAOImplTest {
     public void testCreateAssociations() {
 
         System.out.println("Add new ShoppingCart");
-        ShoppingCart shoppingCart = new ShoppingCart();
+        
+        User expectUser = new User("yogamaster", "yogamaster", "Yoga", "Master",
+                "What is your favorit car?", "Benz");
+        expectUser = userDAO.create(expectUser);
+        
+        Customer expectCustomer = new Customer(expectUser);
+        expectCustomer = customerDAO.create(expectCustomer);
+        
+        ShoppingCart shoppingCart = new ShoppingCart(expectCustomer);
+        
         Product product = new Product();
         product.setName("HP");
         product.setType("Computer");
@@ -84,7 +110,16 @@ public class ShoppingCartDAOImplTest {
     @Test
     public void testList() {
         System.out.println("List the ShoppingCart");
-        ShoppingCart shoppingCart = new ShoppingCart();
+        
+        User expectUser = new User("yogamaster", "yogamaster", "Yoga", "Master",
+                "What is your favorit car?", "Benz");
+        expectUser = userDAO.create(expectUser);
+        
+        Customer expectCustomer = new Customer(expectUser);
+        expectCustomer = customerDAO.create(expectCustomer);
+        
+        ShoppingCart shoppingCart = new ShoppingCart(expectCustomer);
+        
         ShoppingCart expect = shoppingCartDAO.create(shoppingCart);
         assertNotNull(expect.getId());
 
@@ -98,7 +133,16 @@ public class ShoppingCartDAOImplTest {
     @Test
     public void testGetById() {
         System.out.println("ShoppingCart getByID");
-        ShoppingCart shoppingCart = new ShoppingCart();
+        
+        User expectUser = new User("yogamaster", "yogamaster", "Yoga", "Master",
+                "What is your favorit car?", "Benz");
+        expectUser = userDAO.create(expectUser);
+        
+        Customer expectCustomer = new Customer(expectUser);
+        expectCustomer = customerDAO.create(expectCustomer);
+        
+        ShoppingCart shoppingCart = new ShoppingCart(expectCustomer);
+        
         ShoppingCart expect = shoppingCartDAO.create(shoppingCart);
         assertNotNull(expect.getId());
 
@@ -112,7 +156,16 @@ public class ShoppingCartDAOImplTest {
     @Test
     public void testRemove() {
         System.out.println("List the ");
-        ShoppingCart shoppingCart = new ShoppingCart();
+        
+        User expectUser = new User("yogamaster", "yogamaster", "Yoga", "Master",
+                "What is your favorit car?", "Benz");
+        expectUser = userDAO.create(expectUser);
+        
+        Customer expectCustomer = new Customer(expectUser);
+        expectCustomer = customerDAO.create(expectCustomer);
+        
+        ShoppingCart shoppingCart = new ShoppingCart(expectCustomer);
+        
         ShoppingCart expect = shoppingCartDAO.create(shoppingCart);
         assertNotNull(expect.getId());
 
@@ -125,7 +178,15 @@ public class ShoppingCartDAOImplTest {
     @Test
     public void testRemoveAssociations() {
 
-        ShoppingCart shoppingCart = new ShoppingCart();
+        User expectUser = new User("yogamaster", "yogamaster", "Yoga", "Master",
+                "What is your favorit car?", "Benz");
+        expectUser = userDAO.create(expectUser);
+        
+        Customer expectCustomer = new Customer(expectUser);
+        expectCustomer = customerDAO.create(expectCustomer);
+        
+        ShoppingCart shoppingCart = new ShoppingCart(expectCustomer);
+        
         Product product = new Product();
         product.setName("HP");
         product.setType("Computer");
