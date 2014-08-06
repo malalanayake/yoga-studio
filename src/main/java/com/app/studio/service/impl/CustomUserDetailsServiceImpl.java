@@ -1,16 +1,11 @@
 package com.app.studio.service.impl;
 
-import com.app.studio.dao.UserDAO;
 import com.app.studio.model.User;
 import com.app.studio.security.CustomRole;
 import com.app.studio.security.CustomUserData;
 import com.app.studio.service.UserService;
 import java.util.ArrayList;
 import java.util.Collection;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -25,6 +20,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 public class CustomUserDetailsServiceImpl implements UserDetailsService {
 
     private UserService userService;
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String authentication) throws UsernameNotFoundException {
@@ -46,12 +45,6 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
         } else {
             return null;
         }
-    }
-
-    @Autowired(required = true)
-    @Qualifier(value = "userService")
-    public void setUserService(UserService userService) {
-        this.userService = userService;
     }
 
 }

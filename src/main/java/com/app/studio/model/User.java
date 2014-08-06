@@ -54,6 +54,10 @@ public class User {
         this.roles = new ArrayList<String>();
     }
 
+    public User() {
+
+    }
+
     public void addRole(String role) {
         this.roles.add(role);
     }
