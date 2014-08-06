@@ -74,6 +74,13 @@
             <div id="content-container">
                 <%@include file="template/sidebar.jsp"%>
                 <div id="content">
+                    <c:if test="${not empty error}">
+                        <div class="error">${error}</div>
+                    </c:if>
+                    <c:if test="${not empty msg}">
+                        <div class="msg">${msg}</div>
+                    </c:if>
+                    
                     <c:url var="addSemester" value="/semesters/add"></c:url>
                     <form:form action="${addSemester}" commandName="semester">
                         <table>

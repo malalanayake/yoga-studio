@@ -14,6 +14,7 @@
             <sec:authorize ifAnyGranted="ROLE_ADMIN">  
                 <li><a href="<c:url value='/semesters' />">Manage Semesters</a></li>
                 <li><a href="<c:url value='/view-customers' />">View Customers</a></li>
+                <li><a href="<c:url value='/products' />">Manage Products</a></li>
             </sec:authorize>
             <sec:authorize ifAnyGranted="ROLE_FACULTY">  
                 <li><a href="<c:url value='/waivers' />">Manage Waiver Requests</a></li>

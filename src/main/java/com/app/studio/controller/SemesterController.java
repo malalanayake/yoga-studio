@@ -2,12 +2,8 @@ package com.app.studio.controller;
 
 import com.app.studio.exception.RecordAlreadyExistException;
 import com.app.studio.exception.RequiredDataNotPresent;
-import com.app.studio.model.Customer;
 import com.app.studio.model.Semester;
-import com.app.studio.service.CustomerService;
 import com.app.studio.service.SemesterService;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -41,7 +37,7 @@ public class SemesterController {
 
     @RequestMapping(value = "/semesters/edit/{id}", method = RequestMethod.GET)
     public String editSemesters(@PathVariable("id") int id, Model model) {
-        Semester sem  = new Semester();
+        Semester sem = new Semester();
         sem = semesterService.getSemeterByID(id);
         model.addAttribute("semester", sem);
         model.addAttribute("listSemetsters", this.semesterService.listOfAllSemesters());
@@ -54,7 +50,7 @@ public class SemesterController {
         try {
             semesterService.deleteSemester(sem);
         } catch (RequiredDataNotPresent ex) {
-           
+            model.addAttribute("error", ex.toString());
         }
         model.addAttribute("semester", new Semester());
         model.addAttribute("listSemetsters", this.semesterService.listOfAllSemesters());
@@ -62,23 +58,25 @@ public class SemesterController {
     }
 
     @RequestMapping(value = "/semesters/add", method = RequestMethod.POST)
-    public String addCustomer(@ModelAttribute("semester") Semester c) {
+    public String addCustomer(@ModelAttribute("semester") Semester c, Model model) {
         String error = "";
         try {
             if (c.getId() == 0) {
-
                 this.semesterService.createNewSemester(c);
-
+                model.addAttribute("msg", "Semester is successfully created");
             } else {
                 this.semesterService.updateSemeter(c);
+                model.addAttribute("msg", "Semester is successfully updated");
             }
         } catch (RequiredDataNotPresent ex) {
-            error = ex.toString();
+            model.addAttribute("error", ex.getMessage());
         } catch (RecordAlreadyExistException ex) {
-            error = ex.toString();
+            model.addAttribute("error", ex.getMessage());
         }
 
-        return "redirect:/semesters";
+        model.addAttribute("semester", new Semester());
+        model.addAttribute("listSemetsters", this.semesterService.listOfAllSemesters());
+        return "semester";
 
     }
 }
