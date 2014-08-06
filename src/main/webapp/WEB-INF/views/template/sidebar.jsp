@@ -18,6 +18,8 @@
             </sec:authorize>
             <sec:authorize ifAnyGranted="ROLE_FACULTY">  
                 <li><a href="<c:url value='/waivers' />">Manage Waiver Requests</a></li>
+                <li><a href="<c:url value='/advisees' />">View Advisees</a></li>
+                <li><a href="<c:url value='/assignedsections' />">View Assigned Sections</a></li>
             </sec:authorize>
         </ul>
     </div>

@@ -12,6 +12,8 @@
         <intercept-url pattern="/customer/**" access="ROLE_ADMIN" />
         <intercept-url pattern="/semesters/**" access="ROLE_ADMIN" />
         <intercept-url pattern="/waivers/**" access="ROLE_FACULTY" />
+        <intercept-url pattern="/advisees/**" access="ROLE_FACULTY" />
+        <intercept-url pattern="/assignedsections/**" access="ROLE_FACULTY" />
         <form-login login-page="/login" default-target-url="/main"
                     authentication-failure-url="/login?error" username-parameter="username"
                     password-parameter="password" />

@@ -27,6 +27,7 @@ public class FacultyController {
         this.facultyService = facultyService;
     }
 
+    /* ************************* WAIVERS ************************* */
     @RequestMapping(value = "/waivers", method = RequestMethod.GET)
     public String listWaivers(Principal user, Model model) {
         getWaivers(user.getName(), model);
@@ -75,5 +76,27 @@ public class FacultyController {
         }
         System.out.println("\n###############\n" + message.toString() + "\n###############\n");
         return message.toString();
+    }
+
+    /* ************************* ADVISEES ************************* */
+    @RequestMapping(value = "/advisees", method = RequestMethod.GET)
+    public String listAdvisees(Principal user, Model model) {
+        try {
+            model.addAttribute("listAdvisees", this.facultyService.getFacultyByUsername(user.getName()).getSetOfCustomers());
+        } catch (RequiredDataNotPresent ex) {
+            model.addAttribute("error", ex.getMessage());
+        }
+        return "advisee";
+    }
+
+    /* ************************* ASSIGNED SECTIONS ************************* */
+    @RequestMapping(value = "/assignedsections", method = RequestMethod.GET)
+    public String listSections(Principal user, Model model) {
+        try {
+            model.addAttribute("listSections", this.facultyService.getFacultyByUsername(user.getName()).getSetOfSections());
+        } catch (RequiredDataNotPresent ex) {
+            model.addAttribute("error", ex.getMessage());
+        }
+        return "assignedsection";
     }
 }
