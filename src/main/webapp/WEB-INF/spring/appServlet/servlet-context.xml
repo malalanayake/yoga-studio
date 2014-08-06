@@ -125,6 +125,7 @@
     <!-- Inject the instance to service reference with adding customerDao instance -->
     <beans:bean id="customerService" class="com.app.studio.service.impl.CustomerServiceImpl">
         <beans:property name="customerDAO" ref="customerDAO"></beans:property>
+        <beans:property name="userDAO" ref="userDAO"></beans:property>
     </beans:bean>
     
     <beans:bean id="semesterService" class="com.app.studio.service.impl.SemesterServiceImpl">

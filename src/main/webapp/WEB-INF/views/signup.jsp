@@ -25,19 +25,64 @@
             <%@include file="template/sidebar.jsp"%>
             <div id="content">
                 
-                <h1>Sign Up </h1>
-                <h2>Please fill all the mandatory fields </h2>
+                <h1>Sign Up  </h1>
+                <h2>Please fill all the mandatory fields  </h2>
 
-                    <c:url var="addAction" value="/customer/add"></c:url>
-                    <form name='SignUForm' form action="${addAction}" commandName="customer"
-                    Username: <input type="text" name="username"><br>
-                    Password: <input type="text" name="password"><br>
-                    First Name: <input type="text" name="firstName"><br>
-                    Last Name: <input type="text" name="lastName"><br>
-                    Security Question: <input type="text" name="securityQuestion"><br>
-                    Answer: <input type="text" name="answer"><br>
-                    <input type="submit" value="Submit">
-                    </form>
+                    <c:url var="addAction" value="/signup/add"></c:url>
+                    <form:form action="${addAction}" commandName="user">
+                    
+                          <table>
+                                    <tr>
+                                           <td><form:label path="username">
+                                        <spring:message text="Username" />
+                                    </form:label></td>
+                                <td><form:input path="username" /></td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><form:label path="password">
+                                        <spring:message text="Password" />
+                                    </form:label></td>
+                                <td><form:input path="password" /></td>
+                                    </tr>
+                                    
+                                       <tr>
+                                         <td><form:label path="firstName">
+                                        <spring:message text="First Name" />
+                                    </form:label></td>
+                                <td><form:input path="firstName" /></td>
+                                    </tr>
+                                    
+                                    
+                                       <tr>
+                                           <td><form:label path="lastName">
+                                        <spring:message text="Lastname" />
+                                    </form:label></td>
+                                <td><form:input path="lastName" /></td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><form:label path="sequrityQuestion">
+                                        <spring:message text="Security Question" />
+                                    </form:label></td>
+                                <td><form:input path="sequrityQuestion" /></td>
+                                    </tr>
+                                    
+                                     <tr>
+                                         <td><form:label path="answer">
+                                        <spring:message text="Answer" />
+                                    </form:label></td>
+                                <td><form:input path="answer" /></td>
+                                    </tr>
+                             
+                                    <tr>
+                                        <td colspan='2'><input name="submit" type="submit"
+                                                               value="submit" /></td>
+                                    </tr>
+                                </table>
+                        
+                     
+                    </form:form>
 
                     <c:if test="${not empty error}">
                         <div class="error">${error}</div>

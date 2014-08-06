@@ -3,6 +3,7 @@ package com.app.studio.service;
 import com.app.studio.exception.RecordAlreadyExistException;
 import com.app.studio.exception.RequiredDataNotPresent;
 import com.app.studio.model.Customer;
+import com.app.studio.model.WaiverRequest;
 import com.app.studio.security.Roles;
 import java.util.List;
 import org.springframework.security.access.annotation.Secured;
@@ -24,6 +25,8 @@ public interface CustomerService {
 	public Customer getCustomerById(int id);
 
 	public void removeCustomer(int id);
+        
+        public WaiverRequest addWaiverRequest();
         
         
 

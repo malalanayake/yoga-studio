@@ -47,4 +47,18 @@ public interface YogaClassService {
      * @return
      */
     public List<YogaClass> listOfYogaClasses();
+    
+    /**
+     * Get Yoga Classes by ID
+     *
+     * @param username
+     * @return
+     * @throws RequiredDataNotPresent
+     */
+   
+      public YogaClass getYogaClassByID(int yogaClassID) throws RequiredDataNotPresent;
+    
+    
+    
+    
 }
