@@ -13,8 +13,59 @@
     <head>
         <c:url var="cssUrl" value='/css/style.css'></c:url>
         <link rel="stylesheet" type="text/css" href=${cssUrl}>
-
+        <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.0/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" /> 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+        <script type="text/javascript">
+            jQuery(document).ready(function() {
+                $("#ui-datepicker").datepicker({
+                    showOn: 'focus'
+                }).css({'font-size': 'smaller'});
+                
+                $("#ui-datepicker2").datepicker({
+                    showOn: 'focus'
+                }).css({'font-size': 'smaller'});
+                
+                $("#ui-datepicker3").datepicker({
+                    showOn: 'focus'
+                }).css({'font-size': 'smaller'});
+            });
+        </script>
+        <style type="text/css">
+            .ui-datepicker {
+                width: 216px;
+                height: auto;
+                margin: 5px auto 0;
+                font: 9pt Arial, sans-serif;
+                -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .5);
+                -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .5);
+                box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .5);
+                background-color: #FFF;
+            }
+            
+            .ui-datepicker2 {
+                width: 216px;
+                height: auto;
+                margin: 5px auto 0;
+                font: 9pt Arial, sans-serif;
+                -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .5);
+                -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .5);
+                box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .5);
+                background-color: #FFF;
+            }
+            
+            .ui-datepicker3 {
+                width: 216px;
+                height: auto;
+                margin: 5px auto 0;
+                font: 9pt Arial, sans-serif;
+                -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .5);
+                -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .5);
+                box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .5);
+                background-color: #FFF;
+            }
+        </style>
         <title>Yoga Studio</title>
     </head>
     <body>
@@ -39,19 +90,19 @@
                                 <td><form:label path="startdate">
                                         <spring:message text="Start Date" />
                                     </form:label></td>
-                                <td><form:input path="startdate" /></td>
+                                <td><form:input id="ui-datepicker" name="ui-datepicker" path="startdate" /></td>
                             </tr>
                             <tr>
                                 <td><form:label path="enddate">
                                         <spring:message text="End Date" />
                                     </form:label></td>
-                                <td><form:input path="enddate" /></td>
+                                <td><form:input id="ui-datepicker2" name="ui-datepicker2" path="enddate" /></td>
                             </tr>
                             <tr>
                                 <td><form:label path="signUpDate">
                                         <spring:message text="SignUp Date" />
                                     </form:label></td>
-                                <td><form:input path="signUpDate" /></td>
+                                <td><form:input id="ui-datepicker3" name="ui-datepicker3" path="signUpDate" /></td>
                             </tr>
                             <tr>
                                 <td colspan="2">
@@ -66,7 +117,7 @@
                         </table>
                     </form:form>
 
-                    
+
                     <table class="tg">
                         <tr>
                             <th width="80">Semester ID</th>
