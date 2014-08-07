@@ -36,32 +36,25 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public Product updateProduct(Product product) throws RequiredDataNotPresent {
+    public Product updateProduct(Product product) {
         Product pro = null;
         if (!product.getName().equals("") && !product.getType().equals("")
                 && !product.getDescription().equals("")) {
-            if (product.getId() > 0) {
-                pro = productDAO.create(product);
-            } else {
-                throw new RequiredDataNotPresent("Primery key not present");
-            }
+           // if (product.getId() > 0) {
+                pro=this.productDAO.update(product);
+//            } else {
+//                throw new RequiredDataNotPresent("Primery key not present");
+//            }
         } else {
-            throw new RequiredDataNotPresent("Required data not presenet to create product");
+//            throw new RequiredDataNotPresent("Required data not presenet to create product");
         }
         return pro;
     }
 
     @Override
     @Transactional
-    public Product deleteProduct(Product product) throws RequiredDataNotPresent {
-        Product pro = null;
-
-        if (product.getId() > 0) {
-            pro = productDAO.remove(product.getId());
-        } else {
-            throw new RequiredDataNotPresent("Primery key not present");
-        }
-        return pro;
+    public void deleteProduct(int id) {
+        this.productDAO.remove(id);
     }
 
     @Override

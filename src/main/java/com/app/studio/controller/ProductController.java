@@ -35,29 +35,22 @@ public class ProductController {
         return "product";
     }
 
-    @RequestMapping(value = "/products/edit/{id}", method = RequestMethod.GET)
-    public String editProduct(@PathVariable("id") int id, Model model) {
+    @RequestMapping(value = "/products/edit/{id}")
+    public String editProducts(@PathVariable("id") int id, Model model) {
         Product pro = new Product();
         pro = productService.getProductByID(id);
-        model.addAttribute("product", new Product());
+        model.addAttribute("product", pro);
         model.addAttribute("listProducts", this.productService.listOfAllProducts());
         return "product";
     }
 
-    @RequestMapping(value = "/products/remove/{id}", method = RequestMethod.GET)
-    public String removeProducts(@PathVariable("id") int id, Model model) {
-        Product pro = productService.getProductByID(id);
-        try {
-            productService.deleteProduct(pro);
-        } catch (RequiredDataNotPresent ex) {
-
-        }
-        model.addAttribute("product", new Product());
-        model.addAttribute("listProducts", this.productService.listOfAllProducts());
+    @RequestMapping(value = "/products/remove/{id}")
+    public String removeProducts(@PathVariable("id") int id) {
+            this.productService.deleteProduct(id);
         return "redirect:/products";
     }
 
-    @RequestMapping(value = "/products/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/products/add")
     public String addCustomer(@ModelAttribute("product") Product c) {
         String error = "";
         try {

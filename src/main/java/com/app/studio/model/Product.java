@@ -75,13 +75,13 @@ public class Product {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 53 * hash + this.id;
-        hash = 53 * hash + (this.name != null ? this.name.hashCode() : 0);
-        hash = 53 * hash + (this.type != null ? this.type.hashCode() : 0);
-        hash = 53 * hash + (int) (Double.doubleToLongBits(this.price) ^ (Double.doubleToLongBits(this.price) >>> 32));
-        hash = 53 * hash + (int) (Double.doubleToLongBits(this.availableQuantity) ^ (Double.doubleToLongBits(this.availableQuantity) >>> 32));
-        hash = 53 * hash + (this.description != null ? this.description.hashCode() : 0);
+        int hash = 8;
+        hash = 43 * hash + this.id;
+        hash = 43 * hash + (this.name != null ? this.name.hashCode() : 0);
+        hash = 43 * hash + (this.type != null ? this.type.hashCode() : 0);
+        //hash = 43 * hash + (int) (Double.doubleToLongBits(this.price) ^ (Double.doubleToLongBits(this.price) >>> 32));
+        //hash = 43 * hash + (int) (Double.doubleToLongBits(this.availableQuantity) ^ (Double.doubleToLongBits(this.availableQuantity) >>> 32));
+        hash = 43 * hash + (this.description != null ? this.description.hashCode() : 0);
         return hash;
     }
 
