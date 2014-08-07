@@ -3,13 +3,17 @@ package com.app.studio.dao.impl;
 import com.app.studio.dao.CustomerDAO;
 import com.app.studio.dao.FacultyDAO;
 import com.app.studio.dao.SectionDAO;
+import com.app.studio.dao.SemesterDAO;
 import com.app.studio.dao.UserDAO;
 import com.app.studio.dao.WaiverRequestDAO;
+import com.app.studio.dao.YogaClassDAO;
 import com.app.studio.model.Customer;
 import com.app.studio.model.Faculty;
 import com.app.studio.model.Section;
+import com.app.studio.model.Semester;
 import com.app.studio.model.User;
 import com.app.studio.model.WaiverRequest;
+import com.app.studio.model.YogaClass;
 import com.app.studio.security.Roles;
 import java.util.Iterator;
 import static org.junit.Assert.*;
@@ -39,6 +43,10 @@ public class FacultyDAOImplTest {
     private CustomerDAO customerDAO;
     @Autowired
     private SectionDAO sectionDAO;
+    @Autowired
+    private SemesterDAO semesterDAO;
+    @Autowired
+    private YogaClassDAO yogaClassDAO;
 
     public FacultyDAOImplTest() {
     }
@@ -76,19 +84,33 @@ public class FacultyDAOImplTest {
 
         User userForCustomer = new User("dinuka1", "dinuka1", "Dinuka", "Malalanayake",
                 "What is your favorit car?", "Benz");
+        userForCustomer = userDAO.create(userForCustomer);
         Customer customer = new Customer(userForCustomer);
         customer = customerDAO.create(customer);
         customer.setAdvisor(result);
         customer = customerDAO.update(customer);
 
-        WaiverRequest waiverRequest = new WaiverRequest();
+        YogaClass yogaclass = new YogaClass();
+        YogaClass expect = yogaClassDAO.create(yogaclass);
+        assertNotNull(expect.getId());
+        WaiverRequest waiverRequest = new WaiverRequest(yogaclass, customer);
         waiverRequest = waiverRequestDAO.create(waiverRequest);
-        Section section = new Section();
+
+        Semester sem = new Semester();
+        sem.setSignUpDate("2014-03-03");
+        sem = semesterDAO.create(sem);
+
+        YogaClass Yogaclass = new YogaClass();
+        Yogaclass.setName("Yoga Principles");
+        Yogaclass.setPrice(10);
+       
+
+        Section section = new Section(sem, Yogaclass, faculty);
         section = sectionDAO.create(section);
 
-        faculty.addWaiverRequest(waiverRequest);
         faculty.addCustomer(customer);
-        faculty.addsection(section);
+        // faculty.addsection(section) called in Section constructor
+//        faculty.addsection(section);
         faculty = facultyDAO.update(faculty);
 
         assertNotNull(result.getId());
@@ -173,19 +195,35 @@ public class FacultyDAOImplTest {
 
         User userForCustomer = new User("dinuka1", "dinuka1", "Dinuka", "Malalanayake",
                 "What is your favorit car?", "Benz");
+        userForCustomer = userDAO.create(userForCustomer);
         Customer customer = new Customer(userForCustomer);
         customer = customerDAO.create(customer);
         customer.setAdvisor(result);
         customer = customerDAO.update(customer);
 
-        WaiverRequest waiverRequest = new WaiverRequest();
+        YogaClass yogaclass = new YogaClass();
+        YogaClass expect = yogaClassDAO.create(yogaclass);
+        assertNotNull(expect.getId());
+        WaiverRequest waiverRequest = new WaiverRequest(yogaclass, customer);
         waiverRequest = waiverRequestDAO.create(waiverRequest);
-        Section section = new Section();
+
+        Semester sem = new Semester();
+        sem.setSignUpDate("2014-03-03");
+        sem = semesterDAO.create(sem);
+
+        YogaClass Yogaclass = new YogaClass();
+        Yogaclass.setName("Yoga Principles");
+        Yogaclass.setPrice(10);
+      
+
+        Section section = new Section(sem, Yogaclass, faculty);
         section = sectionDAO.create(section);
 
-        faculty.addWaiverRequest(waiverRequest);
+        // faculty.addWaiverRequest(waiverRequest) called in WaiverRequest constructor
+//        faculty.addWaiverRequest(waiverRequest);
         faculty.addCustomer(customer);
-        faculty.addsection(section);
+        // faculty.addsection(section) called in Section constructor
+//        faculty.addsection(section);
         faculty = facultyDAO.update(faculty);
 
         assertNotNull(result.getId());
@@ -193,4 +231,33 @@ public class FacultyDAOImplTest {
         faculty = facultyDAO.remove(faculty.getId());
     }
 
+    @Test
+    public void testCreateAssociations() {
+        System.out.println("Create Faculty-User Association");
+
+        User expectUser = new User("yogamaster", "yogamaster", "Yoga", "Master",
+                "What is your favorit car?", "Benz");
+        expectUser = userDAO.create(expectUser);
+
+        Faculty faculty = new Faculty(expectUser);
+        faculty = facultyDAO.create(faculty);
+
+        User resultUser = userDAO.getById(expectUser.getId());
+        assertEquals(expectUser, resultUser);
+    }
+
+    @Test
+    public void testRemoveAssociations() {
+        System.out.println("Remove Faculty-User Association");
+
+        User expectUser = new User("yogamaster", "yogamaster", "Yoga", "Master",
+                "What is your favorit car?", "Benz");
+        expectUser = userDAO.create(expectUser);
+
+        Faculty faculty = new Faculty(expectUser);
+        faculty = facultyDAO.create(faculty);
+
+        Faculty removedFaculty = facultyDAO.remove(faculty.getId());
+        assertNotNull(userDAO.getById(expectUser.getId()));
+    }
 }

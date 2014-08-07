@@ -60,7 +60,7 @@ public class EnrolledSectionDAOImpl implements EnrolledSectionDAO {
     @Override
     public EnrolledSection getById(int id) {
         Session session = this.sessionFactory.getCurrentSession();
-        EnrolledSection enrolledSection = (EnrolledSection) session.load(EnrolledSection.class, new Integer(id));
+        EnrolledSection enrolledSection = (EnrolledSection) session.get(EnrolledSection.class, new Integer(id));
         if (logger.isDebugEnabled()) {
             logger.debug("EnrolledSection loaded successfully, EnrolledSection details=" + enrolledSection);
         }

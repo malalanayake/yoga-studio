@@ -18,6 +18,8 @@ import javax.persistence.Table;
 @Table(name = "ENROLLED_SECTION")
 public class EnrolledSection {
 
+    
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,6 +31,11 @@ public class EnrolledSection {
     @ManyToOne(fetch = FetchType.EAGER)
     private Section section;
 
+    public EnrolledSection(Customer customer, Section section) {
+        this.customer = customer;
+        this.section = section;
+    }
+    
     public int getId() {
         return id;
     }

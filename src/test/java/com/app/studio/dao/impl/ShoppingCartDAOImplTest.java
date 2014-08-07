@@ -1,8 +1,15 @@
 package com.app.studio.dao.impl;
 
+import com.app.studio.dao.CustomerDAO;
+import com.app.studio.dao.ProductDAO;
 import com.app.studio.dao.ShoppingCartDAO;
+import com.app.studio.dao.UserDAO;
+import com.app.studio.model.Customer;
+import com.app.studio.model.Product;
 import com.app.studio.model.ShoppingCart;
+import com.app.studio.model.User;
 import java.util.List;
+import java.util.Set;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,6 +30,15 @@ public class ShoppingCartDAOImplTest {
     @Autowired
     private ShoppingCartDAO shoppingCartDAO;
 
+    @Autowired
+    private ProductDAO productDAO;
+    
+    @Autowired
+    private UserDAO userDAO; 
+    
+    @Autowired
+    private CustomerDAO customerDAO;
+
     public ShoppingCartDAOImplTest() {
     }
 
@@ -32,9 +48,60 @@ public class ShoppingCartDAOImplTest {
     @Test
     public void testCreate() {
         System.out.println("Add new ShoppingCart");
-        ShoppingCart shoppingCart = new ShoppingCart();
+        
+        User expectUser = new User("yogamaster", "yogamaster", "Yoga", "Master",
+                "What is your favorit car?", "Benz");
+        expectUser = userDAO.create(expectUser);
+        
+        Customer expectCustomer = new Customer(expectUser);
+        expectCustomer = customerDAO.create(expectCustomer);
+        
+        ShoppingCart shoppingCart = new ShoppingCart(expectCustomer);
         ShoppingCart expect = shoppingCartDAO.create(shoppingCart);
         assertNotNull(expect.getId());
+    }
+
+    /**
+     * Test of createAssociation method, of class ShoppingCartDAOImpl.
+     */
+    @Test
+    public void testCreateAssociations() {
+
+        System.out.println("Add new ShoppingCart");
+        
+        User expectUser = new User("yogamaster", "yogamaster", "Yoga", "Master",
+                "What is your favorit car?", "Benz");
+        expectUser = userDAO.create(expectUser);
+        
+        Customer expectCustomer = new Customer(expectUser);
+        expectCustomer = customerDAO.create(expectCustomer);
+        
+        ShoppingCart shoppingCart = new ShoppingCart(expectCustomer);
+        
+        Product product = new Product();
+        product.setName("HP");
+        product.setType("Computer");
+        product.setPrice(1300);
+        product.setAvailableQuantity(3);
+        product.setDescription("HP123");
+
+        Product resultProduct = productDAO.create(product);
+        shoppingCart.addProduct(product);
+        assertNotNull(resultProduct.getId());
+        assertEquals(product, resultProduct);
+
+        ShoppingCart expect = shoppingCartDAO.create(shoppingCart);
+        assertNotNull(expect.getId());
+        assertEquals(expect, shoppingCart);
+
+        ShoppingCart shoppingCartTest = shoppingCartDAO.getById(expect.getId());
+        Set<Product> shoppingCartList = shoppingCartTest.getSetOfProducts();
+        for (Product product1 : shoppingCartList) {
+            if (product1.equals(product)) {
+                assertEquals(product1, product);
+            }
+        }
+
     }
 
     /**
@@ -43,7 +110,16 @@ public class ShoppingCartDAOImplTest {
     @Test
     public void testList() {
         System.out.println("List the ShoppingCart");
-        ShoppingCart shoppingCart = new ShoppingCart();
+        
+        User expectUser = new User("yogamaster", "yogamaster", "Yoga", "Master",
+                "What is your favorit car?", "Benz");
+        expectUser = userDAO.create(expectUser);
+        
+        Customer expectCustomer = new Customer(expectUser);
+        expectCustomer = customerDAO.create(expectCustomer);
+        
+        ShoppingCart shoppingCart = new ShoppingCart(expectCustomer);
+        
         ShoppingCart expect = shoppingCartDAO.create(shoppingCart);
         assertNotNull(expect.getId());
 
@@ -57,7 +133,16 @@ public class ShoppingCartDAOImplTest {
     @Test
     public void testGetById() {
         System.out.println("ShoppingCart getByID");
-        ShoppingCart shoppingCart = new ShoppingCart();
+        
+        User expectUser = new User("yogamaster", "yogamaster", "Yoga", "Master",
+                "What is your favorit car?", "Benz");
+        expectUser = userDAO.create(expectUser);
+        
+        Customer expectCustomer = new Customer(expectUser);
+        expectCustomer = customerDAO.create(expectCustomer);
+        
+        ShoppingCart shoppingCart = new ShoppingCart(expectCustomer);
+        
         ShoppingCart expect = shoppingCartDAO.create(shoppingCart);
         assertNotNull(expect.getId());
 
@@ -71,11 +156,59 @@ public class ShoppingCartDAOImplTest {
     @Test
     public void testRemove() {
         System.out.println("List the ");
-        ShoppingCart shoppingCart = new ShoppingCart();
+        
+        User expectUser = new User("yogamaster", "yogamaster", "Yoga", "Master",
+                "What is your favorit car?", "Benz");
+        expectUser = userDAO.create(expectUser);
+        
+        Customer expectCustomer = new Customer(expectUser);
+        expectCustomer = customerDAO.create(expectCustomer);
+        
+        ShoppingCart shoppingCart = new ShoppingCart(expectCustomer);
+        
         ShoppingCart expect = shoppingCartDAO.create(shoppingCart);
         assertNotNull(expect.getId());
-        
+
         shoppingCartDAO.remove(expect.getId());
     }
 
+    /**
+     * Test of createAssociation method, of class ShoppingCartDAOImpl.
+     */
+    @Test
+    public void testRemoveAssociations() {
+
+        User expectUser = new User("yogamaster", "yogamaster", "Yoga", "Master",
+                "What is your favorit car?", "Benz");
+        expectUser = userDAO.create(expectUser);
+        
+        Customer expectCustomer = new Customer(expectUser);
+        expectCustomer = customerDAO.create(expectCustomer);
+        
+        ShoppingCart shoppingCart = new ShoppingCart(expectCustomer);
+        
+        Product product = new Product();
+        product.setName("HP");
+        product.setType("Computer");
+        product.setPrice(1300);
+        product.setAvailableQuantity(3);
+        product.setDescription("HP123");
+
+        Product resultProduct = productDAO.create(product);
+        shoppingCart.addProduct(product);
+        ShoppingCart expect = shoppingCartDAO.create(shoppingCart);
+
+        ShoppingCart removeShoppingCart = shoppingCartDAO.remove(expect.getId());
+        for (Product removeProduct : removeShoppingCart.getSetOfProducts()) {
+            try {
+                System.out.println("Checking Product" + removeProduct.getId());
+                Product nullResult = productDAO.getById(removeProduct.getId());
+                assertNull(nullResult);
+                System.out.println("Null: Product" + removeProduct.getId());
+            } catch (Exception e) {
+                assertEquals(org.hibernate.ObjectNotFoundException.class, e.getClass());
+                System.out.println("Not found: Product " + removeProduct.getId());
+            }
+        }
+    }
 }

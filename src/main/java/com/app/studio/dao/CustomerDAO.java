@@ -50,4 +50,12 @@ public interface CustomerDAO {
      * @return
      */
     public Customer remove(int id);
+
+    /**
+     * Get Customer by user name
+     *
+     * @param userName
+     * @return
+     */
+    public Customer getByUserName(String userName);
 }

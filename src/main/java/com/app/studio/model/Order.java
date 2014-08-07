@@ -2,6 +2,7 @@ package com.app.studio.model;
 
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -29,11 +30,16 @@ public class Order {
     private double totalPrice;
     @ManyToOne(fetch = FetchType.EAGER)
     private Customer customer;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "order")
     private Set<OrderItem> setOfOrderItems;
 
     public Order() {
         this.setOfOrderItems = new HashSet<OrderItem>();
+    }
+
+    public Order(Customer customer) {
+        this();
+        this.customer = customer;
     }
 
     public void addOrderItem(OrderItem orderItem) {

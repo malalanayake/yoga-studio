@@ -1,5 +1,6 @@
 package com.app.studio.model;
 
+import com.app.studio.security.Roles;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -10,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -21,8 +24,19 @@ import javax.persistence.Table;
  *
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "findByCustomerUserName", query = "select u from Customer u where u.user.username=:userName")})
 @Table(name = "CUSTOMER")
 public class Customer {
+
+    /**
+     * Interface which is provide the name queries and parameters
+     */
+    public static interface Constants {
+
+        public static final String NAME_QUERY_FIND_BY_USER_NAME = "findByCustomerUserName";
+        public static final String PARAM_USER_NAME = "userName";
+    }
 
     @Id
     @Column(name = "id")
@@ -34,43 +48,36 @@ public class Customer {
     private Faculty advisor;
     @OneToOne(fetch = FetchType.EAGER)
     private User user;
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "customer")
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "customer")
     private Set<WaiverRequest> setOfWaiverRequests;
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "customer")
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "customer")
     private Set<EnrolledSection> setOfEnrolledSections;
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "customer")
-    private Set<WaitingRequest> setOfWaitingRequests;
-    @OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private ShoppingCart shoppingCart;
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "customer")
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "customer")
     private Set<Order> setOfOrders;
 
-    public Customer(User user) {
-        this.user = user;
+    public Customer() {
         this.setOfEnrolledSections = new HashSet<EnrolledSection>();
         this.setOfWaiverRequests = new HashSet<WaiverRequest>();
-        this.setOfWaitingRequests = new HashSet<WaitingRequest>();
         this.setOfOrders = new HashSet<Order>();
+    }
+
+    public Customer(User user) {
+        this();
+        this.setUser(user);
     }
 
     public User getUser() {
         return user;
     }
-
     public ShoppingCart getShoppingCart() {
+
         return shoppingCart;
     }
 
     public void setShoppingCart(ShoppingCart shoppingCart) {
         this.shoppingCart = shoppingCart;
-    }
-
-    public void addWaitingRequest(WaitingRequest waitingRequest) {
-        this.setOfWaitingRequests.add(waitingRequest);
-    }
-
-    public Set<WaitingRequest> getSetOfWaitingRequests() {
-        return setOfWaitingRequests;
     }
 
     public Set<Order> getSetOfOrders() {
@@ -91,6 +98,7 @@ public class Customer {
 
     public void setUser(User user) {
         this.user = user;
+        this.user.addRole(Roles.ROLE_CUSTOMER);
     }
 
     public Set<WaiverRequest> getSetOfWaiverRequests() {

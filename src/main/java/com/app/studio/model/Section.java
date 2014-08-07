@@ -35,22 +35,18 @@ public class Section {
     private Semester semester;
     @ManyToOne(fetch = FetchType.EAGER)
     private YogaClass yogaClass;
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "section")
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "section")
     private Set<EnrolledSection> setOfEnrolledSections;
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "section")
-    private Set<WaitingRequest> setOfWaitingRequests;
 
     public Section() {
         this.setOfEnrolledSections = new HashSet<EnrolledSection>();
-        this.setOfWaitingRequests = new HashSet<WaitingRequest>();
     }
 
-    public void addToWaitingList(WaitingRequest waitingRequest) {
-        this.setOfWaitingRequests.add(waitingRequest);
-    }
-
-    public Set<WaitingRequest> getSetOfWaitingRequests() {
-        return setOfWaitingRequests;
+    public Section(Semester semester, YogaClass yogaClass, Faculty faculty) {
+        this();
+        this.setSemester(semester);
+        this.setYogaClass(yogaClass);
+        this.setFaculty(faculty);        
     }
 
     public void addEnrolledSection(EnrolledSection enrolledSection) {

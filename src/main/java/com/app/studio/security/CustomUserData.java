@@ -8,73 +8,83 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * This class is provide the user details which is needed for authentication
- * 
+ *
  * @author malalanayake
- * 
+ *
  */
 public class CustomUserData implements UserDetails {
-	Collection<? extends GrantedAuthority> list = null;
-	String userName = null;
-	String password = null;
-	boolean status = false;
 
-	public CustomUserData() {
-		list = new ArrayList<GrantedAuthority>();
-	}
+    Collection<? extends GrantedAuthority> list = null;
+    String id = null;
+    String userName = null;
+    String password = null;
+    boolean status = false;
 
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return this.list;
-	}
+    public CustomUserData() {
+        list = new ArrayList<GrantedAuthority>();
+    }
 
-	public void setAuthorities(Collection<? extends GrantedAuthority> roles) {
-		this.list = roles;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public String getUserName() {
-		return userName;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.list;
+    }
 
-	public void setAuthentication(boolean status) {
-		this.status = status;
-	}
+    public void setAuthorities(Collection<? extends GrantedAuthority> roles) {
+        this.list = roles;
+    }
 
-	@Override
-	public String getPassword() {
-		return this.password;
-	}
+    public String getUserName() {
+        return userName;
+    }
 
-	public void setPassword(String pass) {
-		this.password = pass;
-	}
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
-	@Override
-	public String getUsername() {
-		return this.userName;
-	}
+    public void setAuthentication(boolean status) {
+        this.status = status;
+    }
 
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
+    @Override
+    public String getPassword() {
+        return this.password;
+    }
 
-	@Override
-	public boolean isAccountNonLocked() {
-		return true;
-	}
+    public void setPassword(String pass) {
+        this.password = pass;
+    }
 
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
+    @Override
+    public String getUsername() {
+        return this.userName;
+    }
 
-	@Override
-	public boolean isEnabled() {
-		return true;
-	}
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 
 }

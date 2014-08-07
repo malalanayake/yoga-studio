@@ -61,7 +61,7 @@ public class YogaClassDAOImpl implements YogaClassDAO {
     @Override
     public YogaClass getById(int id) {
         Session session = this.sessionFactory.getCurrentSession();
-        YogaClass yogaclass = (YogaClass) session.load(YogaClass.class, new Integer(id));
+        YogaClass yogaclass = (YogaClass) session.get(YogaClass.class, new Integer(id));
         if (logger.isDebugEnabled()) {
             logger.debug("Yoga Class loaded successfully, Yoga Class details=" + yogaclass);
         }
@@ -81,5 +81,14 @@ public class YogaClassDAOImpl implements YogaClassDAO {
         }
         return yogaclass;
 
+    }
+
+    @Override
+    public List<YogaClass> getByName(String name) {
+      Session session = this.sessionFactory.getCurrentSession();
+        List<YogaClass> userList = session.getNamedQuery(YogaClass.Constants.NAME_QUERY_FIND_BY_NAME)
+                .setParameter(YogaClass.Constants.PARAM_NAME, name).list();
+      
+        return userList;
     }
 }

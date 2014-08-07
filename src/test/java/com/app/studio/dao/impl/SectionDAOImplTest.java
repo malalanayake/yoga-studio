@@ -1,11 +1,19 @@
 package com.app.studio.dao.impl;
 
+import com.app.studio.dao.FacultyDAO;
 import com.app.studio.dao.SectionDAO;
+import com.app.studio.dao.SemesterDAO;
+import com.app.studio.dao.UserDAO;
+import com.app.studio.dao.YogaClassDAO;
+import com.app.studio.model.Faculty;
 import com.app.studio.model.Section;
+import com.app.studio.model.Semester;
+import com.app.studio.model.User;
+import com.app.studio.model.YogaClass;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -24,13 +32,41 @@ public class SectionDAOImplTest {
     @Autowired
     private SectionDAO sectionDAO;
 
+    @Autowired
+    private SemesterDAO semesterDAO;
+
+    @Autowired
+    private YogaClassDAO yogaClassDAO;
+
+    @Autowired
+    private FacultyDAO facultyDAO;
+
+    @Autowired
+    private UserDAO userDAO;
+
     /**
      * Test of create method, of class SectionDAOImpl.
      */
     @Test
     public void testCreate() {
         System.out.println("Create Section");
-        Section s = new Section();
+
+        Semester sem = new Semester();
+        sem.setSignUpDate("2014-03-03");
+        sem = semesterDAO.create(sem);
+
+        YogaClass Yogaclass = new YogaClass();
+        Yogaclass.setName("Yoga Principles");
+        Yogaclass.setPrice(10);
+
+        User expectUser = new User("yogamaster", "yogamaster", "Yoga", "Master",
+                "What is your favorit car?", "Benz");
+        expectUser = userDAO.create(expectUser);
+
+        Faculty expectFaculty = new Faculty(expectUser);
+        expectFaculty = facultyDAO.create(expectFaculty);
+
+        Section s = new Section(sem, Yogaclass, expectFaculty);
         s.setLocation("Room1");
         s.setSchedule("M 1700-1800");
         s.setMaxStudents(20);
@@ -45,7 +81,23 @@ public class SectionDAOImplTest {
     @Test
     public void testUpdate() {
         System.out.println("Update Section");
-        Section s = new Section();
+
+        Semester sem = new Semester();
+        sem.setSignUpDate("2014-03-03");
+        sem = semesterDAO.create(sem);
+
+        YogaClass Yogaclass = new YogaClass();
+        Yogaclass.setName("Yoga Principles");
+        Yogaclass.setPrice(10);
+
+        User expectUser = new User("yogamaster", "yogamaster", "Yoga", "Master",
+                "What is your favorit car?", "Benz");
+        expectUser = userDAO.create(expectUser);
+
+        Faculty expectFaculty = new Faculty(expectUser);
+        expectFaculty = facultyDAO.create(expectFaculty);
+
+        Section s = new Section(sem, Yogaclass, expectFaculty);
         s.setLocation("Room1");
         s.setSchedule("M 1700-1800");
         s.setMaxStudents(20);
@@ -68,19 +120,35 @@ public class SectionDAOImplTest {
 
         List<Section> expResult = new ArrayList<Section>();
 
-        Section s1 = new Section();
+        Semester sem = new Semester();
+        sem.setSignUpDate("2014-03-03");
+        sem = semesterDAO.create(sem);
+
+        YogaClass yogaclass = new YogaClass();
+        yogaclass.setName("Yoga Principles");
+        yogaclass.setPrice(10);
+        yogaclass = yogaClassDAO.create(yogaclass);
+
+        User expectUser = new User("yogamaster", "yogamaster", "Yoga", "Master",
+                "What is your favorit car?", "Benz");
+        expectUser = userDAO.create(expectUser);
+
+        Faculty expectFaculty = new Faculty(expectUser);
+        expectFaculty = facultyDAO.create(expectFaculty);
+
+        Section s1 = new Section(sem, yogaclass, expectFaculty);
         s1.setLocation("Room1");
         s1.setSchedule("M 1700-1800");
         s1.setMaxStudents(20);
         expResult.add(sectionDAO.create(s1));
 
-        Section s2 = new Section();
+        Section s2 = new Section(sem, yogaclass, expectFaculty);
         s2.setLocation("Room2");
         s2.setSchedule("T 1700-1800");
         s2.setMaxStudents(20);
         expResult.add(sectionDAO.create(s2));
 
-        Section s3 = new Section();
+        Section s3 = new Section(sem, yogaclass, expectFaculty);
         s3.setLocation("Room3");
         s3.setSchedule("W 1700-1800");
         s3.setMaxStudents(20);
@@ -96,7 +164,23 @@ public class SectionDAOImplTest {
     @Test
     public void testGetById() {
         System.out.println("Section getById");
-        Section s = sectionDAO.create(new Section());
+
+        Semester sem = new Semester();
+        sem.setSignUpDate("2014-03-03");
+        sem = semesterDAO.create(sem);
+
+        YogaClass Yogaclass = new YogaClass();
+        Yogaclass.setName("Yoga Principles");
+        Yogaclass.setPrice(10);
+
+        User expectUser = new User("yogamaster", "yogamaster", "Yoga", "Master",
+                "What is your favorit car?", "Benz");
+        expectUser = userDAO.create(expectUser);
+
+        Faculty expectFaculty = new Faculty(expectUser);
+        expectFaculty = facultyDAO.create(expectFaculty);
+
+        Section s = sectionDAO.create(new Section(sem, Yogaclass, expectFaculty));
         assertNotNull(s.getId());
 
         int id = s.getId();
@@ -110,7 +194,23 @@ public class SectionDAOImplTest {
     @Test
     public void testRemove() {
         System.out.println("Remove Section");
-        Section s = sectionDAO.create(new Section());
+
+        Semester sem = new Semester();
+        sem.setSignUpDate("2014-03-03");
+        sem = semesterDAO.create(sem);
+
+        YogaClass Yogaclass = new YogaClass();
+        Yogaclass.setName("Yoga Principles");
+        Yogaclass.setPrice(10);
+
+        User expectUser = new User("yogamaster", "yogamaster", "Yoga", "Master",
+                "What is your favorit car?", "Benz");
+        expectUser = userDAO.create(expectUser);
+
+        Faculty expectFaculty = new Faculty(expectUser);
+        expectFaculty = facultyDAO.create(expectFaculty);
+
+        Section s = sectionDAO.create(new Section(sem, Yogaclass, expectFaculty));
         assertNotNull(s.getId());
 
         int id = s.getId();

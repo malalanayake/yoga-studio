@@ -64,7 +64,7 @@ public class CustomerDAOImpl implements CustomerDAO {
     @Override
     public Customer getById(int id) {
         Session session = this.sessionFactory.getCurrentSession();
-        Customer c = (Customer) session.load(Customer.class, new Integer(id));
+        Customer c = (Customer) session.get(Customer.class, new Integer(id));
         if (logger.isDebugEnabled()) {
             logger.debug("Customer loaded successfully, Customer details=" + c);
         }
@@ -82,6 +82,18 @@ public class CustomerDAOImpl implements CustomerDAO {
             logger.debug("Customer deleted successfully, Customer details=" + c);
         }
         return c;
+    }
+
+    @Override
+    public Customer getByUserName(String userName) {
+        Session session = this.sessionFactory.getCurrentSession();
+        List<Customer> customerList = session.getNamedQuery(Customer.Constants.NAME_QUERY_FIND_BY_USER_NAME)
+                .setParameter(Customer.Constants.PARAM_USER_NAME, userName).list();
+        Customer customer = null;
+        if (!customerList.isEmpty()) {
+            customer = customerList.get(0);
+        }
+        return customer;
     }
 
 }

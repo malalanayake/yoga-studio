@@ -1,12 +1,14 @@
 package com.app.studio.controller;
 
+import com.app.studio.exception.RecordAlreadyExistException;
+import com.app.studio.exception.RequiredDataNotPresent;
 import com.app.studio.model.Customer;
 import com.app.studio.model.User;
-import com.app.studio.security.Roles;
 import com.app.studio.service.CustomerService;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,60 +17,66 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * Mediate the customer operations
- * 
+ *
  * @author malalanayake
- * 
  */
 @Controller
 public class CustomerController {
 
-	private CustomerService customerService;
+    private CustomerService customerService;
 
-	@Autowired(required = true)
-	@Qualifier(value = "customerService")
-	public void setPersonService(CustomerService cs) {
-		this.customerService = cs;
-	}
+    @Autowired(required = true)
+    @Qualifier(value = "customerService")
+    public void setCustomerService(CustomerService cs) {
+        this.customerService = cs;
+    }
 
-	@RequestMapping(value = "/customers", method = RequestMethod.GET)
-	public String listCustomers(Model model) {
-		//model.addAttribute("customer", new Customer(new User("")));
-		model.addAttribute("listCustomers", this.customerService.listCustomers());
-		return "customer";
-	}
+    @RequestMapping(value = "/view-customers", method = RequestMethod.GET)
+    public String listCustomers(Model model) {
+        //model.addAttribute("customer", new Customer(new User("")));
+        model.addAttribute("listCustomers", this.customerService.listCustomers());
+        return "view_customer";
+    }
 
-	/**
-	 * For add and update customer both
-	 * 
-	 * @param c
-	 * @return
-	 */
-	@RequestMapping(value = "/customer/add", method = RequestMethod.POST)
-	public String addCustomer(@ModelAttribute("customer") Customer c) {
+    @RequestMapping("/view-customers/remove/{id}")
+    public String removeCustomer(@PathVariable("id") int id) {
 
-		if (c.getId() == 0) {
-			this.customerService.addCustomer(c);
-		} else {
-			this.customerService.updateCustomer(c);
-		}
+        this.customerService.removeCustomer(id);
+        return "redirect:/view-customers";
+    }
 
-		return "redirect:/customers";
+    @RequestMapping("/signup")
+    public String getSignUp(Model model) {
+        model.addAttribute("user", new User());
+        return "signup";
+    }
 
-	}
+    @RequestMapping("/signup/add")
+    public String addCustomer(@ModelAttribute("user") User u, Model model) {
+        Customer customer = new Customer(u);
+        try {
+            customerService.addCustomer(customer);
+            model.addAttribute("msg", "Account succesfully created");
 
-	@RequestMapping("/customer/remove/{id}")
-	public String removeCustomer(@PathVariable("id") int id) {
+        } catch (RequiredDataNotPresent ex) {
+            model.addAttribute("error", ex.getMessage());
+        } catch (RecordAlreadyExistException ex) {
+            model.addAttribute("error", ex.getMessage());
+        }
+        return "signup";
+    }
 
-		this.customerService.removeCustomer(id);
-		return "redirect:/customers";
-	}
-
-	@RequestMapping("/customer/edit/{id}")
-	public String editCustomer(@PathVariable("id") int id, Model model) {
-		model.addAttribute("customer", this.customerService.getCustomerById(id));
-		model.addAttribute("listCustomers", this.customerService.listCustomers());
-		return "customer";
-	}
+    // DEVELOPMENT
+    /* private void getYogaClasses(String username, Model model) {
+     try {
+     model.addAttribute("listWaivers", this.YogaClassService.getFacultyByUsername(username).getSetOfWaiverRequests());
+     } catch (RequiredDataNotPresent ex) {
+     model.addAttribute("error", ex.getMessage());
+     }
+     }*/
+    @RequestMapping(value = "/request-waive-prerequisites", method = RequestMethod.GET)
+    public String addWaiverRequest(Model model) {
+        return "waiverrequest";
+    }
 
 }

@@ -7,12 +7,14 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 /**
  * DAO class for administrator data access
  *
  * @author Yen
  */
+@Repository
 public class AdministratorDAOImpl implements AdministratorDAO {
 
     private static final Logger logger = LoggerFactory.getLogger(AdministratorDAOImpl.class);
@@ -59,7 +61,7 @@ public class AdministratorDAOImpl implements AdministratorDAO {
     @Override
     public Administrator getById(int id) {
         Session session = this.sessionFactory.getCurrentSession();
-        Administrator a = (Administrator) session.load(Administrator.class, Integer.valueOf(id));
+        Administrator a = (Administrator) session.get(Administrator.class, Integer.valueOf(id));
         if (logger.isDebugEnabled()) {
             logger.debug("Administrator loaded successfully, Administrator Details=" + a);
         }
@@ -77,6 +79,18 @@ public class AdministratorDAOImpl implements AdministratorDAO {
             logger.debug("Administrator deleted successfully, Administrator Details=" + a);
         }
         return a;
+    }
+
+    @Override
+    public Administrator getByUserName(String userName) {
+        Session session = this.sessionFactory.getCurrentSession();
+        List<Administrator> adminList = session.getNamedQuery(Administrator.Constants.NAME_QUERY_FIND_BY_USER_NAME)
+                .setParameter(Administrator.Constants.PARAM_USER_NAME, userName).list();
+        Administrator admin = null;
+        if (!adminList.isEmpty()) {
+            admin = adminList.get(0);
+        }
+        return admin;
     }
 
 }

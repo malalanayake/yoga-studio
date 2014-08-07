@@ -1,35 +1,97 @@
 <beans:beans xmlns="http://www.springframework.org/schema/security"
-	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
+             xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:tx="http://www.springframework.org/schema/tx" xsi:schemaLocation="http://www.springframework.org/schema/beans 
 	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 	http://www.springframework.org/schema/security
-	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+	http://www.springframework.org/schema/security/spring-security-3.2.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
-	<http auto-config="true" authentication-manager-ref="authenticationManagerForRest">
-		<access-denied-handler error-page="/access-denied" />
-		<intercept-url pattern="/customers**" access="ROLE_ADMIN" />
-		<intercept-url pattern="/customer/**" access="ROLE_ADMIN" />
-		<form-login login-page="/login" default-target-url="/welcome"
-			authentication-failure-url="/login?error" username-parameter="username"
-			password-parameter="password" />
-		<logout logout-success-url="/login?logout" />
-		<!-- enable csrf protection -->
-		<csrf />
-		<headers>
-			<cache-control />
-		</headers>
-	</http>
+    <http auto-config="true" authentication-manager-ref="authenticationManagerForRest">
+        <access-denied-handler error-page="/access-denied" />
+        <intercept-url pattern="/customers**" access="ROLE_ADMIN" />
+        <intercept-url pattern="/faculties/**" access="ROLE_ADMIN" />
+        <intercept-url pattern="/semesters/**" access="ROLE_ADMIN" />
+        <intercept-url pattern="/products/**" access="ROLE_ADMIN" />
+        <intercept-url pattern="/waivers/**" access="ROLE_FACULTY" />
+        <intercept-url pattern="/advisees/**" access="ROLE_FACULTY" />
+        <intercept-url pattern="/assignedsections/**" access="ROLE_FACULTY" />
+        <form-login login-page="/login" default-target-url="/main"
+                    authentication-failure-url="/login?error" username-parameter="username"
+                    password-parameter="password" />
+        <logout logout-success-url="/login?logout" />
+        <!-- enable csrf protection -->
+        <csrf />
+        <headers>
+            <cache-control />
+        </headers>
+    </http>
+    
+    <beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+                destroy-method="close">
+        <beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <beans:property name="url"
+                        value="jdbc:mysql://localhost:3306/StagingDB" />
+        <beans:property name="username" value="root" />
+        <beans:property name="password" value="root123" />
+    </beans:bean>
 
-	<!-- Custom User details service which is provide the user data -->
-	<beans:bean id="customUserDetailsService"
-		class="com.app.studio.service.impl.CustomUserDetailsServiceImpl" />
+    <!-- Hibernate 4 SessionFactory Bean definition -->
+    <beans:bean id="hibernate4AnnotatedSessionFactory"
+                class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <beans:property name="dataSource" ref="dataSource" />
+        <beans:property name="annotatedClasses">
+            <beans:list>
+                <beans:value>com.app.studio.model.Customer</beans:value>
+                <beans:value>com.app.studio.model.Administrator</beans:value>
+                <beans:value>com.app.studio.model.Faculty</beans:value>
+                <beans:value>com.app.studio.model.WaiverRequest</beans:value>
+                <beans:value>com.app.studio.model.User</beans:value>
+                <beans:value>com.app.studio.model.Semester</beans:value>
+                <beans:value>com.app.studio.model.Product</beans:value>
+                <beans:value>com.app.studio.model.Section</beans:value>
+                <beans:value>com.app.studio.model.EnrolledSection</beans:value>
+                <beans:value>com.app.studio.model.ShoppingCart</beans:value>
+                <beans:value>com.app.studio.model.Order</beans:value>
+                <beans:value>com.app.studio.model.YogaClass</beans:value>
+                <beans:value>com.app.studio.model.OrderItem</beans:value>
+            </beans:list>
+        </beans:property>
+        <beans:property name="hibernateProperties">
+            <beans:props>
+                <beans:prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect
+                </beans:prop>
+                <beans:prop key="hibernate.show_sql">true</beans:prop>
+                <beans:prop key="hibernate.hbm2ddl.auto">update</beans:prop>
+            </beans:props>
+        </beans:property>
+    </beans:bean>
+	
+    <!-- Inject the transaction manager  -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <beans:bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+    </beans:bean>
+    
+    <beans:bean id="userDAO" class="com.app.studio.dao.impl.UserDAOImpl">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+    </beans:bean>
+    
+    <beans:bean id="userService" class="com.app.studio.service.impl.UserServiceImpl">
+        <beans:property name="userDAO" ref="userDAO"></beans:property>
+    </beans:bean>
 
-	<!-- Authentication manager -->
-	<authentication-manager alias="authenticationManagerForRest">
-		<authentication-provider user-service-ref="customUserDetailsService" />
-	</authentication-manager>
+    <!-- Custom User details service which is provide the user data -->
+    <beans:bean id="customUserDetailsService"
+                class="com.app.studio.service.impl.CustomUserDetailsServiceImpl">
+        <beans:property name="userService" ref="userService"></beans:property>
+    </beans:bean>
 
-	<!-- Enable the annotations for defining the secure role -->
-	<global-method-security secured-annotations="enabled" />
+    <!-- Authentication manager -->
+    <authentication-manager alias="authenticationManagerForRest">
+        <authentication-provider user-service-ref="customUserDetailsService" />
+    </authentication-manager>
+
+    <!-- Enable the annotations for defining the secure role -->
+    <global-method-security secured-annotations="enabled" />
 
 </beans:beans>

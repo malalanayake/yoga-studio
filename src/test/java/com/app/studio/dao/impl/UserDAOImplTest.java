@@ -2,13 +2,7 @@ package com.app.studio.dao.impl;
 
 import com.app.studio.dao.UserDAO;
 import com.app.studio.model.User;
-import java.util.List;
-import org.hibernate.SessionFactory;
-import org.junit.After;
-import org.junit.AfterClass;
 import static org.junit.Assert.*;
-import org.junit.Before;
-import org.junit.BeforeClass;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -109,5 +103,28 @@ public class UserDAOImplTest {
         User expResult = userDAO.create(user);
         assertNotNull(expResult.getId());
         userDAO.remove(expResult.getId());
+    }
+
+    /**
+     * Test of getByUserName method, of class UserDAOImpl.
+     */
+    @Test
+    public void testGetByUserName() {
+        System.out.println("GetByUserName");
+        User user = new User("dinuka", "dinuka", "Dinuka", "Malalanayake", "What is your favorit car?", "Benz");
+        user.addRole("FACULTY");
+        User expResult = null;
+        expResult = userDAO.create(user);
+        assertNotNull(expResult.getId());
+        assertEquals(expResult.getUsername(), "dinuka");
+        assertEquals(expResult.getPassword(), "dinuka");
+        assertEquals(expResult.getFirstName(), "Dinuka");
+        assertEquals(expResult.getLastName(), "Malalanayake");
+        assertEquals(expResult.getSequrityQuestion(), "What is your favorit car?");
+        assertEquals(expResult.getAnswer(), "Benz");
+        assertEquals(expResult.getRoles().size(), 1);
+
+        User exp = userDAO.getByUserName("dinuka");
+        assertEquals(expResult, exp);
     }
 }

@@ -64,7 +64,7 @@ public class SemesterDAOImpl implements SemesterDAO{
     @Override
     public Semester getById(int id) {
        Session session = this.sessionFactory.getCurrentSession();
-        Semester semester = (Semester) session.load(Semester.class, new Integer(id));
+        Semester semester = (Semester) session.get(Semester.class, new Integer(id));
         if (logger.isDebugEnabled()) {
             logger.debug("Semester loaded successfully, Semester details=" + semester);
         }

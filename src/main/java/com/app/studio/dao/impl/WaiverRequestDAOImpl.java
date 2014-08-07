@@ -61,7 +61,7 @@ public class WaiverRequestDAOImpl implements WaiverRequestDAO {
     @Override
     public WaiverRequest getById(int id) {
         Session session = this.sessionFactory.getCurrentSession();
-        WaiverRequest waiverRequest = (WaiverRequest) session.load(WaiverRequest.class, new Integer(id));
+        WaiverRequest waiverRequest = (WaiverRequest) session.get(WaiverRequest.class, new Integer(id));
         if (logger.isDebugEnabled()) {
             logger.debug("WaiverRequest loaded successfully, WaiverRequest details=" + waiverRequest);
         }

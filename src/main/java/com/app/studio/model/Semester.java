@@ -28,7 +28,7 @@ public class Semester {
     private String startdate;
     private String enddate;
     private String signUpDate;
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "semester")
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "semester")
     private Set<Section> setOfSections;
 
     public Semester() {

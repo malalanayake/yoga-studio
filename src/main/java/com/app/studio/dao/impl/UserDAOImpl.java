@@ -60,7 +60,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public User getById(int id) {
         Session session = this.sessionFactory.getCurrentSession();
-        User user = (User) session.load(User.class, new Integer(id));
+        User user = (User) session.get(User.class, new Integer(id));
         if (logger.isDebugEnabled()) {
             logger.debug("User loaded successfully, User details=" + user);
         }
@@ -76,6 +76,18 @@ public class UserDAOImpl implements UserDAO {
         }
         if (logger.isDebugEnabled()) {
             logger.debug("User deleted successfully, User details=" + user);
+        }
+        return user;
+    }
+
+    @Override
+    public User getByUserName(String userName) {
+        Session session = this.sessionFactory.getCurrentSession();
+        List<User> userList = session.getNamedQuery(User.Constants.NAME_QUERY_FIND_BY_USER_NAME)
+                .setParameter(User.Constants.PARAM_USER_NAME, userName).list();
+        User user = null;
+        if (!userList.isEmpty()) {
+            user = userList.get(0);
         }
         return user;
     }

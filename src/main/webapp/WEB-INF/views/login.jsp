@@ -1,76 +1,68 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix='sec' uri='http://www.springframework.org/security/tags' %>
+<%@ page session="true"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
-<head>
-<title>Login Page</title>
-<style>
-.error {
-	padding: 15px;
-	margin-bottom: 20px;
-	border: 1px solid transparent;
-	border-radius: 4px;
-	color: #a94442;
-	background-color: #f2dede;
-	border-color: #ebccd1;
-}
+    <head>
+        <c:url var="cssUrl" value='/css/style.css'></c:url>
+        <link rel="stylesheet" type="text/css" href=${cssUrl}>
 
-.msg {
-	padding: 15px;
-	margin-bottom: 20px;
-	border: 1px solid transparent;
-	border-radius: 4px;
-	color: #31708f;
-	background-color: #d9edf7;
-	border-color: #bce8f1;
-}
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Yoga Studio</title>
 
-#login-box {
-	width: 300px;
-	padding: 20px;
-	margin: 100px auto;
-	background: #fff;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	border: 1px solid #000;
-}
-</style>
-</head>
-<body onload='document.loginForm.username.focus();'>
+        <sec:authorize ifNotGranted="ROLE_ANONYMOUS">
+            <c:redirect url="/main"/>
+        </sec:authorize>
+    </head>
+    <body>
+        <div id="container">
+            <%@include file="template/header.jsp"%>
+            <div id="content-container">
 
-	<h1>Welcome to Yoga Studio</h1>
+                <body onload='document.loginForm.username.focus();'>
+                    <div id="login-box">
 
-	<div id="login-box">
+                        <h3>Login with Username and Password</h3>
 
-		<h3>Login with Username and Password</h3>
+                        <c:if test="${not empty error}">
+                            <div class="error">${error}</div>
+                        </c:if>
+                        <c:if test="${not empty msg}">
+                            <div class="msg">${msg}</div>
+                        </c:if>
 
-		<c:if test="${not empty error}">
-			<div class="error">${error}</div>
-		</c:if>
-		<c:if test="${not empty msg}">
-			<div class="msg">${msg}</div>
-		</c:if>
+                        <form name='loginForm'
+                              action="<c:url value='j_spring_security_check' />" method='POST'>
 
-		<form name='loginForm'
-			action="<c:url value='j_spring_security_check' />" method='POST'>
+                            <table>
+                                <tr>
+                                    <td>User:</td>
+                                    <td><input type='text' name='username' value=''></td>
+                                </tr>
+                                <tr>
+                                    <td>Password:</td>
+                                    <td><input type='password' name='password' /></td>
+                                </tr>
+                                <tr>
+                                    <td><input name="submit" type="submit"
+                                               value="submit" /></td>
+                                    <td><a href="<c:url value='/signup' />">SignUp</a></td>
+                                </tr>
+                            </table>
 
-			<table>
-				<tr>
-					<td>User:</td>
-					<td><input type='text' name='username' value=''></td>
-				</tr>
-				<tr>
-					<td>Password:</td>
-					<td><input type='password' name='password' /></td>
-				</tr>
-				<tr>
-					<td colspan='2'><input name="submit" type="submit"
-						value="submit" /></td>
-				</tr>
-			</table>
+                            <input type="hidden" name="${_csrf.parameterName}"
+                                   value="${_csrf.token}" />
+                        </form>
+                    </div>
 
-			<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" />
-		</form>
-	</div>
+                </body>
 
-</body>
+                <%@include file="template/footer.jsp"%>
+            </div>
+        </div>
+    </body>
 </html>

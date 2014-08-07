@@ -9,6 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -18,8 +20,19 @@ import javax.persistence.Table;
  * @author jCalles
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "findByYogaClassName", query = "select u from YogaClass u where u.name like:yogaClassName")})
 @Table(name = "YOGA_CLASS")
 public class YogaClass {
+
+    /**
+     * Interface which is provide the name queries and parameters
+     */
+    public static interface Constants {
+
+        public static final String NAME_QUERY_FIND_BY_NAME = "findByYogaClassName";
+        public static final String PARAM_NAME = "yogaClassName";
+    }
 
     @Id
     @Column(name = "id")
@@ -27,10 +40,9 @@ public class YogaClass {
     private int id;
     private String name;
     private double price;
-    private String location;
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "yogaClass")
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "yogaClass")
     private Set<Section> setOfSections;
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<YogaClass> setOfPrerequisites;
 
     public YogaClass() {
@@ -78,26 +90,12 @@ public class YogaClass {
         this.price = price;
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    @Override
-    public String toString() {
-        return "YogaClass{" + "id=" + id + ", name=" + name + ", price=" + price + ", location=" + location + '}';
-    }
-
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 97 * hash + this.id;
-        hash = 97 * hash + (this.name != null ? this.name.hashCode() : 0);
-        hash = 97 * hash + (int) (Double.doubleToLongBits(this.price) ^ (Double.doubleToLongBits(this.price) >>> 32));
-        hash = 97 * hash + (this.location != null ? this.location.hashCode() : 0);
+        hash = 53 * hash + this.id;
+        hash = 53 * hash + (this.name != null ? this.name.hashCode() : 0);
+        hash = 53 * hash + (int) (Double.doubleToLongBits(this.price) ^ (Double.doubleToLongBits(this.price) >>> 32));
         return hash;
     }
 
@@ -119,10 +117,12 @@ public class YogaClass {
         if (Double.doubleToLongBits(this.price) != Double.doubleToLongBits(other.price)) {
             return false;
         }
-        if ((this.location == null) ? (other.location != null) : !this.location.equals(other.location)) {
-            return false;
-        }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "YogaClass{" + "id=" + id + ", name=" + name + ", price=" + price + '}';
     }
 
 }

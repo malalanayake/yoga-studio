@@ -2,15 +2,18 @@ package com.app.studio.dao.impl;
 
 import com.app.studio.dao.ProductDAO;
 import com.app.studio.model.Product;
+import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author aTabibi
  */
+@Repository
 public class ProductDAOImpl implements ProductDAO {
 
     private static final Logger logger = LoggerFactory.getLogger(ProductDAOImpl.class);
@@ -42,9 +45,22 @@ public class ProductDAOImpl implements ProductDAO {
     }
 
     @Override
+    public List<Product> list() {
+        Session session = this.sessionFactory.getCurrentSession();
+        List<Product> productList = session.createQuery("from Product").list();
+        if (logger.isDebugEnabled()) {
+            for (Product product : productList) {
+                logger.debug("Product List::" + product);
+            }
+        }
+        return productList;
+
+    }
+
+    @Override
     public Product getById(int id) {
         Session session = this.sessionFactory.getCurrentSession();
-        Product p = (Product) session.load(Product.class, Integer.valueOf(id));
+        Product p = (Product) session.get(Product.class, new Integer(id));
         if (logger.isDebugEnabled()) {
             logger.debug("Product loaded successfully, Product Details=" + p);
         }
@@ -54,8 +70,8 @@ public class ProductDAOImpl implements ProductDAO {
     @Override
     public Product remove(int id) {
         Session session = this.sessionFactory.getCurrentSession();
-        Product p = (Product) session.load(Product.class, Integer.valueOf(id));
-        if (p != null) {
+        Product p = (Product) session.load(Product.class, new Integer(id));
+        if (null!=p) {
             session.delete(p);
         }
         if (logger.isDebugEnabled()) {

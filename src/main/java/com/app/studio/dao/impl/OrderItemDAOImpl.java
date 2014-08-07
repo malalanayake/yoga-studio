@@ -6,11 +6,13 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author ahmadreza
  */
+@Repository
 public class OrderItemDAOImpl implements OrderItemDAO {
 
     private static final Logger logger = LoggerFactory.getLogger(OrderItemDAOImpl.class);
@@ -44,7 +46,7 @@ public class OrderItemDAOImpl implements OrderItemDAO {
     @Override
     public OrderItem getById(int id) {
         Session session = this.sessionFactory.getCurrentSession();
-        OrderItem o = (OrderItem) session.load(OrderItem.class, Integer.valueOf(id));
+        OrderItem o = (OrderItem) session.get(OrderItem.class, Integer.valueOf(id));
         if (logger.isDebugEnabled()) {
             logger.debug("OrderItem loaded successfully, OrderItem Details=" + o);
         }

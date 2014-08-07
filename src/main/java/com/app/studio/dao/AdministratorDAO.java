@@ -49,4 +49,12 @@ public interface AdministratorDAO {
      */
     Administrator remove(int id);
 
+    /**
+     * Get the administrator by username
+     *
+     * @param userName
+     * @return
+     */
+    Administrator getByUserName(String userName);
+
 }

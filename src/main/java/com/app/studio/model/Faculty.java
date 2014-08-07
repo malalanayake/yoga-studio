@@ -10,6 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -20,8 +22,19 @@ import javax.persistence.Table;
  * @author malalanayake
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "findByFacultyUserName", query = "select u from Faculty u where u.user.username=:userName")})
 @Table(name = "FACULTY")
 public class Faculty {
+
+    /**
+     * Interface which is provide the name queries and parameters
+     */
+    public static interface Constants {
+
+        public static final String NAME_QUERY_FIND_BY_USER_NAME = "findByFacultyUserName";
+        public static final String PARAM_USER_NAME = "userName";
+    }
 
     @Id
     @Column(name = "id")
@@ -29,19 +42,23 @@ public class Faculty {
     private int id;
     @OneToOne(fetch = FetchType.EAGER)
     private User user;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "advisor")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "advisor")
     private Set<Customer> setOfCustomers;
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "faculty")
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "faculty")
     private Set<WaiverRequest> setOfWaiverRequests;
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "faculty")
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "faculty")
     private Set<Section> setOfSections;
 
-    public Faculty(User user) {
-        this.user = user;
+    public Faculty() {
         this.setOfCustomers = new HashSet<Customer>();
         this.setOfWaiverRequests = new HashSet<WaiverRequest>();
         this.setOfSections = new HashSet<Section>();
-        this.user.addRole(Roles.ROLE_FACULTY);
+    }
+
+    public Faculty(User user) {
+        this();
+        this.setUser(user);
+        
     }
 
     public User getUser() {
@@ -50,6 +67,7 @@ public class Faculty {
 
     public void setUser(User user) {
         this.user = user;
+        this.user.addRole(Roles.ROLE_FACULTY);
     }
 
     public Set<Customer> getSetOfCustomers() {
