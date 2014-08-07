@@ -83,5 +83,11 @@ public class CustomerServiceImpl implements CustomerService {
     public WaiverRequest addWaiverRequest() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public Customer getCustomerByUsername(String userName) {
+        return this.customerDAO.getByUserName(userName);
     
+}
+
 }

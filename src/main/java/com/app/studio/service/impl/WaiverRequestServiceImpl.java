@@ -1,5 +1,6 @@
 package com.app.studio.service.impl;
 
+import com.app.studio.dao.CustomerDAO;
 import com.app.studio.dao.WaiverRequestDAO;
 import com.app.studio.dao.YogaClassDAO;
 import com.app.studio.exception.RecordAlreadyExistException;
@@ -20,7 +21,16 @@ public class WaiverRequestServiceImpl implements WaiverRequestService {
 
     private WaiverRequestDAO waiverRequestDAO;
     private YogaClassDAO yogaClassDAO;
+    private CustomerDAO customerDAO;
 
+    public CustomerDAO getCustomerDAO() {
+        return customerDAO;
+    }
+
+    public void setCustomerDAO(CustomerDAO customerDAO) {
+        this.customerDAO = customerDAO;
+    }
+    
     public YogaClassDAO getYogaClassDAO() {
         return yogaClassDAO;
     }

@@ -49,7 +49,7 @@
                                     <td>${yogaClass.id}</td>
                                     <td>${yogaClass.name}</td>
                                     <td>${yogaClass.price}</td>
-                                    <td><a href="<c:url value='/add-waiver-request/${yogaClass.id}' />">Submit</a></td>
+                                    <td><a href="<c:url value='/add-waiver-request/${yogaClass.id}/${pageContext.request.userPrincipal.name}' />">Submit</a></td>
          
                                 </tr>
                             </c:forEach>

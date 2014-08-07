@@ -6,6 +6,7 @@ import com.app.studio.model.Customer;
 import com.app.studio.model.WaiverRequest;
 import com.app.studio.security.Roles;
 import java.util.List;
+import static javassist.CtMethod.ConstParameter.string;
 import org.springframework.security.access.annotation.Secured;
 
 /**
@@ -27,6 +28,8 @@ public interface CustomerService {
 	public void removeCustomer(int id);
         
         public WaiverRequest addWaiverRequest();
+        
+        public Customer getCustomerByUsername (String userName);
         
         
 
