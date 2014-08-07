@@ -89,7 +89,7 @@
                                     <td><form:label path="id">
                                             <spring:message text="ID" />
                                         </form:label></td>
-                                    <td><form:input path="id" readonly="true" size="8"
+                                    <td><form:input path="id" readonly="true"
                                                 disabled="true" /> <form:hidden path="id" /></td>
                                 </tr> 
                             </c:if>

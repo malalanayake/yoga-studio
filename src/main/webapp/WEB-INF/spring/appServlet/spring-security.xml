@@ -9,7 +9,7 @@
     <http auto-config="true" authentication-manager-ref="authenticationManagerForRest">
         <access-denied-handler error-page="/access-denied" />
         <intercept-url pattern="/customers**" access="ROLE_ADMIN" />
-        <intercept-url pattern="/customer/**" access="ROLE_ADMIN" />
+        <intercept-url pattern="/faculties/**" access="ROLE_ADMIN" />
         <intercept-url pattern="/semesters/**" access="ROLE_ADMIN" />
         <intercept-url pattern="/waivers/**" access="ROLE_FACULTY" />
         <intercept-url pattern="/advisees/**" access="ROLE_FACULTY" />

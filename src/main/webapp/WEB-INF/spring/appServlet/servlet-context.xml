@@ -135,6 +135,7 @@
     <beans:bean id="facultyService" class="com.app.studio.service.impl.FacultyServiceImpl">
         <beans:property name="facultyDAO" ref="facultyDAO"></beans:property>
         <beans:property name="waiverRequestDAO" ref="waiverRequestDAO"></beans:property>
+        <beans:property name="userDAO" ref="userDAO"></beans:property>
     </beans:bean>
     
     <beans:bean id="userService" class="com.app.studio.service.impl.UserServiceImpl">

@@ -1,13 +1,19 @@
 package com.app.studio.controller;
 
+import com.app.studio.exception.RecordAlreadyExistException;
 import com.app.studio.exception.RequiredDataNotPresent;
+import com.app.studio.model.Faculty;
+import com.app.studio.model.User;
 import com.app.studio.model.WaiverRequest;
 import com.app.studio.service.FacultyService;
 import java.security.Principal;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -98,5 +104,66 @@ public class FacultyController {
             model.addAttribute("error", ex.getMessage());
         }
         return "assignedsection";
+    }
+
+    @RequestMapping(value = "/faculties", method = RequestMethod.GET)
+    public String listFaculties(Model model) {
+        model.addAttribute("user", new User());
+        model.addAttribute("listFaculties", this.facultyService.listAllFaculties());
+        return "faculty";
+    }
+
+    @RequestMapping("/faculties/add")
+    public String addFaculties(@ModelAttribute("user") User u, Model model) {
+        try {
+            if (u.getId() == 0) {
+                facultyService.createNewFaculty(u);
+                model.addAttribute("msg", "Faculty " + u.getFirstName() + " succesfully created");
+                model.addAttribute("user", new User());
+            } else {
+                facultyService.updateFaculty(u);
+                model.addAttribute("msg", "Faculty " + u.getFirstName() + " succesfully updated");
+                model.addAttribute("user", new User());
+            }
+        } catch (RequiredDataNotPresent ex) {
+            model.addAttribute("error", ex.getMessage());
+            model.addAttribute("user", u);
+        } catch (RecordAlreadyExistException ex) {
+            model.addAttribute("error", ex.getMessage());
+            model.addAttribute("user", u);
+        }
+        model.addAttribute("listFaculties", this.facultyService.listAllFaculties());
+        return "faculty";
+    }
+
+    @RequestMapping(value = "/faculties/edit/{id}", method = RequestMethod.GET)
+    public String editFaculties(@PathVariable("id") int id, Model model) {
+        Faculty fac = null;
+        try {
+            fac = facultyService.getFacultyByID(id);
+            if (fac != null) {
+                model.addAttribute("user", fac.getUser());
+            }
+        } catch (RequiredDataNotPresent ex) {
+            model.addAttribute("error", ex.getMessage());
+        }
+
+        model.addAttribute("listFaculties", this.facultyService.listAllFaculties());
+        return "faculty";
+    }
+
+    @RequestMapping(value = "/faculties/remove/{id}", method = RequestMethod.GET)
+    public String removeSemesters(@PathVariable("id") int id, Model model) {
+        Faculty faculty = null;
+        try {
+            faculty = facultyService.getFacultyByID(id);
+            facultyService.deleteFaculty(faculty);
+            model.addAttribute("msg", "Faculty " + faculty.getUser().getFirstName() + " succesfully deleted");
+        } catch (RequiredDataNotPresent ex) {
+            model.addAttribute("error", ex.toString());
+        }
+        model.addAttribute("user", new User());
+        model.addAttribute("listFaculties", this.facultyService.listAllFaculties());
+        return "faculty";
     }
 }

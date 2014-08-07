@@ -28,11 +28,11 @@ public interface FacultyService {
     /**
      * Update Faculty
      *
-     * @param faculty
+     * @param user
      * @return
      * @throws RequiredDataNotPresent
      */
-    public Faculty updateFaculty(Faculty faculty) throws RequiredDataNotPresent;
+    public Faculty updateFaculty(User user) throws RequiredDataNotPresent;
 
     /**
      * Delete Faculty
@@ -49,7 +49,7 @@ public interface FacultyService {
      * @param faculty
      * @return
      */
-    public List<Faculty> listAllFaculties(Faculty faculty);
+    public List<Faculty> listAllFaculties();
 
     /**
      * Get faculty by faculty ID
