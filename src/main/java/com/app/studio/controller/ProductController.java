@@ -34,7 +34,13 @@ public class ProductController {
         model.addAttribute("listProducts", this.productService.listOfAllProducts());
         return "product";
     }
-
+    
+    @RequestMapping(value = "/view-products", method = RequestMethod.GET)
+    public String listProducts2(Model model) {
+        model.addAttribute("listProducts", this.productService.listOfAllProducts());
+        return "view-products";
+    }
+    
     @RequestMapping(value = "/products/edit/{id}")
     public String editProducts(@PathVariable("id") int id, Model model) {
         Product pro = new Product();
@@ -43,6 +49,7 @@ public class ProductController {
         model.addAttribute("listProducts", this.productService.listOfAllProducts());
         return "product";
     }
+    
 
     @RequestMapping(value = "/products/remove/{id}")
     public String removeProducts(@PathVariable("id") int id) {
