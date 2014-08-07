@@ -23,9 +23,9 @@
             <div id="content-container">
                 <%@include file="template/sidebar.jsp"%>
                 <div id="content">
-                    <h2>
-                        Content
-                    </h2>
+                    <h1>
+                        Welcome to Yoga Studio
+                    </h1>
 
                 </div>
                 <!--<%@include file="template/right-side.jsp"%>-->

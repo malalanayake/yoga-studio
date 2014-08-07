@@ -1,17 +1,37 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%-- 
+    Document   : main
+    Created on : Aug 4, 2014, 10:01:25 PM
+    Author     : malalanayake
+--%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ page session="false"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
-<head>
-<title>Access Denied</title>
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="-1">
-</head>
-<body>
-	<h1>${message}</h1>
-</body>
+    <head>
+        <title>Access Denied</title>
+        <meta http-equiv="Pragma" content="no-cache">
+        <meta http-equiv="Expires" content="-1">
+        <c:url var="cssUrl" value='/css/style.css'></c:url>
+        <link rel="stylesheet" type="text/css" href=${cssUrl}>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Yoga Studio</title>
+    </head>
+    <body>
+        <div id="container">
+            <%@include file="template/header.jsp"%>
+            <div id="content-container">
+                <%@include file="template/sidebar.jsp"%>
+                <div id="content">
+                    <c:if test="${not empty message}">
+                        <div class="error">${message}</div>
+                    </c:if>
+                </div>
+                <!--<%@include file="template/right-side.jsp"%>-->
+                <%@include file="template/footer.jsp"%>
+            </div>
+        </div>
+    </body>
 </html>
