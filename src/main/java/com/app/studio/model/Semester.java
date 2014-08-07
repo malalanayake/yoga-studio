@@ -9,6 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -18,8 +20,15 @@ import javax.persistence.Table;
  * @author jCalles
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "findBySemesterSignUpDate", query = "select s from Semester s where s.signUpDate >= CURDATE()")})
 @Table(name = "SEMESTER")
 public class Semester {
+
+    public static interface Constants {
+
+        public static final String NAME_QUERY_FIND_BY_SIGN_UP_DATE = "findBySemesterSignUpDate";
+    }
 
     @Id
     @Column(name = "id")

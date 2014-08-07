@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -42,7 +43,7 @@ public class YogaClass {
     private double price;
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "yogaClass")
     private Set<Section> setOfSections;
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<YogaClass> setOfPrerequisites;
 
     public YogaClass() {
@@ -51,7 +52,7 @@ public class YogaClass {
     }
 
     public void addPrerequisite(YogaClass yogaClass) {
-        this.setOfPrerequisites.add(yogaClass);
+        this.setOfPrerequisites.add(yogaClass); 
     }
 
     public Set<YogaClass> getSetOfPrerequisites() {

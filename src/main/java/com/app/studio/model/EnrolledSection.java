@@ -18,7 +18,10 @@ import javax.persistence.Table;
 @Table(name = "ENROLLED_SECTION")
 public class EnrolledSection {
 
-    
+    public static interface Constants {
+        public static final String STATUS_ENROLLED = "ENROLLED";
+        public static final String STATUS_WAITLISTED = "WAITLISTED";
+    }
 
     @Id
     @Column(name = "id")
@@ -30,6 +33,9 @@ public class EnrolledSection {
     private Customer customer;
     @ManyToOne(fetch = FetchType.EAGER)
     private Section section;
+
+    public EnrolledSection() {
+    }
 
     public EnrolledSection(Customer customer, Section section) {
         this.customer = customer;
