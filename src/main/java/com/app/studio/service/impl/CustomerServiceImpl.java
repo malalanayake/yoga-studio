@@ -85,6 +85,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    @Transactional
     public Customer getCustomerByUsername(String userName) {
         return this.customerDAO.getByUserName(userName);
     

@@ -38,6 +38,14 @@ public class WaiverRequestController {
     public void setWaiverRequestService(WaiverRequestService waiverRequestService) {
         this.waiverRequestService = waiverRequestService;
     }
+    
+    
+    @Autowired(required = true)
+    @Qualifier(value = "customerService")
+    public void setCustomerService(CustomerService customerService) {
+        this.customerService = customerService;
+    }
+    
 
     /* ************************* Waiver Request ************************* */
     @RequestMapping(value = "/add-waiver-request", method = RequestMethod.GET)
@@ -46,7 +54,9 @@ public class WaiverRequestController {
         return "add-waiver-request";
     }
 
-    @RequestMapping(value = "/add-waiver-request/{id}/{name}", method = RequestMethod.POST)
+   
+
+    @RequestMapping(value = "/add-waiver-request/{id}/{name}", method = RequestMethod.GET)
     public String addWaiverRequest(@PathVariable("id") int yogaClassID,
            @PathVariable("name") String customerName, Model model) throws RequiredDataNotPresent {
         

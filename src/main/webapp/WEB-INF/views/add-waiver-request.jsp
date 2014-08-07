@@ -56,6 +56,11 @@
                         </c:if>
                     </table>
                     
+                          <c:if test="${not empty msg}">
+                        <div class="msg">${msg}</div>
+                    </c:if>
+                        
+                        
 
                 </div>
                 <!--<%@include file="template/right-side.jsp"%>-->
