@@ -28,6 +28,7 @@
                     </h2>
                     <table class="tg">
                         <tr>
+                            <th>Semester ID</th>
                             <th>Section ID</th>
                             <th>Class Name</th>
                             <th>Price</th>
@@ -38,9 +39,10 @@
                         <c:if test="${!empty listSections}">
                             <c:forEach items="${listSections}" var="section">
                                 <tr>
+                                    <td>${section.semester.id}</td>
                                     <td>${section.id}</td>
                                     <td>${section.yogaClass.name}</td>
-                                    <td>${section.yogaClass.price}</td>
+                                    <td>$${section.yogaClass.price}</td>
                                     <td>${section.schedule}</td>
                                     <td>${section.location}</td>
                                     <td>${section.maxStudents}</td>
