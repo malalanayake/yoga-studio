@@ -11,6 +11,7 @@
         <intercept-url pattern="/customers**" access="ROLE_ADMIN" />
         <intercept-url pattern="/faculties/**" access="ROLE_ADMIN" />
         <intercept-url pattern="/semesters/**" access="ROLE_ADMIN" />
+        <intercept-url pattern="/products/**" access="ROLE_ADMIN" />
         <intercept-url pattern="/waivers/**" access="ROLE_FACULTY" />
         <intercept-url pattern="/advisees/**" access="ROLE_FACULTY" />
         <intercept-url pattern="/assignedsections/**" access="ROLE_FACULTY" />

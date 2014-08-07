@@ -1,5 +1,6 @@
 package com.app.studio.model;
 
+import com.app.studio.security.Roles;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -64,14 +65,14 @@ public class Customer {
 
     public Customer(User user) {
         this();
-        this.user = user;
+        this.setUser(user);
     }
 
     public User getUser() {
         return user;
     }
-
     public ShoppingCart getShoppingCart() {
+
         return shoppingCart;
     }
 
@@ -97,6 +98,7 @@ public class Customer {
 
     public void setUser(User user) {
         this.user = user;
+        this.user.addRole(Roles.ROLE_CUSTOMER);
     }
 
     public Set<WaiverRequest> getSetOfWaiverRequests() {

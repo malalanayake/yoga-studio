@@ -44,7 +44,6 @@ public class CustomerServiceImpl implements CustomerService {
         if (!u.getFirstName().equals("") && !u.getLastName().equals("") && !u.getUsername().equals("") && !u.getPassword().equals("")
                 && !u.getSequrityQuestion().equals("") && !u.getAnswer().equals("")) {
             if (userDAO.getByUserName(c.getUser().getUsername()) == null) {
-                u.addRole(Roles.ROLE_USER);
                 User user = userDAO.create(u);
                 c.setUser(user);
                 return this.customerDAO.create(c);

@@ -43,8 +43,7 @@ public class Administrator {
     }
 
     public Administrator(User user) {
-        this.user = user;
-        this.user.addRole(Roles.ROLE_ADMIN);
+        this.setUser(user);
     }
 
     public int getId() {
@@ -61,6 +60,7 @@ public class Administrator {
 
     public void setUser(User user) {
         this.user = user;
+        this.user.addRole(Roles.ROLE_ADMIN);
     }
 
     @Override

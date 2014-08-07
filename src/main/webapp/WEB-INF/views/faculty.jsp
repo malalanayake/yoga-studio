@@ -104,10 +104,10 @@
                             <tr>
                                 <td colspan='2'>
                                     <c:if test="${user.id gt 0}">
-                                        <input type="submit" value="<spring:message text="Edit Semester"/>" />
+                                        <input type="submit" value="<spring:message text="Edit Faculty"/>" />
                                     </c:if>
                                     <c:if test="${user.id == 0}">
-                                        <input type="submit" value="<spring:message text="Add New Semeter"/>" />
+                                        <input type="submit" value="<spring:message text="Add New Faculty"/>" />
                                     </c:if></td>
                             </tr>
                         </table>

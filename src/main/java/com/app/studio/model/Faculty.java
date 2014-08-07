@@ -57,8 +57,8 @@ public class Faculty {
 
     public Faculty(User user) {
         this();
-        this.user = user;
-        this.user.addRole(Roles.ROLE_FACULTY);
+        this.setUser(user);
+        
     }
 
     public User getUser() {
@@ -67,6 +67,7 @@ public class Faculty {
 
     public void setUser(User user) {
         this.user = user;
+        this.user.addRole(Roles.ROLE_FACULTY);
     }
 
     public Set<Customer> getSetOfCustomers() {

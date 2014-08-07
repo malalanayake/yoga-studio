@@ -36,7 +36,6 @@ public class FacultyServiceImpl implements FacultyService {
         if (!user.getFirstName().equals("") && !user.getLastName().equals("") && !user.getUsername().equals("") && !user.getPassword().equals("")
                 && !user.getSequrityQuestion().equals("") && !user.getAnswer().equals("")) {
             if (userDAO.getByUserName(user.getUsername()) == null) {
-                user.addRole(Roles.ROLE_FACULTY);
                 user = userDAO.create(user);
                 faculty = new Faculty(user);
                 faculty = this.facultyDAO.create(faculty);
