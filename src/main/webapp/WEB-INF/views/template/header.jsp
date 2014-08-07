@@ -35,12 +35,16 @@
         </script>
         <ul>
             <sec:authorize ifAnyGranted="ROLE_ADMIN"></sec:authorize>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Contact us</a></li>
+            <li><a href="<c:url value='/main' />">Home</a></li>
+            <li><a href="<c:url value='/' />">About</a></li>
+            <li><a href="<c:url value='/' />">Services</a></li>
+            <li><a href="<c:url value='/' />">Contact us</a></li>
                 <c:if test="${pageContext.request.userPrincipal.name != null}">
                 <li> <a href="javascript:formSubmit()"> Logout</a> </li>
+                </c:if>
+                
+                <c:if test="${pageContext.request.userPrincipal.name == null}">
+                <li> <a href="<c:url value='/login' />"> Login</a> </li>
                 </c:if>
         </ul>
     </div>
