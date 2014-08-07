@@ -144,6 +144,14 @@
     <beans:bean id="yogaClassService" class="com.app.studio.service.impl.YogaClassServiceImpl">
         <beans:property name="yogaClassDAO" ref="yogaClassDAO"></beans:property>
     </beans:bean>
+    
+    <beans:bean id="waiverRequestService" class="com.app.studio.service.impl.WaiverRequestServiceImpl">
+        <beans:property name="waiverRequestDAO" ref="waiverRequestDAO"></beans:property>
+        <beans:property name="yogaClassDAO" ref="yogaClassDAO"></beans:property>
+    </beans:bean>
+    
+    
+    
     <!-- Set the package where the annotated classes located at ex @Controller -->
     <context:component-scan base-package="com.app.studio" />
 
