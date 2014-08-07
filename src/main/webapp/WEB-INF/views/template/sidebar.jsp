@@ -16,12 +16,13 @@
                 <li><a href="<c:url value='/products' />">Manage Products</a></li>
                 <li><a href="<c:url value='/faculties' />">Manage Faculties</a></li>
                 <li><a href="<c:url value='/view-customers' />">View Customers</a></li>
-            </sec:authorize>
-            <sec:authorize ifAnyGranted="ROLE_FACULTY">  
+                </sec:authorize>
+                <sec:authorize ifAnyGranted="ROLE_FACULTY">  
                 <li><a href="<c:url value='/waivers' />">Manage Waiver Requests</a></li>
                 <li><a href="<c:url value='/advisees' />">View Advisees</a></li>
                 <li><a href="<c:url value='/assignedsections' />">View Assigned Sections</a></li>
-            </sec:authorize>
+                </sec:authorize>
+            <li><a href="<c:url value='/view-products' />">View Products</a></li>
         </ul>
     </div>
 </html>
