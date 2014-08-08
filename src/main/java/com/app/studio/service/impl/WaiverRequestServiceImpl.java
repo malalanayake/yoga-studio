@@ -7,8 +7,10 @@ import com.app.studio.exception.RecordAlreadyExistException;
 import com.app.studio.exception.RequiredDataNotPresent;
 import com.app.studio.model.Customer;
 import com.app.studio.model.WaiverRequest;
+import static com.app.studio.model.WaiverRequest.Constants.STATUS_PENDING;
 import com.app.studio.model.YogaClass;
 import com.app.studio.service.WaiverRequestService;
+import static javax.print.attribute.standard.JobState.PENDING;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,7 +32,7 @@ public class WaiverRequestServiceImpl implements WaiverRequestService {
     public void setCustomerDAO(CustomerDAO customerDAO) {
         this.customerDAO = customerDAO;
     }
-    
+
     public YogaClassDAO getYogaClassDAO() {
         return yogaClassDAO;
     }
@@ -50,7 +52,9 @@ public class WaiverRequestServiceImpl implements WaiverRequestService {
     @Override
     @Transactional
     public WaiverRequest createNewWaiverRequest(YogaClass yogaclass, Customer customer) throws RequiredDataNotPresent {
-        WaiverRequest waiverRequest = null;
+
+        WaiverRequest waiverRequest = new WaiverRequest(yogaclass, customer);
+        waiverRequest.setStatus(STATUS_PENDING);
         waiverRequest = waiverRequestDAO.create(waiverRequest);
         return waiverRequest;
     }

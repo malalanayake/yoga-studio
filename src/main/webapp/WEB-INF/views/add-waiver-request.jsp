@@ -12,7 +12,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-         <c:url var="cssUrl" value='/css/style.css'></c:url>
+        <c:url var="cssUrl" value='/css/style.css'></c:url>
         <link rel="stylesheet" type="text/css" href=${cssUrl}>
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -27,9 +27,9 @@
                     <h1>
                         Please select the Yoga Class that you want to take
                     </h1>
-                    
 
-             <c:if test="${not empty error}">
+
+                    <c:if test="${not empty error}">
                         <div class="error">${error}</div>
                     </c:if>
                     <c:if test="${not empty msg}">
@@ -41,7 +41,7 @@
                             <th>Name</th>
                             <th>Price</th>
                             <th>Submit</th>
-                   
+
                         </tr>
                         <c:if test="${!empty listYogaClasses}">
                             <c:forEach items="${listYogaClasses}" var="yogaClass">
@@ -50,17 +50,11 @@
                                     <td>${yogaClass.name}</td>
                                     <td>${yogaClass.price}</td>
                                     <td><a href="<c:url value='/add-waiver-request/${yogaClass.id}/${pageContext.request.userPrincipal.name}' />">Submit</a></td>
-         
+
                                 </tr>
                             </c:forEach>
                         </c:if>
                     </table>
-                    
-                          <c:if test="${not empty msg}">
-                        <div class="msg">${msg}</div>
-                    </c:if>
-                        
-                        
 
                 </div>
                 <!--<%@include file="template/right-side.jsp"%>-->

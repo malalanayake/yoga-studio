@@ -66,8 +66,8 @@ public class WaiverRequestController {
         this.waiverRequestService.createNewWaiverRequest(yogaClass, customer);
         model.addAttribute("msg", "Waiver Request was created and sent successfully");
 
-        //model.addAttribute("waiverRequests", customer.getSetOfWaiverRequests());
-        return "waiverRequest";
+        model.addAttribute("listYogaClasses", this.yogaClassService.listOfYogaClasses());
+        return "add-waiver-request";
 
     }
 
