@@ -32,6 +32,7 @@
                     <table class="tg">
                         <tr>
                             <th width="80">Product ID</th>
+                            <th width="120">Image Source</th>
                             <th width="120">Product Name</th>
                             <th width="120">Product Type</th>
                             <th width="120">Price</th>
@@ -43,6 +44,7 @@
                             <c:forEach items="${listProducts}" var="product">
                                 <tr>
                                     <td>${product.id}</td>
+                                    <td><img src=${product.imageSrc} height="100" width="100"></td>
                                     <td>${product.name}</td>
                                     <td>${product.type}</td>
                                     <td>${product.price}</td>
