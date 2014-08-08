@@ -43,14 +43,10 @@ public class YogaClassController {
         String error = "";
         try {
             if (c.getId() == 0) {
-                //Check whether the pre requesits is there or not
-//                if (y > 0) {
-//                    YogaClass yogaPre = yogaClassService.getYogaClassByID(y);
-//                    c.addPrerequisite(yogaPre);
-//                }
                 this.yogaClassService.createYogaClass(c);
                 model.addAttribute("msg", "Yoga Class is successfully created");
             } else {
+                c = yogaClassService.getYogaClassByID(c.getId());
                 this.yogaClassService.updateYogaClass(c);
                 model.addAttribute("msg", "Yoga Class is successfully updated");
             }
@@ -65,13 +61,14 @@ public class YogaClassController {
         return "yogaclass";
     }
 
-    @RequestMapping(value = "/yogaclasses/add/pre/{yoga}/{pre}", method = RequestMethod.GET)
-    public String addPreReqYogaClass(@PathVariable("yoga") int yoga, @PathVariable("pre") int pre, Model model) {
+    @RequestMapping(value = "/yogaclasses/add/pre", method = RequestMethod.POST)
+    public String addPreReqYogaClass(@ModelAttribute("id") int yoga, @ModelAttribute("preRequesits") int pre, Model model) {
         YogaClass yogaClass = new YogaClass();
         try {
             yogaClass = yogaClassService.getYogaClassByID(yoga);
             YogaClass yogaPre = yogaClassService.getYogaClassByID(pre);
             yogaClass.addPrerequisite(yogaPre);
+            yogaClass = yogaClassService.updateYogaClass(yogaClass);
 
         } catch (RequiredDataNotPresent ex) {
             model.addAttribute("error", ex.getMessage());

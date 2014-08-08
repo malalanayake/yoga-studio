@@ -49,6 +49,8 @@ public class YogaClassServiceImpl implements YogaClassService {
             yoga = yogaClassDAO.getById(yogaClass.getId());
             yoga.setName(yogaClass.getName());
             yoga.setPrice(yogaClass.getPrice());
+            yoga.setSetOfSections(yogaClass.getSetOfSections());
+            yoga.setSetOfPrerequisites(yogaClass.getSetOfPrerequisites());
             yoga = yogaClassDAO.update(yoga);
         } else {
             throw new RequiredDataNotPresent("Required data not presenet to create semester");

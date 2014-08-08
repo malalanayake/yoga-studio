@@ -46,6 +46,14 @@ public class YogaClass {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<YogaClass> setOfPrerequisites;
 
+    public void setSetOfSections(Set<Section> setOfSections) {
+        this.setOfSections = setOfSections;
+    }
+
+    public void setSetOfPrerequisites(Set<YogaClass> setOfPrerequisites) {
+        this.setOfPrerequisites = setOfPrerequisites;
+    }
+
     public YogaClass() {
         this.setOfSections = new HashSet<Section>();
         this.setOfPrerequisites = new HashSet<YogaClass>();

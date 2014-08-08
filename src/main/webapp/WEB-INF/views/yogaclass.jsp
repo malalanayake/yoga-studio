@@ -73,8 +73,34 @@
                                 <td><form:input path="price" /></td>
                             </tr>
                             <tr>
-                                <c:if test="${yogaClass.id > 0}">
-                                    <c:if test="${!empty listYogaClasses}">
+
+                            </tr>
+                            <tr>
+                                <td colspan='2'>
+                                    <c:if test="${yogaClass.id gt 0}">
+                                        <input type="submit" value="<spring:message text="Done Editing"/>" />
+                                    </c:if>
+                                    <c:if test="${yogaClass.id == 0}">
+                                        <input type="submit" value="<spring:message text="Add New Yoga Class"/>" />
+                                    </c:if></td>
+                            </tr>
+                        </table>
+                    </form:form>
+
+                    <c:url var="addPreAction" value="/yogaclasses/add/pre"></c:url>
+                    <form:form action="${addPreAction}" commandName="yogaClass">
+                        <table>
+                            <c:if test="${yogaClass.id > 0}">
+                                <c:if test="${!empty listYogaClasses}">
+
+                                    <tr>
+                                        <td><form:label path="id">
+                                                <spring:message text="ID" />
+                                            </form:label></td>
+                                        <td><form:input path="id" readonly="true" 
+                                                    disabled="true" /><form:hidden path="id" /></td>
+                                    </tr> 
+                                    <tr>
                                         <td>
                                             <select  name="preRequesits">
                                                 <c:forEach items="${listYogaClasses}" var="yoga">
@@ -87,20 +113,20 @@
                                             </select>
                                         </td>
                                         <td>
-                                            <a href="<c:url value='/yogaclasses/add/pre/${yogaClass.id}/${preRequesits}' />">Add</a>
+                                            <input type="submit" value="<spring:message text="Add Prerequisite"/>" />
                                         </td>
-                                    </c:if>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"></td>
+                                            
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">List of Yoga Classes</td>
+                                            
+                                    </tr>
+
                                 </c:if>
-                            </tr>
-                            <tr>
-                                <td colspan='2'>
-                                    <c:if test="${yogaClass.id gt 0}">
-                                        <input type="submit" value="<spring:message text="Edit Yoga Class"/>" />
-                                    </c:if>
-                                    <c:if test="${yogaClass.id == 0}">
-                                        <input type="submit" value="<spring:message text="Add New Yoga Class"/>" />
-                                    </c:if></td>
-                            </tr>
+                            </c:if>
                         </table>
                     </form:form>
 
@@ -119,7 +145,7 @@
                                     <td>${pre.id}</td>
                                     <td>${pre.name}</td>
                                     <td>${pre.price}</td>
-                                    <td><a href="<c:url value='/yogaclasses/remove/pre/${pre.id}' />">Delete</a></td>
+                                    <td><a href="<c:url value='/yogaclasses/remove/pre/${yogaClass.id}/${pre.id}' />">Delete</a></td>
                                 </tr>
                             </c:forEach>
                         </table>
