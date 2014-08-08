@@ -154,6 +154,9 @@
         <beans:property name="sectionDAO" ref="sectionDAO"></beans:property>
     </beans:bean>
     
+    <beans:bean id="userService" class="com.app.studio.service.impl.UserServiceImpl">
+        <beans:property name="userDAO" ref="userDAO"></beans:property>
+    </beans:bean>
     <!-- Set the package where the annotated classes located at ex @Controller -->
     <context:component-scan base-package="com.app.studio" />
 

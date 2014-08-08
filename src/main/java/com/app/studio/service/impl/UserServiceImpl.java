@@ -28,4 +28,10 @@ public class UserServiceImpl implements UserService {
     public void setUserDAO(UserDAO userDAO) {
         this.userDAO = userDAO;
     }
+
+    @Override
+    @Transactional
+    public User updateUser(User user) {
+        return userDAO.update(user);
+    }
 }

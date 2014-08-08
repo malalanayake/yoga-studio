@@ -16,7 +16,7 @@
         <link rel="stylesheet" type="text/css" href=${cssUrl}>
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Yoga Studio</title>
+        <title>Drop Sections </title>
     </head>
     <body>
         <div id="container">
@@ -25,8 +25,36 @@
                 <%@include file="template/sidebar.jsp"%>
                 <div id="content">
                     <h1>
-                        Please select the section that you want to drop
+                        Please select the Section that you want to drop
                     </h1>
+
+
+                    <c:if test="${not empty error}">
+                        <div class="error">${error}</div>
+                    </c:if>
+                    <c:if test="${not empty msg}">
+                        <div class="msg">${msg}</div>
+                    </c:if>
+                    <table class="tg">
+                        <tr>
+                            <th>Yoga Class ID</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Submit</th>
+
+                        </tr>
+                        <c:if test="${!empty listYogaClasses}">
+                            <c:forEach items="${listYogaClasses}" var="yogaClass">
+                                <tr>
+                                    <td>${yogaClass.id}</td>
+                                    <td>${yogaClass.name}</td>
+                                    <td>${yogaClass.price}</td>
+                                    <td><a href="<c:url value='/add-waiver-request/${yogaClass.id}/${pageContext.request.userPrincipal.name}' />">Submit</a></td>
+
+                                </tr>
+                            </c:forEach>
+                        </c:if>
+                    </table>
 
                 </div>
                 <!--<%@include file="template/right-side.jsp"%>-->

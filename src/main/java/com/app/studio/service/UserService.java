@@ -9,4 +9,7 @@ import com.app.studio.model.User;
 public interface UserService {
 
     public User getUserByUserName(String userName);
+    
+    public User updateUser (User user);
+    
 }
