@@ -39,16 +39,16 @@ public class YogaClassController {
     }
 
     @RequestMapping(value = "/yogaclasses/add", method = RequestMethod.POST)
-    public String listYogaClasses(@ModelAttribute("yogaClass") YogaClass c, Model model) {
+    public String addYogaClass(@ModelAttribute("yogaClass") YogaClass c, Model model) {
         String error = "";
         try {
             if (c.getId() == 0) {
                 this.yogaClassService.createYogaClass(c);
-                model.addAttribute("msg", "Yoga Class is successfully created");
+                model.addAttribute("msg", "Yoga Class " + c.getName() + "is successfully created");
             } else {
                 c = yogaClassService.getYogaClassByID(c.getId());
                 this.yogaClassService.updateYogaClass(c);
-                model.addAttribute("msg", "Yoga Class is successfully updated");
+                model.addAttribute("msg", "Yoga Class " + c.getName() + " is successfully updated");
             }
         } catch (RequiredDataNotPresent ex) {
             model.addAttribute("error", ex.getMessage());
@@ -69,6 +69,7 @@ public class YogaClassController {
             YogaClass yogaPre = yogaClassService.getYogaClassByID(pre);
             yogaClass.addPrerequisite(yogaPre);
             yogaClass = yogaClassService.updateYogaClass(yogaClass);
+            model.addAttribute("msg", "Yoga Class " + yogaPre.getName() + " is added as prerequisites");
 
         } catch (RequiredDataNotPresent ex) {
             model.addAttribute("error", ex.getMessage());
@@ -79,7 +80,7 @@ public class YogaClassController {
     }
 
     @RequestMapping(value = "/yogaclasses/edit/{id}", method = RequestMethod.GET)
-    public String editSemesters(@PathVariable("id") int id, Model model) {
+    public String editYogaClass(@PathVariable("id") int id, Model model) {
         YogaClass yogaClass = new YogaClass();
         try {
             yogaClass = yogaClassService.getYogaClassByID(id);
@@ -87,6 +88,38 @@ public class YogaClassController {
             model.addAttribute("error", ex.getMessage());
         }
         model.addAttribute("yogaClass", yogaClass);
+        model.addAttribute("listYogaClasses", this.yogaClassService.listOfYogaClasses());
+        return "yogaclass";
+    }
+
+    @RequestMapping(value = "/yogaclasses/remove/pre/{yoga}/{pre}", method = RequestMethod.GET)
+    public String removePreRequesits(@PathVariable("yoga") int yoga, @PathVariable("pre") int pre, Model model) {
+        YogaClass yogaClass = new YogaClass();
+        try {
+            YogaClass yogaClassToBeModified = yogaClassService.getYogaClassByID(yoga);
+            YogaClass preReqRemove = yogaClassService.getYogaClassByID(pre);
+            yogaClass = yogaClassService.removePreReqYogaClass(yogaClassToBeModified, preReqRemove);
+            model.addAttribute("msg", "Yoga Class " + preReqRemove.getName() + " is removed from prerequisites");
+        } catch (RequiredDataNotPresent ex) {
+            model.addAttribute("error", ex.getMessage());
+        }
+        model.addAttribute("yogaClass", yogaClass);
+        model.addAttribute("listYogaClasses", this.yogaClassService.listOfYogaClasses());
+        return "yogaclass";
+    }
+
+    @RequestMapping(value = "/yogaclasses/remove/{id}", method = RequestMethod.GET)
+    public String deleteYogaClass(@PathVariable("id") int id, Model model) {
+        YogaClass yogaClass = new YogaClass();
+        try {
+            yogaClass = yogaClassService.getYogaClassByID(id);
+            yogaClassService.deleteYogaClass(yogaClass);
+            model.addAttribute("msg", "Yoga Class " + yogaClass.getName() + " is deleted");
+
+        } catch (RequiredDataNotPresent ex) {
+            model.addAttribute("error", ex.getMessage());
+        }
+        model.addAttribute("yogaClass", new YogaClass());
         model.addAttribute("listYogaClasses", this.yogaClassService.listOfYogaClasses());
         return "yogaclass";
     }

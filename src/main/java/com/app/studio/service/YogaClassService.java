@@ -33,6 +33,16 @@ public interface YogaClassService {
     public YogaClass updateYogaClass(YogaClass yogaClass) throws RequiredDataNotPresent;
 
     /**
+     * This method remove the yoga class from prerequisites
+     *
+     * @param yogaClass
+     * @param preReq
+     * @return
+     * @throws RequiredDataNotPresent
+     */
+    public YogaClass removePreReqYogaClass(YogaClass yogaClass, YogaClass preReq) throws RequiredDataNotPresent;
+
+    /**
      * Delete given yoga class
      *
      * @param yogaClass
@@ -47,7 +57,7 @@ public interface YogaClassService {
      * @return
      */
     public List<YogaClass> listOfYogaClasses();
-    
+
     /**
      * Get Yoga Classes by ID
      *
@@ -55,10 +65,6 @@ public interface YogaClassService {
      * @return
      * @throws RequiredDataNotPresent
      */
-   
-      public YogaClass getYogaClassByID(int yogaClassID) throws RequiredDataNotPresent;
-    
-    
-    
-    
+    public YogaClass getYogaClassByID(int yogaClassID) throws RequiredDataNotPresent;
+
 }

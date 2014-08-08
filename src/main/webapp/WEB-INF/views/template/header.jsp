@@ -38,7 +38,7 @@
             <li><a href="<c:url value='/main' />">Home</a></li>
             <li><a href="<c:url value='/' />">About</a></li>
             <li><a href="<c:url value='/' />">Services</a></li>
-            <li><a href="<c:url value='/view-products' />">Products</a></li>
+            <li><a href="<c:url value='/view-products' />">View Products</a></li>
             <li><a href="<c:url value='/' />">Contact us</a></li>
                 <c:if test="${pageContext.request.userPrincipal.name != null}">
                 <li> <a href="javascript:formSubmit()"> Logout</a> </li>

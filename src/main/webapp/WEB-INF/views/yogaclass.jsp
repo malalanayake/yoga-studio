@@ -118,11 +118,11 @@
                                     </tr>
                                     <tr>
                                         <td colspan="2"></td>
-                                            
+
                                     </tr>
                                     <tr>
                                         <td colspan="2">List of Yoga Classes</td>
-                                            
+
                                     </tr>
 
                                 </c:if>
@@ -150,26 +150,31 @@
                             </c:forEach>
                         </table>
                     </c:if>
-                    <table class="tg">
-                        <tr>
-                            <th width="80">ID</th>
-                            <th width="120">Name</th>
-                            <th width="120">Price</th>
-                            <th width="60">Edit</th>
-                            <th width="60">Delete</th>
-                        </tr>
-                        <c:if test="${!empty listYogaClasses}">
-                            <c:forEach items="${listYogaClasses}" var="yogaClass">
-                                <tr>
-                                    <td>${yogaClass.id}</td>
-                                    <td>${yogaClass.name}</td>
-                                    <td>${yogaClass.price}</td>
-                                    <td><a href="<c:url value='/yogaclasses/edit/${yogaClass.id}' />">Edit</a></td>
-                                    <td><a href="<c:url value='/yogaclasses/remove/${yogaClass.id}' />">Delete</a></td>
-                                </tr>
-                            </c:forEach>
-                        </c:if>
-                    </table>
+
+                    <br>
+
+                    <c:if test="${yogaClass.id == 0}">
+                        <table class="tg">
+                            <tr>
+                                <th width="80">ID</th>
+                                <th width="120">Name</th>
+                                <th width="120">Price</th>
+                                <th width="60">Edit</th>
+                                <th width="60">Delete</th>
+                            </tr>
+                            <c:if test="${!empty listYogaClasses}">
+                                <c:forEach items="${listYogaClasses}" var="yogaClass">
+                                    <tr>
+                                        <td>${yogaClass.id}</td>
+                                        <td>${yogaClass.name}</td>
+                                        <td>${yogaClass.price}</td>
+                                        <td><a href="<c:url value='/yogaclasses/edit/${yogaClass.id}' />">Edit</a></td>
+                                        <td><a href="<c:url value='/yogaclasses/remove/${yogaClass.id}' />">Delete</a></td>
+                                    </tr>
+                                </c:forEach>
+                            </c:if>
+                        </table>
+                    </c:if>
 
 
                 </div>

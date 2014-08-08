@@ -5,7 +5,9 @@ import com.app.studio.exception.RecordAlreadyExistException;
 import com.app.studio.exception.RequiredDataNotPresent;
 import com.app.studio.model.YogaClass;
 import com.app.studio.service.YogaClassService;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -86,6 +88,21 @@ public class YogaClassServiceImpl implements YogaClassService {
         } else {
             throw new RequiredDataNotPresent("Primary key not present");
         }
+    }
+
+    @Override
+    @Transactional
+    public YogaClass removePreReqYogaClass(YogaClass yogaClass, YogaClass preReq) throws RequiredDataNotPresent {
+        Set<YogaClass> preList = new HashSet<YogaClass>();
+        for (YogaClass pre : yogaClass.getSetOfPrerequisites()) {
+            if (!pre.equals(preReq)) {
+                preList.add(pre);
+            }
+        }
+
+        yogaClass.setSetOfPrerequisites(preList);
+        yogaClass = yogaClassDAO.update(yogaClass);
+        return yogaClass;
     }
 
 }

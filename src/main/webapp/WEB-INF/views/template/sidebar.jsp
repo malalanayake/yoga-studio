@@ -13,6 +13,7 @@
         <ul>
             <sec:authorize ifAnyGranted="ROLE_ADMIN">  
                 <li><a href="<c:url value='/semesters' />">Manage Semesters</a></li>
+                <li><a href="<c:url value='/yogaclasses' />">Manage Yoga Classes</a></li>
                 <li><a href="<c:url value='/products' />">Manage Products</a></li>
                 <li><a href="<c:url value='/faculties' />">Manage Faculties</a></li>
                 <li><a href="<c:url value='/view-customers' />">View Customers</a></li>

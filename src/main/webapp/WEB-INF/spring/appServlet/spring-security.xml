@@ -12,11 +12,12 @@
         <intercept-url pattern="/faculties/**" access="ROLE_ADMIN" />
         <intercept-url pattern="/semesters/**" access="ROLE_ADMIN" />
         <intercept-url pattern="/products/**" access="ROLE_ADMIN" />
+        <intercept-url pattern="/yogaclasses/**" access="ROLE_ADMIN" />
         <intercept-url pattern="/waivers/**" access="ROLE_FACULTY" />
         <intercept-url pattern="/advisees/**" access="ROLE_FACULTY" />  
         <intercept-url pattern="/assignedsections/**" access="ROLE_FACULTY" />
         <intercept-url pattern="/add-waiver-request/**" access="ROLE_CUSTOMER" />
-        <intercept-url pattern="/products/**" access="ROLE_CUSTOMER" />
+        <intercept-url pattern="/view-products/**" access="ROLE_CUSTOMER" />
         <form-login login-page="/login" default-target-url="/main"
                     authentication-failure-url="/login?error" username-parameter="username"
                     password-parameter="password" />
