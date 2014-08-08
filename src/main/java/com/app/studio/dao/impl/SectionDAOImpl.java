@@ -81,4 +81,22 @@ public class SectionDAOImpl implements SectionDAO {
         return s;
     }
 
+    @Override
+    public Section getByLocationNameAndScedule(int yogaClassId, String location, String schedule) {
+        Session session = this.sessionFactory.getCurrentSession();
+        List<Section> sectionList = session.createQuery(Section.Constants.NAME_QUERY_FIND_BY_LOCATION_AND_SCHEDULE)
+                .setParameter(Section.Constants.PARAM_CLASS_ID, yogaClassId)
+                .setParameter(Section.Constants.PARAM_LOCATION_NAME, location)
+                .setParameter(Section.Constants.PARAM_SCHEDULE_TIME, schedule).list();
+        Section section = null;
+        if (!sectionList.isEmpty()) {
+            section = sectionList.get(0);
+            if (logger.isDebugEnabled()) {
+                logger.debug("Section:" + section.toString());
+            }
+        }
+
+        return section;
+    }
+
 }

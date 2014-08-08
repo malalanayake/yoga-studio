@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -19,8 +21,21 @@ import javax.persistence.Table;
  * @author Yen
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "findBySectionLocationAndSchedule", query = "select u from Section u where u.location=:locationName and  u.schedule=:scheduleTime and u.yogaClass.id=:classID")})
 @Table(name = "SECTION")
 public class Section {
+
+    /**
+     * Interface which is provide the name queries and parameters
+     */
+    public static interface Constants {
+
+        public static final String NAME_QUERY_FIND_BY_LOCATION_AND_SCHEDULE = "findBySectionLocationAndSchedule";
+        public static final String PARAM_LOCATION_NAME = "locationName";
+        public static final String PARAM_SCHEDULE_TIME = "scheduleTime";
+        public static final String PARAM_CLASS_ID = "classID";
+    }
 
     @Id
     @Column(name = "id")
@@ -46,7 +61,7 @@ public class Section {
         this();
         this.setSemester(semester);
         this.setYogaClass(yogaClass);
-        this.setFaculty(faculty);        
+        this.setFaculty(faculty);
     }
 
     public void addEnrolledSection(EnrolledSection enrolledSection) {

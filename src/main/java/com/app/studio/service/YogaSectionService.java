@@ -24,7 +24,7 @@ public interface YogaSectionService {
      * @throws RequiredDataNotPresent
      * @throws RecordAlreadyExistException
      */
-    public Section createNewSection(YogaClass yogaClass, Semester semester, Faculty faculty) throws RequiredDataNotPresent,
+    public Section createNewSection(YogaClass yogaClass, Semester semester, Faculty faculty, Section section) throws RequiredDataNotPresent,
             RecordAlreadyExistException;
 
     /**

@@ -48,5 +48,13 @@ public interface SectionDAO {
      * @return the deleted section object
      */
     Section remove(int id);
+    
+    /**
+     * Get the section which is match with the location, schedule, and class
+     * @param location
+     * @param schedule
+     * @return 
+     */
+    Section getByLocationNameAndScedule(int yogaClassId, String location, String schedule);
 
 }
