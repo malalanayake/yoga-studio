@@ -24,6 +24,15 @@ public class Product {
     private int price;
     private int availableQuantity;
     private String description;
+    private String imageSrc;
+
+    public String getImageSrc() {
+        return imageSrc;
+    }
+
+    public void setImageSrc(String imageSrc) {
+        this.imageSrc = imageSrc;
+    }
 
     public void setId(int id) {
         this.id = id;

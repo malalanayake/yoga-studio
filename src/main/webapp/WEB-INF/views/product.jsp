@@ -60,12 +60,17 @@
                                 <td><form:input path="availableQuantity" /></td>
                             </tr>
                             <tr>
+                                <td><form:label path="imageSrc">
+                                        <spring:message text="ImageSource" />
+                                    </form:label></td>
+                                <td><form:input path="imageSrc" /></td>
+                            </tr>
+                            <tr>
                                 <td><form:label path="description">
                                         <spring:message text="Description" />
                                     </form:label></td>
                                 <td><form:input path="description" /></td>
                             </tr>
-                            
                             <tr>
                                 <td colspan="2">
                                     <c:if test="${product.id gt 0}">
@@ -85,6 +90,7 @@
                     <table class="tg">
                         <tr>
                             <th width="80">Product ID</th>
+                            <th width="120">Image Source</th>
                             <th width="120">Product Name</th>
                             <th width="120">Product Type</th>
                             <th width="120">Price</th>
@@ -97,6 +103,7 @@
                             <c:forEach items="${listProducts}" var="product">
                                 <tr>
                                     <td>${product.id}</td>
+                                    <td><img src=${product.imageSrc} height="100" width="100"></td>
                                     <td>${product.name}</td>
                                     <td>${product.type}</td>
                                     <td>${product.price}</td>
