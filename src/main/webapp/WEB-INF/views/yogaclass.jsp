@@ -30,7 +30,7 @@
                         <div class="msg">${msg}</div>
                     </c:if>
                     <h2>
-                        Manage Yoga Class
+                        Manage Yoga Classes
                     </h2>
                     <c:url var="addAction" value="/yogaclasses/add"></c:url>
                     <form:form action="${addAction}" commandName="yogaClass">

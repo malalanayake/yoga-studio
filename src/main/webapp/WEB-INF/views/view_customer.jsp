@@ -23,7 +23,7 @@
             <div id="content-container">
                 <%@include file="template/sidebar.jsp"%>
                 <div id="content">
-                    <h3>Customer List</h3>
+                    <h2>View Customers</h2>
                     <table class="tg">
                         <tr>
                             <th width="80">ID</th>

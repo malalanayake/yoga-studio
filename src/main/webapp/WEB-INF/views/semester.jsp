@@ -20,15 +20,18 @@
         <script type="text/javascript">
             jQuery(document).ready(function() {
                 $("#ui-datepicker").datepicker({
-                    showOn: 'focus'
+                    showOn: 'focus',
+                    dateFormat: 'yy-mm-dd'
                 }).css({'font-size': 'smaller'});
-                
+
                 $("#ui-datepicker2").datepicker({
-                    showOn: 'focus'
+                    showOn: 'focus',
+                    dateFormat: 'yy-mm-dd'
                 }).css({'font-size': 'smaller'});
-                
+
                 $("#ui-datepicker3").datepicker({
-                    showOn: 'focus'
+                    showOn: 'focus',
+                    dateFormat: 'yy-mm-dd'
                 }).css({'font-size': 'smaller'});
             });
         </script>
@@ -43,7 +46,7 @@
                 box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .5);
                 background-color: #FFF;
             }
-            
+
             .ui-datepicker2 {
                 width: 216px;
                 height: auto;
@@ -54,7 +57,7 @@
                 box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .5);
                 background-color: #FFF;
             }
-            
+
             .ui-datepicker3 {
                 width: 216px;
                 height: auto;
@@ -80,7 +83,11 @@
                     <c:if test="${not empty msg}">
                         <div class="msg">${msg}</div>
                     </c:if>
-                    
+
+                    <h2>
+                        Manage Semesters
+                    </h2>
+
                     <c:url var="addSemester" value="/semesters/add"></c:url>
                     <form:form action="${addSemester}" commandName="semester">
                         <table>
