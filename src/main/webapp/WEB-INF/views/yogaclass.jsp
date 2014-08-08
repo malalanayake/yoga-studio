@@ -72,7 +72,26 @@
                                     </form:label></td>
                                 <td><form:input path="price" /></td>
                             </tr>
+                            <tr>
+                                <c:if test="${yogaClass.id > 0}">
+                                    <c:if test="${!empty listYogaClasses}">
+                                        <td>
+                                            <select  name="preRequesits">
+                                                <c:forEach items="${listYogaClasses}" var="yoga">
 
+                                                    <c:if test="${yoga.id != yogaClass.id}">
+                                                        <option value="${yoga.id}">${yoga}</option>
+                                                    </c:if>
+
+                                                </c:forEach>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <a href="<c:url value='/yogaclasses/add/pre/${yogaClass.id}/${preRequesits}' />">Add</a>
+                                        </td>
+                                    </c:if>
+                                </c:if>
+                            </tr>
                             <tr>
                                 <td colspan='2'>
                                     <c:if test="${yogaClass.id gt 0}">
@@ -85,6 +104,26 @@
                         </table>
                     </form:form>
 
+
+                    <c:if test="${!empty yogaClass.setOfPrerequisites}">
+                        <table class="tg">
+                            <tr>
+                                <th width="80">ID</th>
+                                <th width="120">Prerequisites Name</th>
+                                <th width="120">Price</th>
+                                <th width="60">Delete</th>
+                            </tr>
+
+                            <c:forEach items="${yogaClass.setOfPrerequisites}" var="pre">
+                                <tr>
+                                    <td>${pre.id}</td>
+                                    <td>${pre.name}</td>
+                                    <td>${pre.price}</td>
+                                    <td><a href="<c:url value='/yogaclasses/remove/pre/${pre.id}' />">Delete</a></td>
+                                </tr>
+                            </c:forEach>
+                        </table>
+                    </c:if>
                     <table class="tg">
                         <tr>
                             <th width="80">ID</th>

@@ -123,7 +123,7 @@ public class YogaClass {
 
     @Override
     public String toString() {
-        return "YogaClass{" + "id=" + id + ", name=" + name + ", price=" + price + '}';
+        return ""+this.name+":"+this.price;
     }
 
 }

@@ -22,7 +22,13 @@
                 <li><a href="<c:url value='/advisees' />">View Advisees</a></li>
                 <li><a href="<c:url value='/assignedsections' />">View Assigned Sections</a></li>
                 </sec:authorize>
-            <li><a href="<c:url value='/view-products' />">View Products</a></li>
+
+            <sec:authorize ifAnyGranted="ROLE_CUSTOMER">  
+                <li><a href="<c:url value='/add-waiver-request' />">Add Waiver Request</a></li>
+                <li><a href="<c:url value='/view-products' />">View Products</a></li>
+                </sec:authorize>
+
+
         </ul>
     </div>
 </html>

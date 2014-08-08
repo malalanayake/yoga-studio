@@ -35,7 +35,7 @@ public class YogaClassServiceImpl implements YogaClassService {
                 throw new RecordAlreadyExistException("Yoga class name already exist");
             }
         } else {
-            throw new RequiredDataNotPresent("Required data not presenet to create semester");
+            throw new RequiredDataNotPresent("Required data not presenet to create yoga class");
         }
         return yoga;
 
