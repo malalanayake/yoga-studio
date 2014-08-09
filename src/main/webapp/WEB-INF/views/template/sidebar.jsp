@@ -18,20 +18,25 @@
                 <li><a href="<c:url value='/products' />">Manage Products</a></li>
                 <li><a href="<c:url value='/faculties' />">Manage Faculties</a></li>
                 <li><a href="<c:url value='/view-customers' />">View Customers</a></li>
-            </sec:authorize>
-            <sec:authorize ifAnyGranted="ROLE_FACULTY">  
+                </sec:authorize>
+                <sec:authorize ifAnyGranted="ROLE_FACULTY">  
                 <li><a href="<c:url value='/waivers' />">Manage Waiver Requests</a></li>
                 <li><a href="<c:url value='/advisees' />">View Advisees</a></li>
                 <li><a href="<c:url value='/assigned-sections' />">View Assigned Sections</a></li>
                 <li><a href="<c:url value='/students' />">View Students</a></li>
-            </sec:authorize>
-            <sec:authorize ifAnyGranted="ROLE_CUSTOMER">
+                </sec:authorize>
+                <sec:authorize ifAnyGranted="ROLE_CUSTOMER">
                 <li><a href="<c:url value='/enroll' />">Enroll</a></li>
                 <li><a href="<c:url value='/add-waiver-request' />">Add Waiver Request</a></li>
                 <li><a href="<c:url value='/enrolled-sections' />">View Enrolled Sections</a></li>
                 <li><a href="<c:url value='/available-sections' />">View Available Sections</a></li>
                 <li><a href="<c:url value='/view-products' />">View Products</a></li>
-            </sec:authorize>
+                </sec:authorize>
+
+            <sec:authorize ifNotGranted="ROLE_ANONYMOUS">
+                <li><a href="<c:url value='/manage-profile' />">Manage My Profile</a></li>
+                </sec:authorize>
+
         </ul>
     </div>
 </html>
