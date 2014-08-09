@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.app.studio.common;
 
 import com.app.studio.dao.AdministratorDAO;
@@ -151,7 +146,7 @@ public class PopulateDatabase {
         yogaF.setName("Yoga F");
         yogaF.setPrice(60);
         yogaF = yogaClassDAO.create(yogaF);
-        
+
         // Section
         Section section1A = new Section(semester1, yogaA, f);
         section1A.setMaxStudents(20);
@@ -228,7 +223,7 @@ public class PopulateDatabase {
         // Shopping Cart
         ShoppingCart cart = new ShoppingCart(c);
         cart = shoppingCartDAO.create(cart);
-        
+
         // Product
         Product product = new Product();
         product.setName("Yoga Mat");
@@ -237,17 +232,17 @@ public class PopulateDatabase {
         product.setAvailableQuantity(50);
         product.setDescription("Purple yoga mat");
         product = productDAO.create(product);
-        
+
         // Order
         Order order = new Order();
         order.setCustomer(c);
-        
+
         // Order Item
         OrderItem item = new OrderItem();
         item.setOrder(order);
         item.setQuantity(1);
         item.setProduct(product);
-        
+
         order = orderDAO.create(order);
     }
 

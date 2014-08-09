@@ -55,11 +55,13 @@ public class YogaSectionServiceImpl implements YogaSectionService {
     @Transactional
     public Section updateSection(Section section) throws RequiredDataNotPresent {
         Section sectionToBeUpdate = null;
-        if ((section.getId() > 0) && !section.getSchedule().equals("") && section.getSchedule().equals("")) {
+        if ((section.getId() > 0) && !section.getSchedule().equals("") && !section.getSchedule().equals("")
+                && (section.getMaxStudents() > 0)) {
             sectionToBeUpdate = sectionDAO.getById(section.getId());
             sectionToBeUpdate.setSchedule(section.getSchedule());
             sectionToBeUpdate.setLocation(section.getLocation());
             sectionToBeUpdate.setStart(section.getStart());
+            sectionToBeUpdate.setMaxStudents(section.getMaxStudents());
             sectionToBeUpdate.setEnd(section.getEnd());
             sectionToBeUpdate = sectionDAO.update(sectionToBeUpdate);
         } else {
@@ -87,6 +89,7 @@ public class YogaSectionServiceImpl implements YogaSectionService {
     }
 
     @Override
+    @Transactional
     public Section getSectionByID(int sectionID) {
         return sectionDAO.getById(sectionID);
     }

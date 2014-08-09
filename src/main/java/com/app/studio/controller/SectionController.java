@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -77,17 +78,19 @@ public class SectionController {
         String error = "";
 
         try {
-            Semester semester = semesterService.getSemeterByID(s.getSemester().getId());
-            YogaClass yogaClass = yogaClassService.getYogaClassByID(s.getYogaClass().getId());
-            Faculty faculty = facultyService.getFacultyByID(s.getFaculty().getId());
-
             if (s.getId() == 0) {
+                Semester semester = semesterService.getSemeterByID(s.getSemester().getId());
+                YogaClass yogaClass = yogaClassService.getYogaClassByID(s.getYogaClass().getId());
+                Faculty faculty = facultyService.getFacultyByID(s.getFaculty().getId());
                 this.yogaSectionService.createNewSection(yogaClass, semester, faculty, s);
                 model.addAttribute("msg", "Section is successfully created");
             } else {
                 Section section = yogaSectionService.getSectionByID(s.getId());
-                // section.setStart(s.getStart());
-                //section.setEnd(s.getEnd());
+                section.setLocation(s.getLocation());
+                section.setSchedule(s.getSchedule());
+                section.setStart(s.getStart());
+                section.setEnd(s.getEnd());
+                section.setMaxStudents(s.getMaxStudents());
                 this.yogaSectionService.updateSection(section);
                 model.addAttribute("msg", "Yoga Section is successfully updated");
             }
@@ -102,6 +105,15 @@ public class SectionController {
         model.addAttribute("listYogaClasses", this.yogaClassService.listOfYogaClasses());
         model.addAttribute("listFaculties", this.facultyService.listAllFaculties());
         model.addAttribute("listSemesters", this.semesterService.listOfAllSemesters());
+        return "section";
+    }
+
+    @RequestMapping(value = "/sections/edit/{id}", method = RequestMethod.GET)
+    public String editSections(@PathVariable("id") int id, Model model) {
+        Section sec = new Section();
+        sec = yogaSectionService.getSectionByID(id);
+        model.addAttribute("section", sec);
+        model.addAttribute("listSections", this.yogaSectionService.listOfAllSections());
         return "section";
     }
 

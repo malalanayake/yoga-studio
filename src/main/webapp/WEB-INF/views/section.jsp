@@ -18,16 +18,14 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
         <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-        <c:url var="jsUrl" value='/js/jquery.timePicker.js'></c:url>
-        <c:url var="jsCssUrl" value='/js/jquery.timepicker.css'></c:url>
+        <c:url var="jsUrl" value='/js/jquery.ptTimeSelect.js'></c:url>
+        <c:url var="jsCssUrl" value='/js/jquery.ptTimeSelect.css'></c:url>
         <link rel="stylesheet" type="text/css" href=${jsCssUrl}>
         <script src=${jsUrl}></script>
         <script type="text/javascript">
             jQuery(document).ready(function() {
 
-                $("#start").timepicker({
-                    showOn: 'focus'
-                });
+                $("#start").ptTimeSelect();
 
             });
         </script>
@@ -63,7 +61,7 @@
                                                 disabled="true" /><form:hidden path="id" /></td>
                                 </tr> 
                             </c:if>
-
+                            
                             <c:if test="${section.id == 0}">
                                 <tr>
                                     <td><form:label path="semester">
@@ -116,7 +114,7 @@
                                 <td><form:label path="schedule">
                                         <spring:message text="Schedule Date" />
                                     </form:label></td>
-                                <td><form:input id="ui-datepicker" name="ui-datepicker" path="schedule" /></td>
+                                <td><form:input path="schedule" /></td>
                             </tr>
 
                             <tr>
@@ -159,6 +157,7 @@
                             <th width="120">Yoga Class</th>
                             <th width="120">Faculty</th>
                             <th width="60">Location</th>
+                            <th width="60">Max S.</th>
                             <th width="60">Day</th>
                             <th width="60">Start</th>
                             <th width="60">End</th>
@@ -173,6 +172,7 @@
                                     <td>${section.yogaClass.name}</td>
                                     <td>${section.faculty.user.firstName}</td>
                                     <td>${section.location}</td>
+                                    <td>${section.maxStudents}</td>
                                     <td>${section.schedule}</td>
                                     <td>${section.start}</td>
                                     <td>${section.end}</td>
