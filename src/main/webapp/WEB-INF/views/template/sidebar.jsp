@@ -23,7 +23,8 @@
                 <li><a href="<c:url value='/waivers' />">Manage Waiver Requests</a></li>
                 <li><a href="<c:url value='/advisees' />">View Advisees</a></li>
                 <li><a href="<c:url value='/assigned-sections' />">View Assigned Sections</a></li>
-                </sec:authorize>
+                <li><a href="<c:url value='/students' />">View Students</a></li>
+            </sec:authorize>
             <sec:authorize ifAnyGranted="ROLE_CUSTOMER">
                 <li><a href="<c:url value='/enroll' />">Enroll</a></li>
                 <li><a href="<c:url value='/add-waiver-request' />">Add Waiver Request</a></li>

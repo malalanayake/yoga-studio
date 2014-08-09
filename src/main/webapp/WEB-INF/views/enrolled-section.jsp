@@ -41,6 +41,7 @@
                                     <th>Schedule</th>
                                     <th>Location</th>
                                     <th>Capacity</th>
+                                    <th>Enrollment Date</th>
                                     <th>Enrollment Status</th>
                                 </tr>
                                 <c:forEach items="${enrolledSections}" var="enrolled">
@@ -59,6 +60,7 @@
                                         <td>${enrolled.section.schedule}</td>
                                         <td>${enrolled.section.location}</td>
                                         <td>${enrolled.section.maxStudents}</td>
+                                        <td>${enrolled.date}</td>
                                         <td>${enrolled.status}</td>
                                     </tr>
                                 </c:forEach>

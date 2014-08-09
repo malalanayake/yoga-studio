@@ -3,10 +3,12 @@ package com.app.studio.dao.impl;
 import com.app.studio.dao.CustomerDAO;
 import com.app.studio.dao.ProductDAO;
 import com.app.studio.dao.ShoppingCartDAO;
+import com.app.studio.dao.ShoppingCartItemDAO;
 import com.app.studio.dao.UserDAO;
 import com.app.studio.model.Customer;
 import com.app.studio.model.Product;
 import com.app.studio.model.ShoppingCart;
+import com.app.studio.model.ShoppingCartItem;
 import com.app.studio.model.User;
 import java.util.List;
 import java.util.Set;
@@ -29,6 +31,9 @@ public class ShoppingCartDAOImplTest {
 
     @Autowired
     private ShoppingCartDAO shoppingCartDAO;
+    
+    @Autowired
+    private ShoppingCartItemDAO shoppingCartItemDAO;
 
     @Autowired
     private ProductDAO productDAO;
@@ -86,7 +91,12 @@ public class ShoppingCartDAOImplTest {
         product.setDescription("HP123");
 
         Product resultProduct = productDAO.create(product);
-        shoppingCart.addProduct(product);
+        
+        ShoppingCartItem cartItem = new ShoppingCartItem();
+        cartItem.setProduct(product);
+        cartItem.setShoppingCart(shoppingCart);
+        cartItem = shoppingCartItemDAO.create(cartItem);
+        
         assertNotNull(resultProduct.getId());
         assertEquals(product, resultProduct);
 
@@ -95,11 +105,9 @@ public class ShoppingCartDAOImplTest {
         assertEquals(expect, shoppingCart);
 
         ShoppingCart shoppingCartTest = shoppingCartDAO.getById(expect.getId());
-        Set<Product> shoppingCartList = shoppingCartTest.getSetOfProducts();
-        for (Product product1 : shoppingCartList) {
-            if (product1.equals(product)) {
-                assertEquals(product1, product);
-            }
+        Set<ShoppingCartItem> shoppingCartList = shoppingCartTest.getSetOfShoppingCartItems();
+        for (ShoppingCartItem cartItem1 : shoppingCartList) {
+            assertEquals(cartItem1, cartItem);
         }
 
     }
@@ -195,19 +203,24 @@ public class ShoppingCartDAOImplTest {
         product.setDescription("HP123");
 
         Product resultProduct = productDAO.create(product);
-        shoppingCart.addProduct(product);
+        
+        ShoppingCartItem cartItem = new ShoppingCartItem();
+        cartItem.setProduct(product);
+        cartItem.setShoppingCart(shoppingCart);
+        cartItem = shoppingCartItemDAO.create(cartItem);
+                
         ShoppingCart expect = shoppingCartDAO.create(shoppingCart);
 
         ShoppingCart removeShoppingCart = shoppingCartDAO.remove(expect.getId());
-        for (Product removeProduct : removeShoppingCart.getSetOfProducts()) {
+        for (ShoppingCartItem removeItem : removeShoppingCart.getSetOfShoppingCartItems()) {
             try {
-                System.out.println("Checking Product" + removeProduct.getId());
-                Product nullResult = productDAO.getById(removeProduct.getId());
-                assertNull(nullResult);
-                System.out.println("Null: Product" + removeProduct.getId());
+                System.out.println("Checking ShoppingCartItem" + removeItem.getId());
+                ShoppingCartItem nullItem = shoppingCartItemDAO.getById(removeItem.getId());
+                assertNull(nullItem);
+                System.out.println("Null: ShoppingCartItem, " + removeItem.getId());
             } catch (Exception e) {
                 assertEquals(org.hibernate.ObjectNotFoundException.class, e.getClass());
-                System.out.println("Not found: Product " + removeProduct.getId());
+                System.out.println("Not found: Product " + removeItem.getId());
             }
         }
     }

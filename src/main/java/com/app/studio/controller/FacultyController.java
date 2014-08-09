@@ -7,8 +7,6 @@ import com.app.studio.model.User;
 import com.app.studio.model.WaiverRequest;
 import com.app.studio.service.FacultyService;
 import java.security.Principal;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -98,12 +96,23 @@ public class FacultyController {
     /* ************************* ASSIGNED SECTIONS ************************* */
     @RequestMapping(value = "/assigned-sections", method = RequestMethod.GET)
     public String listSections(Principal user, Model model) {
+        getSections(user.getName(), model);
+        return "assigned-section";
+    }
+
+    /* ************************* STUDENTS ************************* */
+    @RequestMapping(value = "/students", method = RequestMethod.GET)
+    public String listStudents(Principal user, Model model) {
+        getSections(user.getName(), model);
+        return "student";
+    }
+
+    private void getSections(String username, Model model) {
         try {
-            model.addAttribute("listSections", this.facultyService.getFacultyByUsername(user.getName()).getSetOfSections());
+            model.addAttribute("listSections", this.facultyService.getFacultyByUsername(username).getSetOfSections());
         } catch (RequiredDataNotPresent ex) {
             model.addAttribute("error", ex.getMessage());
         }
-        return "assigned-section";
     }
 
     @RequestMapping(value = "/faculties", method = RequestMethod.GET)

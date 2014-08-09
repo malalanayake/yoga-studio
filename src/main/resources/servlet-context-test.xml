@@ -52,6 +52,7 @@
                 <beans:value>com.app.studio.model.Order</beans:value>
                 <beans:value>com.app.studio.model.YogaClass</beans:value>
                 <beans:value>com.app.studio.model.OrderItem</beans:value>
+                <beans:value>com.app.studio.model.ShoppingCartItem</beans:value>
             </beans:list>
         </beans:property>
         <beans:property name="hibernateProperties">
@@ -120,6 +121,10 @@
     </beans:bean>
     
     <beans:bean id="yogaClassDAO" class="com.app.studio.dao.impl.YogaClassDAOImpl">
+        <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+    </beans:bean>
+
+    <beans:bean id="shoppingCartItemDAO" class="com.app.studio.dao.impl.ShoppingCartItemDAOImpl">
         <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
     </beans:bean>
 

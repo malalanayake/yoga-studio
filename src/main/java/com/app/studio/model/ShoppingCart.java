@@ -28,15 +28,16 @@ public class ShoppingCart {
     private int id;
     @OneToOne(fetch = FetchType.EAGER, mappedBy = "shoppingCart")
     private Customer customer;
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
-    private Set<Product> setOfProducts;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "shoppingCart")
+    private Set<ShoppingCartItem> setOfShoppingCartItems;
 
     public ShoppingCart() {
+        this.setOfShoppingCartItems = new HashSet<ShoppingCartItem>();
     }
 
     public ShoppingCart(Customer customer) {
-        this.setOfProducts = new HashSet<Product>();
-        this.customer=customer;
+        this();
+        this.customer = customer;
     }
 
     public int getId() {
@@ -55,12 +56,12 @@ public class ShoppingCart {
         this.customer = customer;
     }
 
-    public Set<Product> getSetOfProducts() {
-        return setOfProducts;
+    public Set<ShoppingCartItem> getSetOfShoppingCartItems() {
+        return setOfShoppingCartItems;
     }
 
-    public void addProduct(Product product) {
-        this.setOfProducts.add(product);
+    public void addShoppingCartItem(ShoppingCartItem shoppingCartItem) {
+        this.setOfShoppingCartItems.add(shoppingCartItem);
     }
 
     @Override

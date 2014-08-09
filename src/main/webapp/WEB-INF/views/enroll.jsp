@@ -43,6 +43,7 @@
                                 <th>Schedule</th>
                                 <th>Location</th>
                                 <th>Capacity</th>
+                                <th>Enrollment Date</th>
                                 <th>Enrollment Status</th>
                             </tr>
                             <c:forEach items="${enrolledSections}" var="enrolled">
@@ -61,6 +62,7 @@
                                     <td>${enrolled.section.schedule}</td>
                                     <td>${enrolled.section.location}</td>
                                     <td>${enrolled.section.maxStudents}</td>
+                                    <td>${enrolled.date}</td>
                                     <td>${enrolled.status}</td>
                                 </tr>
                             </c:forEach>
@@ -80,6 +82,7 @@
                                     <td>${section.schedule}</td>
                                     <td>${section.location}</td>
                                     <td>${section.maxStudents}</td>
+                                    <td></td>
                                     <td><a href="<c:url value='/enroll/${section.id}' />">Click to enroll</a></td>
                                 </tr>
                             </c:forEach>
