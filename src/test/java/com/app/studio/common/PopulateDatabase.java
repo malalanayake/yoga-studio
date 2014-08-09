@@ -156,37 +156,49 @@ public class PopulateDatabase {
         Section section1A = new Section(semester1, yogaA, f);
         section1A.setMaxStudents(20);
         section1A.setLocation("Hall A");
-        section1A.setSchedule("M 08:00-09:00");
+        section1A.setSchedule("MON");
+        section1A.setStart("08:00am");
+        section1A.setEnd("09:00am");
         section1A = sectionDAO.create(section1A);
 
         Section section1B = new Section(semester1, yogaB, f);
         section1B.setMaxStudents(20);
         section1B.setLocation("Hall B");
-        section1B.setSchedule("T 08:00-09:00");
+        section1B.setSchedule("TUE");
+        section1B.setStart("08:00am");
+        section1B.setEnd("09:00am");
         section1B = sectionDAO.create(section1B);
 
         Section section1C = new Section(semester1, yogaC, f);
         section1C.setMaxStudents(20);
         section1C.setLocation("Hall C");
-        section1C.setSchedule("W 08:00-09:00");
+        section1C.setSchedule("WED");
+        section1C.setStart("08:00am");
+        section1C.setEnd("09:00am");
         section1C = sectionDAO.create(section1C);
 
         Section section1D = new Section(semester1, yogaD, f);
         section1D.setMaxStudents(20);
         section1D.setLocation("Hall D");
-        section1D.setSchedule("T 08:00-09:00");
+        section1D.setSchedule("THR");
+        section1D.setStart("08:00am");
+        section1D.setEnd("09:00am");
         section1D = sectionDAO.create(section1D);
 
         Section section1E = new Section(semester1, yogaE, f);
         section1E.setMaxStudents(20);
         section1E.setLocation("Hall E");
-        section1E.setSchedule("F 08:00-09:00");
+        section1E.setSchedule("FRI");
+        section1E.setStart("08:00am");
+        section1E.setEnd("09:00am");
         section1E = sectionDAO.create(section1E);
 
         Section section1F = new Section(semester1, yogaF, f);
         section1F.setMaxStudents(20);
         section1F.setLocation("Hall F");
-        section1F.setSchedule("S 08:00-09:00");
+        section1F.setSchedule("SAT");
+        section1F.setStart("08:00am");
+        section1F.setEnd("09:00am");
         section1F = sectionDAO.create(section1F);
 
         // Waivers

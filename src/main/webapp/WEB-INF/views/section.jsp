@@ -17,12 +17,22 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+        <c:url var="jsUrl" value='/js/jquery.timePicker.js'></c:url>
+        <c:url var="jsCssUrl" value='/js/jquery.timepicker.css'></c:url>
+        <link rel="stylesheet" type="text/css" href=${jsCssUrl}>
+        <script src=${jsUrl}></script>
         <script type="text/javascript">
             jQuery(document).ready(function() {
                 $("#ui-datepicker").datepicker({
                     showOn: 'focus',
-                    dateFormat: 'yy-mm-dd'
+                    dateFormat: ''
                 }).css({'font-size': 'smaller'});
+
+                $("#start").timepicker({
+                    showOn: 'focus'
+                });
+
             });
         </script>
         <style type="text/css">
@@ -70,10 +80,24 @@
                             </tr>
                             <tr>
                                 <td><form:label path="schedule">
-                                        <spring:message text="Schedule Time" />
+                                        <spring:message text="Schedule Date" />
                                     </form:label></td>
                                 <td><form:input id="ui-datepicker" name="ui-datepicker" path="schedule" /></td>
                             </tr>
+
+                            <tr>
+                                <td><form:label path="start">
+                                        <spring:message text="Start Time" />
+                                    </form:label></td>
+                                <td><form:input id="start" name="start" path="start" /></td>
+                            </tr>
+                            <tr>
+                                <td><form:label path="end">
+                                        <spring:message text="End Time" />
+                                    </form:label></td>
+                                <td><form:input id="end" name="end" path="end" /></td>
+                            </tr>
+                            
                             <tr>
                                 <td colspan='2'>
                                     <c:if test="${section.id gt 0}">
@@ -93,7 +117,9 @@
                             <th width="120">Yoga Class</th>
                             <th width="120">Faculty</th>
                             <th width="120">Location</th>
-                            <th width="120">Schedule</th>
+                            <th width="60">Day</th>
+                            <th width="60">Start</th>
+                            <th width="60">End</th>
                             <th width="60">Edit</th>
                             <th width="60">Delete</th>
                         </tr>
@@ -105,6 +131,8 @@
                                     <td>${section.faculty.user.firstName}</td>
                                     <td>${section.location}</td>
                                     <td>${section.schedule}</td>
+                                    <td>${section.start}</td>
+                                    <td>${section.end}</td>
                                     <td><a href="<c:url value='/sections/edit/${section.id}' />">Edit</a></td>
                                     <td><a href="<c:url value='/sections/remove/${section.id}' />">Delete</a></td>
                                 </tr>

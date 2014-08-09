@@ -18,21 +18,21 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 public class YogaSectionServiceImpl implements YogaSectionService {
-
+    
     private SectionDAO sectionDAO;
-
+    
     public SectionDAO getSectionDAO() {
         return sectionDAO;
     }
-
+    
     public void setSectionDAO(SectionDAO sectionDAO) {
         this.sectionDAO = sectionDAO;
     }
-
+    
     @Override
     @Transactional
     public Section createNewSection(YogaClass yogaClass, Semester semester, Faculty faculty, Section section) throws RequiredDataNotPresent, RecordAlreadyExistException {
-
+        
         Section sectionToBeCreated = null;
         if ((yogaClass.getId() > 0) && (semester.getId() > 0) && (faculty.getId() > 0)
                 && !section.getLocation().equals("") && !section.getSchedule().equals("")
@@ -42,6 +42,8 @@ public class YogaSectionServiceImpl implements YogaSectionService {
                 sectionToBeCreated.setLocation(section.getLocation());
                 sectionToBeCreated.setMaxStudents(section.getMaxStudents());
                 sectionToBeCreated.setSchedule(section.getSchedule());
+                sectionToBeCreated.setStart(section.getStart());
+                sectionToBeCreated.setEnd(section.getEnd());
                 sectionToBeCreated = sectionDAO.create(sectionToBeCreated);
             } else {
                 throw new RecordAlreadyExistException("Section already exist with Location:"
@@ -52,22 +54,24 @@ public class YogaSectionServiceImpl implements YogaSectionService {
         }
         return sectionToBeCreated;
     }
-
+    
     @Override
     @Transactional
     public Section updateSection(Section section) throws RequiredDataNotPresent {
-        Section secitonToBeUpdate = null;
+        Section sectionToBeUpdate = null;
         if ((section.getId() > 0) && !section.getSchedule().equals("") && section.getSchedule().equals("")) {
-            secitonToBeUpdate = sectionDAO.getById(section.getId());
-            secitonToBeUpdate.setSchedule(section.getSchedule());
-            secitonToBeUpdate.setLocation(section.getLocation());
-            secitonToBeUpdate = sectionDAO.update(secitonToBeUpdate);
+            sectionToBeUpdate = sectionDAO.getById(section.getId());
+            sectionToBeUpdate.setSchedule(section.getSchedule());
+            sectionToBeUpdate.setLocation(section.getLocation());
+            sectionToBeUpdate.setStart(section.getStart());
+            sectionToBeUpdate.setEnd(section.getEnd());
+            sectionToBeUpdate = sectionDAO.update(sectionToBeUpdate);
         } else {
             throw new RequiredDataNotPresent("Required data not presenet to create section");
         }
-        return secitonToBeUpdate;
+        return sectionToBeUpdate;
     }
-
+    
     @Override
     @Transactional
     public Section deleteSection(Section section) throws RequiredDataNotPresent {
@@ -79,11 +83,11 @@ public class YogaSectionServiceImpl implements YogaSectionService {
         }
         return sectionDelete;
     }
-
+    
     @Override
     @Transactional
     public List<Section> listOfAllSections() {
         return sectionDAO.list();
     }
-
+    
 }

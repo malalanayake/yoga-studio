@@ -44,6 +44,8 @@ public class Section {
     private int maxStudents;
     private String location;
     private String schedule;
+    private String start;
+    private String end;
     @ManyToOne(fetch = FetchType.EAGER)
     private Faculty faculty;
     @ManyToOne(fetch = FetchType.EAGER)
@@ -129,6 +131,22 @@ public class Section {
 
     public void setSchedule(String schedule) {
         this.schedule = schedule;
+    }
+
+    public String getStart() {
+        return start;
+    }
+
+    public void setStart(String start) {
+        this.start = start;
+    }
+
+    public String getEnd() {
+        return end;
+    }
+
+    public void setEnd(String end) {
+        this.end = end;
     }
 
     @Override
