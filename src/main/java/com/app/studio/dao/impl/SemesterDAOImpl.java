@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
  * @author jCalles
  */
 @Repository
-public class SemesterDAOImpl implements SemesterDAO{
+public class SemesterDAOImpl implements SemesterDAO {
 
     private static final Logger logger = LoggerFactory.getLogger(SemesterDAOImpl.class);
 
@@ -28,7 +28,7 @@ public class SemesterDAOImpl implements SemesterDAO{
 
     @Override
     public Semester create(Semester semester) {
-    Session session = this.sessionFactory.getCurrentSession();
+        Session session = this.sessionFactory.getCurrentSession();
         session.persist(semester);
         if (logger.isDebugEnabled()) {
             logger.debug("Semester saved successfully, Semester Details=" + semester);
@@ -38,7 +38,7 @@ public class SemesterDAOImpl implements SemesterDAO{
 
     @Override
     public Semester update(Semester semester) {
-        
+
         Session session = this.sessionFactory.getCurrentSession();
         session.update(semester);
         if (logger.isDebugEnabled()) {
@@ -46,11 +46,11 @@ public class SemesterDAOImpl implements SemesterDAO{
         }
         return semester;
     }
-    
+
     @SuppressWarnings("unchecked")
     @Override
     public List<Semester> list() {
-           Session session = this.sessionFactory.getCurrentSession();
+        Session session = this.sessionFactory.getCurrentSession();
         List<Semester> semesterList = session.createQuery("from Semester").list();
         if (logger.isDebugEnabled()) {
             for (Semester semester : semesterList) {
@@ -58,12 +58,12 @@ public class SemesterDAOImpl implements SemesterDAO{
             }
         }
         return semesterList;
-        
+
     }
 
     @Override
     public Semester getById(int id) {
-       Session session = this.sessionFactory.getCurrentSession();
+        Session session = this.sessionFactory.getCurrentSession();
         Semester semester = (Semester) session.get(Semester.class, new Integer(id));
         if (logger.isDebugEnabled()) {
             logger.debug("Semester loaded successfully, Semester details=" + semester);
@@ -73,7 +73,7 @@ public class SemesterDAOImpl implements SemesterDAO{
 
     @Override
     public Semester remove(int id) {
-             Session session = this.sessionFactory.getCurrentSession();
+        Session session = this.sessionFactory.getCurrentSession();
         Semester semester = (Semester) session.load(Semester.class, new Integer(id));
         if (null != semester) {
             session.delete(semester);
@@ -84,5 +84,10 @@ public class SemesterDAOImpl implements SemesterDAO{
         return semester;
     }
 
+    @Override
+    public List<Semester> getBySignUpDate() {
+        Session session = this.sessionFactory.getCurrentSession();
+        List<Semester> semList = session.getNamedQuery(Semester.Constants.NAME_QUERY_FIND_BY_SIGN_UP_DATE).list();
+        return semList;
+    }
 }
-

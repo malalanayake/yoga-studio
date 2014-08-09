@@ -132,4 +132,50 @@ public class User {
                 + "roles=" + roles + ", firstName=" + firstName + ", lastName=" + lastName + ","
                 + " sequrityQuestion=" + sequrityQuestion + ", answer=" + answer + '}';
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 97 * hash + this.id;
+        hash = 97 * hash + (this.username != null ? this.username.hashCode() : 0);
+        hash = 97 * hash + (this.password != null ? this.password.hashCode() : 0);
+        hash = 97 * hash + (this.firstName != null ? this.firstName.hashCode() : 0);
+        hash = 97 * hash + (this.lastName != null ? this.lastName.hashCode() : 0);
+        hash = 97 * hash + (this.sequrityQuestion != null ? this.sequrityQuestion.hashCode() : 0);
+        hash = 97 * hash + (this.answer != null ? this.answer.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final User other = (User) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if ((this.username == null) ? (other.username != null) : !this.username.equals(other.username)) {
+            return false;
+        }
+        if ((this.password == null) ? (other.password != null) : !this.password.equals(other.password)) {
+            return false;
+        }
+        if ((this.firstName == null) ? (other.firstName != null) : !this.firstName.equals(other.firstName)) {
+            return false;
+        }
+        if ((this.lastName == null) ? (other.lastName != null) : !this.lastName.equals(other.lastName)) {
+            return false;
+        }
+        if ((this.sequrityQuestion == null) ? (other.sequrityQuestion != null) : !this.sequrityQuestion.equals(other.sequrityQuestion)) {
+            return false;
+        }
+        if ((this.answer == null) ? (other.answer != null) : !this.answer.equals(other.answer)) {
+            return false;
+        }
+        return true;
+    }
 }

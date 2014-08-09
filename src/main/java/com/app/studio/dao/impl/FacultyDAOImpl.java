@@ -91,4 +91,15 @@ public class FacultyDAOImpl implements FacultyDAO {
         }
         return faculty;
     }
+
+    @Override
+    public Faculty getNextAdvisor() {
+        Session session = this.sessionFactory.getCurrentSession();
+        List<Faculty> facultyList = session.getNamedQuery(Faculty.Constants.NAME_QUERY_FIND_NEXT_ADVISOR).list();
+        Faculty faculty = null;
+        if (!facultyList.isEmpty()) {
+            faculty = facultyList.get(0);
+        }
+        return faculty;
+    }
 }

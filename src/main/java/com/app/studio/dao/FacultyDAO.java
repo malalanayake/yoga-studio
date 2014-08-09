@@ -48,6 +48,19 @@ public interface FacultyDAO {
      * @return
      */
     public Faculty remove(int id);
-    
+
+    /**
+     * Get Faculty by user name
+     *
+     * @param userName
+     * @return
+     */
     public Faculty getByUserName(String userName);
+
+    /**
+     * Get advisor to be assigned to customer
+     *
+     * @return
+     */
+    public Faculty getNextAdvisor();
 }

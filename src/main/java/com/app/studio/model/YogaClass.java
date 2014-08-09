@@ -13,6 +13,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 /**
@@ -42,8 +43,10 @@ public class YogaClass {
     private String name;
     private double price;
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "yogaClass")
+    @OrderBy
     private Set<Section> setOfSections;
     @ManyToMany(fetch = FetchType.EAGER)
+    @OrderBy
     private Set<YogaClass> setOfPrerequisites;
 
     public void setSetOfSections(Set<Section> setOfSections) {

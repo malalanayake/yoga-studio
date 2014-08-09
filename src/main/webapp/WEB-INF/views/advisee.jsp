@@ -26,22 +26,27 @@
                     <h2>
                         View Advisees
                     </h2>
-                    <table class="tg">
-                        <tr>
-                            <th>Customer ID</th>
-                            <th>Name</th>
-                            <th>Signup Date</th>
-                        </tr>
-                        <c:if test="${!empty listAdvisees}">
-                            <c:forEach items="${listAdvisees}" var="advisee">
+                    <c:choose>
+                        <c:when test="${empty listAdvisees}">
+                            <p>You are currently not assigned to advise any students.</p>
+                        </c:when>
+                        <c:otherwise>
+                            <table class="tg">
                                 <tr>
-                                    <td>${advisee.id}</td>
-                                    <td>${advisee.user.firstName} ${advisee.user.lastName}</td>
-                                    <td>${advisee.signUpDate}</td>
+                                    <th>Customer ID</th>
+                                    <th>Name</th>
+                                    <th>Signup Date</th>
                                 </tr>
-                            </c:forEach>
-                        </c:if>
-                    </table>
+                                <c:forEach items="${listAdvisees}" var="advisee">
+                                    <tr>
+                                        <td>${advisee.id}</td>
+                                        <td>${advisee.user.firstName} ${advisee.user.lastName}</td>
+                                        <td>${advisee.signUpDate}</td>
+                                    </tr>
+                                </c:forEach>
+                            </table>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
                 <!--<%@include file="template/right-side.jsp"%>-->
                 <%@include file="template/footer.jsp"%>

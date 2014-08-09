@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 /**
@@ -53,6 +54,7 @@ public class Section {
     @ManyToOne(fetch = FetchType.EAGER)
     private YogaClass yogaClass;
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "section")
+    @OrderBy
     private Set<EnrolledSection> setOfEnrolledSections;
 
     public Section() {

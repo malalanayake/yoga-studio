@@ -96,14 +96,14 @@ public class FacultyController {
     }
 
     /* ************************* ASSIGNED SECTIONS ************************* */
-    @RequestMapping(value = "/assignedsections", method = RequestMethod.GET)
+    @RequestMapping(value = "/assigned-sections", method = RequestMethod.GET)
     public String listSections(Principal user, Model model) {
         try {
             model.addAttribute("listSections", this.facultyService.getFacultyByUsername(user.getName()).getSetOfSections());
         } catch (RequiredDataNotPresent ex) {
             model.addAttribute("error", ex.getMessage());
         }
-        return "assignedsection";
+        return "assigned-section";
     }
 
     @RequestMapping(value = "/faculties", method = RequestMethod.GET)

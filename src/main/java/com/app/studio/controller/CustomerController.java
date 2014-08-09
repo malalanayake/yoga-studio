@@ -3,10 +3,13 @@ package com.app.studio.controller;
 import com.app.studio.exception.RecordAlreadyExistException;
 import com.app.studio.exception.RequiredDataNotPresent;
 import com.app.studio.model.Customer;
+import com.app.studio.model.EnrolledSection;
+import com.app.studio.model.Section;
 import com.app.studio.model.User;
 import com.app.studio.service.CustomerService;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.security.Principal;
+import java.util.List;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -79,4 +83,80 @@ public class CustomerController {
         return "waiverrequest";
     }
 
+    @RequestMapping(value = "/enroll", method = RequestMethod.GET)
+    public String listEnrollmentSections(Principal user, Model model) {
+        getOpenEnrollments(user.getName(), model);
+        return "enroll";
+    }
+
+    @RequestMapping(value = "/enroll/{id}", method = RequestMethod.GET)
+    public String enroll(@PathVariable("id") int id, Principal user, Model model) {
+        try {
+            Section section = this.customerService.getSectionById(id);
+            boolean isEnrolled = this.customerService.enroll(user.getName(), section);
+            if (isEnrolled) {
+                model.addAttribute("msg", "You have been successfully enrolled in "
+                        + section.getYogaClass().getName() + " - Section " + section.getId()
+                        + " for Semester " + section.getSemester().getId());
+                getOpenEnrollments(user.getName(), model);
+                return "enroll";
+            } else {
+                model.addAttribute("section", section);
+                return "waitlist";
+            }
+        } catch (Exception ex) {
+            model.addAttribute("error", ex.getMessage());
+            getOpenEnrollments(user.getName(), model);
+            return "enroll";
+        }
+
+    }
+
+    @RequestMapping(value = "/waitlist", method = RequestMethod.POST)
+    public String waitlist(@RequestParam String waitlist, @ModelAttribute("section") Section s, Principal user, Model model) {
+        System.out.println("############### RequestParam = " + waitlist + ", Section ID: " + s.getId());
+        if ("Yes".equals(waitlist)) {
+            try {
+                Section section = this.customerService.getSectionById(s.getId());
+                this.customerService.waitlist(user.getName(), section);
+                model.addAttribute("msg", "You have been successfully waitlisted in "
+                        + section.getYogaClass().getName() + " - Section " + section.getId()
+                        + " for Semester " + section.getSemester().getId());
+            } catch (RequiredDataNotPresent ex) {
+                model.addAttribute("error", ex.getMessage());
+            }
+            getOpenEnrollments(user.getName(), model);
+            return "enroll";
+        } else {
+            return "redirect:/enroll";
+        }
+    }
+
+    @RequestMapping(value = "/enrolled-sections", method = RequestMethod.GET)
+    public String listEnrolledSections(Principal user, Model model) {
+        model.addAttribute("enrolledSections", this.customerService.getCustomerByUsername(user.getName()).getSetOfEnrolledSections());
+        return "enrolled-section";
+    }
+
+    @RequestMapping(value = "/available-sections", method = RequestMethod.GET)
+    public String listAvailableSections(Principal user, Model model) {
+        model.addAttribute("availableSections", this.customerService.listAvailableSections());
+        return "available-section";
+    }
+
+    private void getOpenEnrollments(String username, Model model) {
+        // Get enrolled sections
+        Set<EnrolledSection> enrolledSections = this.customerService.getCustomerByUsername(username).getSetOfEnrolledSections();
+        // Get sections open for sign up
+        List<Section> availableSections = this.customerService.listAvailableSections();
+        for (EnrolledSection enrolled : enrolledSections) {
+            // If section is not in available sections, 
+            // the class has already expired and doesn't need to be displayed
+            if (!availableSections.remove(enrolled.getSection())) {
+                enrolledSections.remove(enrolled);
+            }
+        }
+        model.addAttribute("enrolledSections", enrolledSections);
+        model.addAttribute("availableSections", availableSections);
+    }
 }

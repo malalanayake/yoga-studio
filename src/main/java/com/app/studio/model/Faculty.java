@@ -10,11 +10,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.OrderBy;
 
 /**
  * Entity class which is going to hold the faculty data
@@ -23,8 +25,16 @@ import javax.persistence.Table;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "findByFacultyUserName", query = "select u from Faculty u where u.user.username=:userName")})
-@Table(name = "FACULTY")
+    @NamedQuery(name = "findByFacultyUserName", query = "select u from Faculty u where u.user.username=:userName")
+})
+@NamedNativeQueries({
+    @NamedNativeQuery(name = "findNextAdvisor",
+            query = "select * from faculty where id = (select id from ("
+            + " select f.id, count(c.id) assignees"
+            + " from faculty f left outer join customer c on f.id = c.advisor_id"
+            + " group by f.id order by assignees limit 1) t)",
+            resultClass = Faculty.class)
+})
 public class Faculty {
 
     /**
@@ -34,6 +44,8 @@ public class Faculty {
 
         public static final String NAME_QUERY_FIND_BY_USER_NAME = "findByFacultyUserName";
         public static final String PARAM_USER_NAME = "userName";
+
+        public static final String NAME_QUERY_FIND_NEXT_ADVISOR = "findNextAdvisor";
     }
 
     @Id
@@ -43,10 +55,13 @@ public class Faculty {
     @OneToOne(fetch = FetchType.EAGER)
     private User user;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "advisor")
+    @OrderBy
     private Set<Customer> setOfCustomers;
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "faculty")
+    @OrderBy
     private Set<WaiverRequest> setOfWaiverRequests;
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "faculty")
+    @OrderBy
     private Set<Section> setOfSections;
 
     public Faculty() {

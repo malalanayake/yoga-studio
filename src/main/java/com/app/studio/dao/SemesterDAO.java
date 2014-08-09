@@ -1,20 +1,19 @@
 package com.app.studio.dao;
+
 import com.app.studio.model.Semester;
 import java.util.List;
 
-
 /**
- *SemesterDAO Operations
+ * SemesterDAO Operations
+ *
  * @author jCalles
  */
-
-    
-    public interface SemesterDAO {
+public interface SemesterDAO {
 
     /**
      * Create a new Semester
      *
-     * @param p
+     * @param s
      * @return
      */
     public Semester create(Semester s);
@@ -22,7 +21,7 @@ import java.util.List;
     /**
      * Update existing customer
      *
-     * @param p
+     * @param s
      * @return
      */
     public Semester update(Semester s);
@@ -49,7 +48,12 @@ import java.util.List;
      * @return
      */
     public Semester remove(int id);
-}
-        
-    
 
+    /**
+     * Get list of semesters with sign up date equal to or later than today's
+     * date.
+     *
+     * @return
+     */
+    public List<Semester> getBySignUpDate();
+}

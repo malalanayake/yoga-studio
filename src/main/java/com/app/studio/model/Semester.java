@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 /**
@@ -38,6 +39,7 @@ public class Semester {
     private String enddate;
     private String signUpDate;
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "semester")
+    @OrderBy
     private Set<Section> setOfSections;
 
     public Semester() {

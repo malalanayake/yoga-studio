@@ -15,6 +15,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 /**
@@ -49,8 +50,10 @@ public class Customer {
     @OneToOne(fetch = FetchType.EAGER)
     private User user;
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "customer")
+    @OrderBy
     private Set<WaiverRequest> setOfWaiverRequests;
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "customer")
+    @OrderBy("section")
     private Set<EnrolledSection> setOfEnrolledSections;
     @OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private ShoppingCart shoppingCart;

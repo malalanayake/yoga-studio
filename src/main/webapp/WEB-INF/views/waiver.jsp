@@ -33,37 +33,42 @@
                     <c:if test="${not empty msg}">
                         <div class="msg">${msg}</div>
                     </c:if>
-                    <table class="tg">
-                        <tr>
-                            <th>Waiver Request ID</th>
-                            <th>Customer</th>
-                            <th>Yoga Class</th>
-                            <th>Status</th>
-                            <th>Approve</th>
-                            <th>Reject</th>
-                        </tr>
-                        <c:if test="${!empty listWaivers}">
-                            <c:set var="pending" value="<%= Constants.STATUS_PENDING %>" />
-                            <c:forEach items="${listWaivers}" var="waiver">
+                    <c:choose>
+                        <c:when test="${empty listWaivers}">
+                            <p>No waiver requests have been submitted.</p>
+                        </c:when>
+                        <c:otherwise>
+                            <table class="tg">
                                 <tr>
-                                    <td>${waiver.id}</td>
-                                    <td>${waiver.customer.user.firstName} ${waiver.customer.user.lastName}</td>
-                                    <td>${waiver.yogaClass.name}</td>
-                                    <td>${waiver.status}</td>
-                                    <c:choose>
-                                        <c:when test="${waiver.status == pending}">
-                                            <td><a href="<c:url value='/waivers/approve/${waiver.id}' />">Approve</a></td>
-                                            <td><a href="<c:url value='/waivers/reject/${waiver.id}' />">Reject</a></td>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <td></td>
-                                            <td></td>
-                                        </c:otherwise>
-                                    </c:choose>
+                                    <th>Waiver Request ID</th>
+                                    <th>Customer</th>
+                                    <th>Yoga Class</th>
+                                    <th>Status</th>
+                                    <th>Approve</th>
+                                    <th>Reject</th>
                                 </tr>
-                            </c:forEach>
-                        </c:if>
-                    </table>
+                                <c:set var="pending" value="<%= Constants.STATUS_PENDING%>" />
+                                <c:forEach items="${listWaivers}" var="waiver">
+                                    <tr>
+                                        <td>${waiver.id}</td>
+                                        <td>${waiver.customer.user.firstName} ${waiver.customer.user.lastName}</td>
+                                        <td>${waiver.yogaClass.name}</td>
+                                        <td>${waiver.status}</td>
+                                        <c:choose>
+                                            <c:when test="${waiver.status == pending}">
+                                                <td><a href="<c:url value='/waivers/approve/${waiver.id}' />">Approve</a></td>
+                                                <td><a href="<c:url value='/waivers/reject/${waiver.id}' />">Reject</a></td>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <td></td>
+                                                <td></td>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </tr>
+                                </c:forEach>
+                            </table>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
                 <!--<%@include file="template/right-side.jsp"%>-->
                 <%@include file="template/footer.jsp"%>
