@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -29,8 +28,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    // Manage Profile 
-    //Show Current Profile
     @RequestMapping(value = "/manage-profile", method = RequestMethod.GET)
     public String showCurrentProfile(Model model, Principal user) {
         model.addAttribute("user", this.userService.getUserByUserName(user.getName()));
@@ -38,23 +35,40 @@ public class UserController {
 
     }
 
-    //Update Profile
-    @RequestMapping(value = "/manage-profile/{name}/{password}/{firstName}/{lastName}/{securityQuestion}/{answer}", method = RequestMethod.GET)
-    public String updateUser(@PathVariable("name") String customerName, @PathVariable("password") String password,
-            @PathVariable("firstName") String firstName, @PathVariable("lastName") String lastName, @PathVariable("sequrityQuestion") String sequrityQuestion,
-            @PathVariable("answer") String answer, Model model) throws RequiredDataNotPresent {
+    @RequestMapping(value = "/manage1/update", method = RequestMethod.POST)
+    public String updateUser(@ModelAttribute("user") User u, Model model) throws RequiredDataNotPresent {
+        User user = userService.getUserByUserName(u.getUsername());
+        user.setPassword(u.getPassword());
+        user.setFirstName(u.getFirstName());
+        user.setLastName(u.getLastName());
+        user.setSequrityQuestion(u.getSequrityQuestion());
+        user.setAnswer(u.getAnswer());
 
-        User user = userService.getUserByUserName(customerName);
-        user.setPassword(password);
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        user.setAnswer(answer);
-        user.setSequrityQuestion(sequrityQuestion);
-
-        user = this.userService.updateUser(user);
+        user = this.userService.updateUser(u);
         model.addAttribute("msg", "The profile was succesfully updated");
         model.addAttribute("user", user);
         return "manage-profile";
+
+    }
+
+    @RequestMapping(value = "/manage/update", method = RequestMethod.POST)
+    public String updateUser2(@ModelAttribute("user") User u, Model model) {
+        try {
+            User user = userService.getUserByUserName(u.getUsername());
+            user.setPassword(u.getPassword());
+            user.setFirstName(u.getFirstName());
+            user.setLastName(u.getLastName());
+            user.setSequrityQuestion(u.getSequrityQuestion());
+            user.setAnswer(u.getAnswer());
+            user = this.userService.updateUser(user);
+            model.addAttribute("msg", "The profile was succesfully updated");
+            model.addAttribute("user", user);
+            return "manage-profile";
+        } catch (RequiredDataNotPresent ex) {
+            model.addAttribute("error", ex.getMessage());
+            model.addAttribute("user", u);
+            return "manage-profile";
+        }
 
     }
 }

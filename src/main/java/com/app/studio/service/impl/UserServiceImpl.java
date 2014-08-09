@@ -1,6 +1,7 @@
 package com.app.studio.service.impl;
 
 import com.app.studio.dao.UserDAO;
+import com.app.studio.exception.RequiredDataNotPresent;
 import com.app.studio.model.User;
 import com.app.studio.service.UserService;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public User updateUser(User user) {
+    public User updateUser(User user) throws RequiredDataNotPresent {
+        if (!user.getFirstName().equals("") && !user.getLastName().equals("") &&  !user.getPassword().equals("")
+                && !user.getSequrityQuestion().equals("") && !user.getAnswer().equals(""))
         return userDAO.update(user);
+        else
+        {
+           throw new RequiredDataNotPresent("You have to complete all the fields"); 
+        }
     }
 }
+
+ 

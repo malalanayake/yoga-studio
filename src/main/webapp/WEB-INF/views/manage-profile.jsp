@@ -25,9 +25,6 @@
                 <%@include file="template/sidebar.jsp"%>
                 <div id="content">
 
-                    <h1>Please edit the parameters that you want to change </h1>
-
-
                     <c:if test="${not empty error}">
                         <div class="error">${error}</div>
                     </c:if>
@@ -35,15 +32,23 @@
                         <div class="msg">${msg}</div>
                     </c:if>
 
-                    <c:url var="manage-profile" value="/manage-profile"></c:url>
-                    <form:form action="${manage-profile}" commandName="user">
+
+                    <h2>Manage Profile</h2>
+                    <c:url var="manageProfile" value="/manage/update"></c:url>
+                    <form:form method="POST" action="${manageProfile}" commandName="user">
 
                         <table>
+                            <tr>
+                                <td><form:label path="username">
+                                        <spring:message text="Username" />
+                                    </form:label></td>
+                                <td><form:input id="username" name="username" path="username" readonly="" disabled="true" /> <form:hidden path="username"/></td>
+                            </tr>
                             <tr>
                                 <td><form:label path="password">
                                         <spring:message text="Password" />
                                     </form:label></td>
-                                <td><form:input id="password" name="password" path="password" /></td>
+                                <td><form:password id="password" name="password" path="password" /></td>
                             </tr>
                             <tr>
                                 <td><form:label path="firstName">
@@ -69,8 +74,12 @@
                                     </form:label></td>
                                 <td><form:input id="answer" name="answer" path="answer" /></td>
                             </tr>
+
                             <tr>
-                                <td><a href="<c:url value='/manage-profile/${pageContext.request.userPrincipal.name}/${user.password}/${user.firstName}/${user.lastName}/${user.sequrityQuestion}/${user.answer}'/>">Submit</a></td>
+                                <td colspan="2">
+                                    <input type="submit"
+                                           value="<spring:message text="Update Profile"/>" />
+                                </td>
                             </tr>
 
                         </table>
