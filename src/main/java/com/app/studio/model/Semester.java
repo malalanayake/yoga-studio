@@ -86,7 +86,7 @@ public class Semester {
 
     @Override
     public String toString() {
-        return "Semester{" + "id=" + id + ", startdate=" + startdate + ", enddate=" + enddate + ", signUpDate=" + signUpDate + '}';
+        return "Start:" + this.startdate + ",End:" + this.enddate + ",Signup:" + this.signUpDate;
     }
 
     @Override

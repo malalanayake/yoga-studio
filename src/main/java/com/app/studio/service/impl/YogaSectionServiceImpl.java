@@ -89,5 +89,10 @@ public class YogaSectionServiceImpl implements YogaSectionService {
     public List<Section> listOfAllSections() {
         return sectionDAO.list();
     }
+
+    @Override
+    public Section getSectionByID(int sectionID) {
+        return sectionDAO.getById(sectionID);
+    }
     
 }

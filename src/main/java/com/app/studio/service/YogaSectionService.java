@@ -51,4 +51,6 @@ public interface YogaSectionService {
      * @return
      */
     public List<Section> listOfAllSections();
+    
+    public Section getSectionByID(int sectionID);
 }

@@ -59,7 +59,7 @@
                         Manage Sections
                     </h2>
                     <c:url var="addAction" value="/sections/add"></c:url>
-                    <form:form action="${addAction}" commandName="section">
+                    <form:form action="${addAction}" commandName="section" method="POST">
 
                         <table>
                             <c:if test="${section.id > 0}">
@@ -70,6 +70,48 @@
                                     <td><form:input path="id" readonly="true" 
                                                 disabled="true" /><form:hidden path="id" /></td>
                                 </tr> 
+                            </c:if>
+
+                            <c:if test="${section.id == 0}">
+                                <tr>
+                                    <td><form:label path="semester">
+                                            <spring:message text="ID" />
+                                        </form:label></td>
+                                    <td>
+                                        <form:select  path="semester" items="${listSemesters}">
+
+                                        </form:select>
+                                    </td>
+
+                                </tr>
+                            </c:if>
+
+                            <c:if test="${section.id == 0}">
+                                <tr>
+                                    <td><form:label path="yogaClass">
+                                            <spring:message text="ID" />
+                                        </form:label></td>
+                                    <td>
+                                        <form:select  path="yogaClass" items="${listYogaClasses}">
+
+                                        </form:select>
+                                    </td>
+
+                                </tr>
+                            </c:if>
+
+                            <c:if test="${section.id == 0}">
+                                <tr>
+                                    <td><form:label path="faculty">
+                                            <spring:message text="ID" />
+                                        </form:label></td>
+                                    <td>
+                                        <form:select  path="faculty" items="${listFaculties}">
+
+                                        </form:select>
+                                    </td>
+
+                                </tr>
                             </c:if>
 
                             <tr>
@@ -84,6 +126,13 @@
                                     </form:label></td>
                                 <td><form:input id="ui-datepicker" name="ui-datepicker" path="schedule" /></td>
                             </tr>
+                            
+                            <tr>
+                                <td><form:label path="maxStudents">
+                                        <spring:message text="Max Students" />
+                                    </form:label></td>
+                                <td><form:input path="maxStudents" /></td>
+                            </tr>
 
                             <tr>
                                 <td><form:label path="start">
@@ -97,7 +146,7 @@
                                     </form:label></td>
                                 <td><form:input id="end" name="end" path="end" /></td>
                             </tr>
-                            
+
                             <tr>
                                 <td colspan='2'>
                                     <c:if test="${section.id gt 0}">
@@ -114,9 +163,10 @@
                     <table class="tg">
                         <tr>
                             <th width="80">ID</th>
+                            <th width="100">SignUp Date</th>
                             <th width="120">Yoga Class</th>
                             <th width="120">Faculty</th>
-                            <th width="120">Location</th>
+                            <th width="60">Location</th>
                             <th width="60">Day</th>
                             <th width="60">Start</th>
                             <th width="60">End</th>
@@ -127,6 +177,7 @@
                             <c:forEach items="${listSections}" var="section">
                                 <tr>
                                     <td>${section.id}</td>
+                                    <td>${section.semester.signUpDate}</td>
                                     <td>${section.yogaClass.name}</td>
                                     <td>${section.faculty.user.firstName}</td>
                                     <td>${section.location}</td>

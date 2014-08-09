@@ -46,8 +46,9 @@ public class YogaClassController {
                 this.yogaClassService.createYogaClass(c);
                 model.addAttribute("msg", "Yoga Class " + c.getName() + "is successfully created");
             } else {
-                c = yogaClassService.getYogaClassByID(c.getId());
-                this.yogaClassService.updateYogaClass(c);
+                YogaClass yoga = yogaClassService.getYogaClassByID(c.getId());
+                yoga.setPrice(c.getPrice());
+                this.yogaClassService.updateYogaClass(yoga);
                 model.addAttribute("msg", "Yoga Class " + c.getName() + " is successfully updated");
             }
         } catch (RequiredDataNotPresent ex) {

@@ -58,7 +58,7 @@ public class Faculty {
     public Faculty(User user) {
         this();
         this.setUser(user);
-        
+
     }
 
     public User getUser() {
@@ -104,7 +104,7 @@ public class Faculty {
 
     @Override
     public String toString() {
-        return "Faculty{" + "id=" + id + '}';
+        return this.user.getFirstName() + " " + this.user.getLastName();
     }
 
     @Override
