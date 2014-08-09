@@ -25,11 +25,21 @@
         <script type="text/javascript">
             jQuery(document).ready(function() {
 
-                $("#start").ptTimeSelect();
+                $(".timeSection").ptTimeSelect().css({'font-size': 'smaller'});
 
             });
         </script>
         <style type="text/css">
+            .timeSection {
+                width: 216px;
+                height: auto;
+                margin: 5px auto 0;
+                font: 9pt Arial, sans-serif;
+                -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .5);
+                -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .5);
+                box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .5);
+                background-color: #FFF;
+            }
         </style>
         <title>Yoga Studio</title>
     </head>
@@ -61,7 +71,7 @@
                                                 disabled="true" /><form:hidden path="id" /></td>
                                 </tr> 
                             </c:if>
-                            
+
                             <c:if test="${section.id == 0}">
                                 <tr>
                                     <td><form:label path="semester">
@@ -114,7 +124,16 @@
                                 <td><form:label path="schedule">
                                         <spring:message text="Schedule Date" />
                                     </form:label></td>
-                                <td><form:input path="schedule" /></td>
+                                <td><form:select path="schedule">
+                                        <form:option value="MON">MON</form:option>
+                                        <form:option value="TUE">TUE</form:option>
+                                        <form:option value="WED">WED</form:option>
+                                        <form:option value="THU">THU</form:option>
+                                        <form:option value="FRI">FRI</form:option>
+                                        <form:option value="SAT">SAT</form:option>
+                                        <form:option value="SUN">SUN</form:option>
+                                    </form:select>
+                                </td>
                             </tr>
 
                             <tr>
@@ -128,13 +147,13 @@
                                 <td><form:label path="start">
                                         <spring:message text="Start Time" />
                                     </form:label></td>
-                                <td><form:input id="start" name="start" path="start" /></td>
+                                <td><form:input cssClass="timeSection" id="start" name="start" path="start" /></td>
                             </tr>
                             <tr>
                                 <td><form:label path="end">
                                         <spring:message text="End Time" />
                                     </form:label></td>
-                                <td><form:input id="end" name="end" path="end" /></td>
+                                <td><form:input cssClass="timeSection"  id="end" name="end" path="end" /></td>
                             </tr>
 
                             <tr>

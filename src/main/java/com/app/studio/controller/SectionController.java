@@ -76,7 +76,7 @@ public class SectionController {
     @RequestMapping(value = "/sections/add", method = RequestMethod.POST)
     public String addSection(@ModelAttribute("section") Section s, Model model) {
         String error = "";
-
+        Section section = new Section();
         try {
             if (s.getId() == 0) {
                 Semester semester = semesterService.getSemeterByID(s.getSemester().getId());
@@ -85,7 +85,7 @@ public class SectionController {
                 this.yogaSectionService.createNewSection(yogaClass, semester, faculty, s);
                 model.addAttribute("msg", "Section is successfully created");
             } else {
-                Section section = yogaSectionService.getSectionByID(s.getId());
+                section = yogaSectionService.getSectionByID(s.getId());
                 section.setLocation(s.getLocation());
                 section.setSchedule(s.getSchedule());
                 section.setStart(s.getStart());
@@ -93,14 +93,17 @@ public class SectionController {
                 section.setMaxStudents(s.getMaxStudents());
                 this.yogaSectionService.updateSection(section);
                 model.addAttribute("msg", "Yoga Section is successfully updated");
+                model.addAttribute("section", new Section());
             }
         } catch (RequiredDataNotPresent ex) {
             model.addAttribute("error", ex.getMessage());
+            model.addAttribute("section", section);
 
         } catch (RecordAlreadyExistException ex) {
             model.addAttribute("error", ex.getMessage());
+            model.addAttribute("section", section);
         }
-        model.addAttribute("section", new Section());
+
         model.addAttribute("listSections", this.yogaSectionService.listOfAllSections());
         model.addAttribute("listYogaClasses", this.yogaClassService.listOfYogaClasses());
         model.addAttribute("listFaculties", this.facultyService.listAllFaculties());
@@ -114,6 +117,22 @@ public class SectionController {
         sec = yogaSectionService.getSectionByID(id);
         model.addAttribute("section", sec);
         model.addAttribute("listSections", this.yogaSectionService.listOfAllSections());
+        return "section";
+    }
+
+    @RequestMapping(value = "/sections/remove/{id}", method = RequestMethod.GET)
+    public String removeSemesters(@PathVariable("id") int id, Model model) {
+        Section sec = yogaSectionService.getSectionByID(id);
+        try {
+            yogaSectionService.deleteSection(sec);
+        } catch (RequiredDataNotPresent ex) {
+            model.addAttribute("error", ex.toString());
+        }
+        model.addAttribute("section", new Section());
+        model.addAttribute("listSections", this.yogaSectionService.listOfAllSections());
+        model.addAttribute("listYogaClasses", this.yogaClassService.listOfYogaClasses());
+        model.addAttribute("listFaculties", this.facultyService.listAllFaculties());
+        model.addAttribute("listSemesters", this.semesterService.listOfAllSemesters());
         return "section";
     }
 
