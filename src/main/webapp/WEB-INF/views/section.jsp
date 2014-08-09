@@ -24,10 +24,6 @@
         <script src=${jsUrl}></script>
         <script type="text/javascript">
             jQuery(document).ready(function() {
-                $("#ui-datepicker").datepicker({
-                    showOn: 'focus',
-                    dateFormat: ''
-                }).css({'font-size': 'smaller'});
 
                 $("#start").timepicker({
                     showOn: 'focus'
@@ -36,16 +32,6 @@
             });
         </script>
         <style type="text/css">
-            .ui-datepicker {
-                width: 216px;
-                height: auto;
-                margin: 5px auto 0;
-                font: 9pt Arial, sans-serif;
-                -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .5);
-                -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .5);
-                box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .5);
-                background-color: #FFF;
-            }
         </style>
         <title>Yoga Studio</title>
     </head>
@@ -55,6 +41,12 @@
             <div id="content-container">
                 <%@include file="template/sidebar.jsp"%>
                 <div id="content">
+                    <c:if test="${not empty error}">
+                        <div class="error">${error}</div>
+                    </c:if>
+                    <c:if test="${not empty msg}">
+                        <div class="msg">${msg}</div>
+                    </c:if>
                     <h2>
                         Manage Sections
                     </h2>
@@ -75,10 +67,10 @@
                             <c:if test="${section.id == 0}">
                                 <tr>
                                     <td><form:label path="semester">
-                                            <spring:message text="ID" />
+                                            <spring:message text="Semester" />
                                         </form:label></td>
                                     <td>
-                                        <form:select  path="semester" items="${listSemesters}">
+                                        <form:select  path="semester.id" items="${listSemesters}" itemValue="id">
 
                                         </form:select>
                                     </td>
@@ -89,10 +81,10 @@
                             <c:if test="${section.id == 0}">
                                 <tr>
                                     <td><form:label path="yogaClass">
-                                            <spring:message text="ID" />
+                                            <spring:message text="Yoga Class" />
                                         </form:label></td>
                                     <td>
-                                        <form:select  path="yogaClass" items="${listYogaClasses}">
+                                        <form:select  path="yogaClass.id" items="${listYogaClasses}" itemValue="id">
 
                                         </form:select>
                                     </td>
@@ -103,10 +95,10 @@
                             <c:if test="${section.id == 0}">
                                 <tr>
                                     <td><form:label path="faculty">
-                                            <spring:message text="ID" />
+                                            <spring:message text="Faculty" />
                                         </form:label></td>
                                     <td>
-                                        <form:select  path="faculty" items="${listFaculties}">
+                                        <form:select  path="faculty.id" items="${listFaculties}" itemValue="id">
 
                                         </form:select>
                                     </td>
@@ -126,7 +118,7 @@
                                     </form:label></td>
                                 <td><form:input id="ui-datepicker" name="ui-datepicker" path="schedule" /></td>
                             </tr>
-                            
+
                             <tr>
                                 <td><form:label path="maxStudents">
                                         <spring:message text="Max Students" />

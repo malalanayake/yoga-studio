@@ -56,7 +56,14 @@ public class SectionController {
 
     @RequestMapping(value = "/sections", method = RequestMethod.GET)
     public String listSections(Model model) {
-        model.addAttribute("section", new Section());
+        YogaClass yogs = new YogaClass();
+        Faculty fac = new Faculty();
+        Semester sem = new Semester();
+        Section sec = new Section();
+        sec.setYogaClass(yogs);
+        sec.setFaculty(fac);
+        sec.setSemester(sem);
+        model.addAttribute("section", sec);
         model.addAttribute("listSections", this.yogaSectionService.listOfAllSections());
         model.addAttribute("listYogaClasses", this.yogaClassService.listOfYogaClasses());
         model.addAttribute("listFaculties", this.facultyService.listAllFaculties());
@@ -66,29 +73,27 @@ public class SectionController {
     }
 
     @RequestMapping(value = "/sections/add", method = RequestMethod.POST)
-    public String addSection(@ModelAttribute("id") int id, @ModelAttribute("faculty") Faculty faculty, @ModelAttribute("semester") Semester semester,
-            @ModelAttribute("yogaClass") YogaClass yogaClass, @ModelAttribute("location") String location, Model model) {
+    public String addSection(@ModelAttribute("section") Section s, Model model) {
         String error = "";
 
         try {
-           // Semester semester = semesterService.getSemeterByID(s.getSemester().getId());
-            //YogaClass yogaClass = yogaClassService.getYogaClassByID(s.getYogaClass().getId());
-            //Faculty faculty = facultyService.getFacultyByID(s.getFaculty().getId());
+            Semester semester = semesterService.getSemeterByID(s.getSemester().getId());
+            YogaClass yogaClass = yogaClassService.getYogaClassByID(s.getYogaClass().getId());
+            Faculty faculty = facultyService.getFacultyByID(s.getFaculty().getId());
 
-            if (id == 0) {
-                Section sec = new Section();
-                sec.setLocation(location);
-                this.yogaSectionService.createNewSection(yogaClass, semester, faculty, sec);
+            if (s.getId() == 0) {
+                this.yogaSectionService.createNewSection(yogaClass, semester, faculty, s);
                 model.addAttribute("msg", "Section is successfully created");
             } else {
-                Section section = yogaSectionService.getSectionByID(id);
-               // section.setStart(s.getStart());
+                Section section = yogaSectionService.getSectionByID(s.getId());
+                // section.setStart(s.getStart());
                 //section.setEnd(s.getEnd());
                 this.yogaSectionService.updateSection(section);
                 model.addAttribute("msg", "Yoga Section is successfully updated");
             }
         } catch (RequiredDataNotPresent ex) {
             model.addAttribute("error", ex.getMessage());
+
         } catch (RecordAlreadyExistException ex) {
             model.addAttribute("error", ex.getMessage());
         }
@@ -97,7 +102,7 @@ public class SectionController {
         model.addAttribute("listYogaClasses", this.yogaClassService.listOfYogaClasses());
         model.addAttribute("listFaculties", this.facultyService.listAllFaculties());
         model.addAttribute("listSemesters", this.semesterService.listOfAllSemesters());
-        return "redirect:/sections";
+        return "section";
     }
 
 }
