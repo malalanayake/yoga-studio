@@ -34,7 +34,7 @@
 
 
                     <h2>Manage Profile</h2>
-                    <c:url var="manageProfile" value="/manage/update"></c:url>
+                    <c:url var="manageProfile" value="/manage-profile/update"></c:url>
                     <form:form method="POST" action="${manageProfile}" commandName="user">
 
                         <table>
