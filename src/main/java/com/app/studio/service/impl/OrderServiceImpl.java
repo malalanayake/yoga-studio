@@ -65,11 +65,13 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional
     public List<Order> listOfAllOrdersAccordingToStatus(String status) {
         return orderDAO.listByStatus(status);
     }
 
     @Override
+    @Transactional
     public Order getById(int id) {
         return orderDAO.getById(id);
     }
