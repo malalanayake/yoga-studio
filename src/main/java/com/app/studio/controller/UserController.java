@@ -35,24 +35,8 @@ public class UserController {
 
     }
 
-    @RequestMapping(value = "/manage1/update", method = RequestMethod.POST)
-    public String updateUser(@ModelAttribute("user") User u, Model model) throws RequiredDataNotPresent {
-        User user = userService.getUserByUserName(u.getUsername());
-        user.setPassword(u.getPassword());
-        user.setFirstName(u.getFirstName());
-        user.setLastName(u.getLastName());
-        user.setSequrityQuestion(u.getSequrityQuestion());
-        user.setAnswer(u.getAnswer());
-
-        user = this.userService.updateUser(u);
-        model.addAttribute("msg", "The profile was succesfully updated");
-        model.addAttribute("user", user);
-        return "manage-profile";
-
-    }
-
-    @RequestMapping(value = "/manage/update", method = RequestMethod.POST)
-    public String updateUser2(@ModelAttribute("user") User u, Model model) {
+    @RequestMapping(value = "/manage-profile/update", method = RequestMethod.POST)
+    public String updateUser(@ModelAttribute("user") User u, Model model) {
         try {
             User user = userService.getUserByUserName(u.getUsername());
             user.setPassword(u.getPassword());
