@@ -26,7 +26,7 @@ public class ShoppingCart {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @OneToOne(fetch = FetchType.EAGER, mappedBy = "shoppingCart")
+    @OneToOne(fetch = FetchType.EAGER)
     private Customer customer;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "shoppingCart")
     private Set<ShoppingCartItem> setOfShoppingCartItems;
@@ -37,7 +37,7 @@ public class ShoppingCart {
 
     public ShoppingCart(Customer customer) {
         this();
-        this.customer = customer;
+        setCustomer(customer);
     }
 
     public int getId() {
@@ -54,6 +54,7 @@ public class ShoppingCart {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+        this.customer.setShoppingCart(this);
     }
 
     public Set<ShoppingCartItem> getSetOfShoppingCartItems() {

@@ -55,7 +55,7 @@ public class Customer {
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "customer")
     @OrderBy("section")
     private Set<EnrolledSection> setOfEnrolledSections;
-    @OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "customer")
     private ShoppingCart shoppingCart;
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "customer")
     private Set<Order> setOfOrders;
