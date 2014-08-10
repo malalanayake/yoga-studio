@@ -29,7 +29,7 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/products", method = RequestMethod.GET)
-    public String listProducts(Model model) {
+    public String requestToListOfProducts(Model model) {
         model.addAttribute("product", new Product());
         model.addAttribute("listProducts", this.productService.listOfAllProducts());
         return "product";
@@ -42,7 +42,7 @@ public class ProductController {
     }
     
     @RequestMapping(value = "/products/edit/{id}")
-    public String editProducts(@PathVariable("id") int id, Model model) {
+    public String requestToUpdateProduct(@PathVariable("id") int id, Model model) {
         Product pro = new Product();
         pro = productService.getProductByID(id);
         model.addAttribute("product", pro);
@@ -52,13 +52,13 @@ public class ProductController {
     
 
     @RequestMapping(value = "/products/remove/{id}")
-    public String removeProducts(@PathVariable("id") int id) {
+    public String requestToRemoveProduct(@PathVariable("id") int id) {
             this.productService.deleteProduct(id);
         return "redirect:/products";
     }
 
     @RequestMapping(value = "/products/add")
-    public String addCustomer(@ModelAttribute("product") Product c) {
+    public String requestToAddNewProduct(@ModelAttribute("product") Product c) {
         String error = "";
         try {
             if (c.getId() == 0) {
