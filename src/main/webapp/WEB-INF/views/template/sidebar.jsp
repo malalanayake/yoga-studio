@@ -18,6 +18,7 @@
                 <li><a href="<c:url value='/products' />">Manage Products</a></li>
                 <li><a href="<c:url value='/faculties' />">Manage Faculties</a></li>
                 <li><a href="<c:url value='/view-customers' />">View Customers</a></li>
+                <li><a href="<c:url value='/view-orders' />">View Orders</a></li>
                 </sec:authorize>
                 <sec:authorize ifAnyGranted="ROLE_FACULTY">  
                 <li><a href="<c:url value='/waivers' />">Manage Waiver Requests</a></li>
