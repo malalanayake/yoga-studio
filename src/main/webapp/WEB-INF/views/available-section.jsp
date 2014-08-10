@@ -55,7 +55,7 @@
                                             </ul>
                                         </td>
                                         <td>$${section.yogaClass.price}</td>
-                                        <td>${section.schedule}</td>
+                                        <td>${section.schedule} ${section.start}-${section.end}</td>
                                         <td>${section.location}</td>
                                         <td>${section.maxStudents}</td>
                                     </tr>

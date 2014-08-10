@@ -23,6 +23,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -145,20 +146,64 @@ public class CustomerServiceImpl implements CustomerService {
             throw new RequiredDataNotPresent("Primary key not present");
         }
     }
-    
+
     @Override
     @Transactional
-    public void waitlist(String username, Section section) throws RequiredDataNotPresent {
+    public Section waitlist(String username, int sectionID) throws RequiredDataNotPresent {
         Customer customer = this.customerDAO.getByUserName(username);
         if (customer == null) {
             throw new RequiredDataNotPresent("Customer username not found");
+        }
+        Section section = this.sectionDAO.getById(sectionID);
+        if (section == null) {
+            throw new RequiredDataNotPresent("Section not found");
         }
         System.out.println("############## Customer: " + customer.toString());
         System.out.println("############## Section: " + section.toString());
         EnrolledSection waitlisted = new EnrolledSection(customer, section);
         waitlisted.setDate(DateUtils.today());
         waitlisted.setStatus(EnrolledSection.Constants.STATUS_WAITLISTED);
-        enrolledSectionDAO.create(waitlisted);
+        waitlisted = enrolledSectionDAO.create(waitlisted);
+        return waitlisted.getSection();
+    }
+
+    @Override
+    @Transactional
+    public Section drop(int enrolledSectionID) throws RequiredDataNotPresent, UnauthorizedOperation {
+        EnrolledSection enrolled = this.enrolledSectionDAO.getById(enrolledSectionID);
+        if (enrolled == null) {
+            throw new RequiredDataNotPresent("Enrolled section not found");
+        }
+
+        // Verify today is at least 3 days before signup date
+        try {
+            Date signUpDate = DateUtils.parse(enrolled.getSection().getSemester().getSignUpDate());
+            Date today = DateUtils.parse(DateUtils.today());
+            long diff = DateUtils.getDateDiff(today, signUpDate);
+            System.out.println("############## Diff: " + diff);
+            if (diff < 3) {
+                throw new UnauthorizedOperation("You may only drop a section at least 3 days before the signup date.");
+            }
+        } catch (ParseException ex) {
+            throw new UnauthorizedOperation(ex.getMessage());
+        }
+
+        // Remove enrollment record
+        enrolled = this.enrolledSectionDAO.remove(enrolledSectionID);
+        System.out.println("############## Dropped enrollment: " + enrolled.toString());
+
+        // Add waitlisted to the list
+        Set<EnrolledSection> students = enrolled.getSection().getSetOfEnrolledSections();
+        for (EnrolledSection student : students) {
+            if (EnrolledSection.Constants.STATUS_WAITLISTED.equals(student.getStatus())) {
+                student.setStatus(EnrolledSection.Constants.STATUS_ENROLLED);
+                student = enrolledSectionDAO.update(student);
+                System.out.println("############## Changed from WAITLISTED to ENROLLED: " + student.toString());
+                break;
+            }
+        }
+
+        return enrolled.getSection();
     }
 
     @Override
@@ -188,7 +233,7 @@ public class CustomerServiceImpl implements CustomerService {
                 break;
             }
         }
-        
+
         // If there are prerequisites that have not been taken, check waiver.
         if (hasMissingPrereq) {
             checkWaiver(customer, yogaClass);
@@ -235,11 +280,11 @@ public class CustomerServiceImpl implements CustomerService {
                 hasWaiver = true;
                 if (WaiverRequest.Constants.STATUS_REJECTED.equals(waiver.getStatus())) {
                     // Waiver Rejected
-                    throw new UnauthorizedOperation("Your waiver for " + yogaClass.getName() 
+                    throw new UnauthorizedOperation("Your waiver for " + yogaClass.getName()
                             + " has been rejected. Please select another class to enroll in.");
                 } else if (WaiverRequest.Constants.STATUS_PENDING.equals(waiver.getStatus())) {
                     // Waiver Pending
-                    throw new UnauthorizedOperation("Your waiver for " + yogaClass.getName() 
+                    throw new UnauthorizedOperation("Your waiver for " + yogaClass.getName()
                             + " is still pending approval. Please wait for your advisor's approval, or select another class to enroll in.");
                 } else {
                     // Waiver Approved

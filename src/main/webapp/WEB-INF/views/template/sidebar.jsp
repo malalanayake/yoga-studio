@@ -28,6 +28,7 @@
                 <sec:authorize ifAnyGranted="ROLE_CUSTOMER">
                 <li><a href="<c:url value='/enroll' />">Enroll</a></li>
                 <li><a href="<c:url value='/add-waiver-request' />">Add Waiver Request</a></li>
+                <li><a href="<c:url value='/drop-section' />">Drop Section</a></li>
                 <li><a href="<c:url value='/enrolled-sections' />">View Enrolled Sections</a></li>
                 <li><a href="<c:url value='/available-sections' />">View Available Sections</a></li>
                 <li><a href="<c:url value='/view-products' />">View Products</a></li>

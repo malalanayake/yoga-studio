@@ -117,8 +117,7 @@ public class CustomerController {
         System.out.println("############### RequestParam = " + waitlist + ", Section ID: " + s.getId());
         if ("Yes".equals(waitlist)) {
             try {
-                Section section = this.customerService.getSectionById(s.getId());
-                this.customerService.waitlist(user.getName(), section);
+                Section section = this.customerService.waitlist(user.getName(), s.getId());
                 model.addAttribute("msg", "You have been successfully waitlisted in "
                         + section.getYogaClass().getName() + " - Section " + section.getId()
                         + " for Semester " + section.getSemester().getId());
@@ -144,6 +143,26 @@ public class CustomerController {
         return "available-section";
     }
 
+    @RequestMapping(value = "/drop-section", method = RequestMethod.GET)
+    public String listDropSections(Principal user, Model model) {
+        getEnrolledWithoutWaitlist(user.getName(), model);
+        return "drop-section";
+    }
+
+    @RequestMapping(value = "/drop-section/{id}", method = RequestMethod.GET)
+    public String dropSection(@PathVariable("id") int id, Principal user, Model model) {
+        try {
+            Section section = this.customerService.drop(id);
+            model.addAttribute("msg", "You have successfully dropped "
+                    + section.getYogaClass().getName() + " - Section " + section.getId()
+                    + " for Semester " + section.getSemester().getId());
+        } catch (Exception ex) {
+            model.addAttribute("error", ex.getMessage());
+        }
+        getEnrolledWithoutWaitlist(user.getName(), model);
+        return "drop-section";
+    }
+
     private void getOpenEnrollments(String username, Model model) {
         // Get enrolled sections
         Set<EnrolledSection> enrolledSections = this.customerService.getCustomerByUsername(username).getSetOfEnrolledSections();
@@ -159,4 +178,15 @@ public class CustomerController {
         model.addAttribute("enrolledSections", enrolledSections);
         model.addAttribute("availableSections", availableSections);
     }
+
+    private void getEnrolledWithoutWaitlist(String username, Model model) {
+        Set<EnrolledSection> enrolledList = this.customerService.getCustomerByUsername(username).getSetOfEnrolledSections();
+        for (EnrolledSection enrolled : enrolledList) {
+            if (EnrolledSection.Constants.STATUS_WAITLISTED.equals(enrolled.getStatus())) {
+                enrolledList.remove(enrolled);
+            }
+        }
+        model.addAttribute("enrolledSections", enrolledList);
+    }
+
 }

@@ -34,7 +34,9 @@ public interface CustomerService {
 
     public boolean enroll(String username, Section section) throws RequiredDataNotPresent, UnauthorizedOperation;
 
-    public void waitlist(String username, Section section) throws RequiredDataNotPresent;
+    public Section waitlist(String username, int sectionID) throws RequiredDataNotPresent;
+
+    public Section drop(int enrolledSectionID) throws RequiredDataNotPresent, UnauthorizedOperation;
 
     /**
      * Retrieves the list of sections open for sign up

@@ -1,7 +1,7 @@
 <%-- 
-    Document   : enrolled-sections
-    Created on : Aug 9, 2014, 9:16:17 AM
-    Author     : Yen
+    Document   : drop-the-section
+    Created on : Aug 8, 2014, 10:58:59 AM
+    Author     : jCalles
 --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
@@ -24,8 +24,14 @@
                 <%@include file="template/sidebar.jsp"%>
                 <div id="content">
                     <h2>
-                        Enrolled Sections
+                        Drop Section
                     </h2>
+                    <c:if test="${not empty error}">
+                        <div class="error">${error}</div>
+                    </c:if>
+                    <c:if test="${not empty msg}">
+                        <div class="msg">${msg}</div>
+                    </c:if>
                     <c:choose>
                         <c:when test="${empty enrolledSections}">
                             <p>You are currently not enrolled in any classes.</p>
@@ -42,7 +48,7 @@
                                     <th>Location</th>
                                     <th>Capacity</th>
                                     <th>Enrollment Date</th>
-                                    <th>Enrollment Status</th>
+                                    <th>Drop</th>
                                 </tr>
                                 <c:forEach items="${enrolledSections}" var="enrolled">
                                     <tr>
@@ -61,7 +67,7 @@
                                         <td>${enrolled.section.location}</td>
                                         <td>${enrolled.section.maxStudents}</td>
                                         <td>${enrolled.date}</td>
-                                        <td>${enrolled.status}</td>
+                                        <td><a href="<c:url value='/drop-section/${enrolled.id}' />">Click to drop</a></td>
                                     </tr>
                                 </c:forEach>
                             </table>

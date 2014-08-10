@@ -59,7 +59,7 @@
                                         </ul>
                                     </td>
                                     <td>$${enrolled.section.yogaClass.price}</td>
-                                    <td>${enrolled.section.schedule}</td>
+                                    <td>${enrolled.section.schedule} ${enrolled.section.start}-${enrolled.section.end}</td>
                                     <td>${enrolled.section.location}</td>
                                     <td>${enrolled.section.maxStudents}</td>
                                     <td>${enrolled.date}</td>
@@ -79,7 +79,7 @@
                                         </ul>
                                     </td>
                                     <td>$${section.yogaClass.price}</td>
-                                    <td>${section.schedule}</td>
+                                    <td>${section.schedule} ${section.start}-${section.end}</td>
                                     <td>${section.location}</td>
                                     <td>${section.maxStudents}</td>
                                     <td></td>
