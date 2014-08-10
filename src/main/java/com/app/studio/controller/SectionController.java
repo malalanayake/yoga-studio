@@ -56,7 +56,7 @@ public class SectionController {
     }
 
     @RequestMapping(value = "/sections", method = RequestMethod.GET)
-    public String listSections(Model model) {
+    public String requestToListOfSections(Model model) {
         YogaClass yogs = new YogaClass();
         Faculty fac = new Faculty();
         Semester sem = new Semester();
@@ -74,7 +74,7 @@ public class SectionController {
     }
 
     @RequestMapping(value = "/sections/add", method = RequestMethod.POST)
-    public String addSection(@ModelAttribute("section") Section s, Model model) {
+    public String requestToAddNewSection(@ModelAttribute("section") Section s, Model model) {
         String error = "";
         Section section = new Section();
         try {
@@ -112,7 +112,7 @@ public class SectionController {
     }
 
     @RequestMapping(value = "/sections/edit/{id}", method = RequestMethod.GET)
-    public String editSections(@PathVariable("id") int id, Model model) {
+    public String requestToUpdateSection(@PathVariable("id") int id, Model model) {
         Section sec = new Section();
         sec = yogaSectionService.getSectionByID(id);
         model.addAttribute("section", sec);
@@ -121,10 +121,11 @@ public class SectionController {
     }
 
     @RequestMapping(value = "/sections/remove/{id}", method = RequestMethod.GET)
-    public String removeSemesters(@PathVariable("id") int id, Model model) {
+    public String requestToDeleteSection(@PathVariable("id") int id, Model model) {
         Section sec = yogaSectionService.getSectionByID(id);
         try {
             yogaSectionService.deleteSection(sec);
+            model.addAttribute("msg", "Yoga Section is successfully deleted");
         } catch (RequiredDataNotPresent ex) {
             model.addAttribute("error", ex.toString());
         }
