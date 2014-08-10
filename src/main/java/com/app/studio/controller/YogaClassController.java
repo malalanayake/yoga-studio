@@ -32,14 +32,14 @@ public class YogaClassController {
     }
 
     @RequestMapping(value = "/yogaclasses", method = RequestMethod.GET)
-    public String listYogaClasses(Model model) {
+    public String requestListOfYogaClasses(Model model) {
         model.addAttribute("yogaClass", new YogaClass());
         model.addAttribute("listYogaClasses", this.yogaClassService.listOfYogaClasses());
         return "yogaclass";
     }
 
     @RequestMapping(value = "/yogaclasses/add", method = RequestMethod.POST)
-    public String addYogaClass(@ModelAttribute("yogaClass") YogaClass c, Model model) {
+    public String requestToCreateYogaClass(@ModelAttribute("yogaClass") YogaClass c, Model model) {
         String error = "";
         try {
             if (c.getId() == 0) {
@@ -81,7 +81,7 @@ public class YogaClassController {
     }
 
     @RequestMapping(value = "/yogaclasses/edit/{id}", method = RequestMethod.GET)
-    public String editYogaClass(@PathVariable("id") int id, Model model) {
+    public String requestToUpdateYogaClass(@PathVariable("id") int id, Model model) {
         YogaClass yogaClass = new YogaClass();
         try {
             yogaClass = yogaClassService.getYogaClassByID(id);
@@ -110,7 +110,7 @@ public class YogaClassController {
     }
 
     @RequestMapping(value = "/yogaclasses/remove/{id}", method = RequestMethod.GET)
-    public String deleteYogaClass(@PathVariable("id") int id, Model model) {
+    public String requestToDeleteYogaClass(@PathVariable("id") int id, Model model) {
         YogaClass yogaClass = new YogaClass();
         try {
             yogaClass = yogaClassService.getYogaClassByID(id);
