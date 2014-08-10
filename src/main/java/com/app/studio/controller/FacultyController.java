@@ -116,14 +116,14 @@ public class FacultyController {
     }
 
     @RequestMapping(value = "/faculties", method = RequestMethod.GET)
-    public String listFaculties(Model model) {
+    public String requestListOfFaculties(Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("listFaculties", this.facultyService.listAllFaculties());
         return "faculty";
     }
 
     @RequestMapping("/faculties/add")
-    public String addFaculties(@ModelAttribute("user") User u, Model model) {
+    public String requestToAddNewFaculties(@ModelAttribute("user") User u, Model model) {
         try {
             if (u.getId() == 0) {
                 facultyService.createNewFaculty(u);
@@ -146,7 +146,7 @@ public class FacultyController {
     }
 
     @RequestMapping(value = "/faculties/edit/{id}", method = RequestMethod.GET)
-    public String editFaculties(@PathVariable("id") int id, Model model) {
+    public String requestToUpdateFaculty(@PathVariable("id") int id, Model model) {
         Faculty fac = null;
         try {
             fac = facultyService.getFacultyByID(id);
@@ -162,7 +162,7 @@ public class FacultyController {
     }
 
     @RequestMapping(value = "/faculties/remove/{id}", method = RequestMethod.GET)
-    public String removeSemesters(@PathVariable("id") int id, Model model) {
+    public String requestToDeleteFaculty(@PathVariable("id") int id, Model model) {
         Faculty faculty = null;
         try {
             faculty = facultyService.getFacultyByID(id);
