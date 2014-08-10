@@ -49,4 +49,11 @@ public interface OrderDAO {
      */
     Order remove(int id);
 
+    /**
+     * List by status
+     *
+     * @param status
+     * @return
+     */
+    List<Order> listByStatus(String status);
 }

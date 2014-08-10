@@ -169,6 +169,10 @@
         <beans:property name="userDAO" ref="userDAO"></beans:property>
     </beans:bean>
     
+    <beans:bean id="orderService" class="com.app.studio.service.impl.OrderServiceImpl">
+        <beans:property name="orderDAO" ref="orderDAO"></beans:property>
+    </beans:bean>
+    
     <!-- Set the package where the annotated classes located at ex @Controller -->
     <context:component-scan base-package="com.app.studio" />
 

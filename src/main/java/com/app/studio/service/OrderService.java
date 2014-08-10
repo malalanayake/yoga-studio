@@ -77,4 +77,20 @@ public interface OrderService {
      * @return
      */
     public List<Order> listOfAllOrders();
+
+    /**
+     * List all orders according to the status
+     *
+     * @param status
+     * @return
+     */
+    public List<Order> listOfAllOrdersAccordingToStatus(String status);
+
+    /**
+     * Get order by id
+     *
+     * @param id
+     * @return
+     */
+    public Order getById(int id);
 }

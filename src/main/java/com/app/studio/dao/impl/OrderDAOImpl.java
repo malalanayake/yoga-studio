@@ -81,4 +81,12 @@ public class OrderDAOImpl implements OrderDAO {
         return o;
     }
 
+    @Override
+    public List<Order> listByStatus(String status) {
+        Session session = this.sessionFactory.getCurrentSession();
+        List<Order> facultyList = session.getNamedQuery(Order.Constants.NAME_QUERY_FIND_BY_ORDER_STATUS)
+                .setParameter(Order.Constants.PARAM_ORDER_STATUS, status).list();
+        return facultyList;
+    }
+
 }

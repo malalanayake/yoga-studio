@@ -42,7 +42,7 @@ import org.springframework.transaction.annotation.Transactional;
 @ContextConfiguration(locations = {"classpath:/servlet-context-staging.xml"})
 @Transactional
 public class PopulateDatabase {
-
+    
     @Autowired
     private AdministratorDAO administratorDAO;
     @Autowired
@@ -69,7 +69,7 @@ public class PopulateDatabase {
     private OrderItemDAO orderItemDAO;
     @Autowired
     private ProductDAO productDAO;
-
+    
     @Test
     @Rollback(false)
     public void testCreate() {
@@ -106,7 +106,7 @@ public class PopulateDatabase {
         semester1.setEnddate("2014-09-30");
         semester1.setSignUpDate("2014-09-27");
         semester1 = semesterDAO.create(semester1);
-
+        
         Semester semester2 = new Semester();
         semester2.setStartdate("2014-11-01");
         semester2.setEnddate("2014-11-30");
@@ -118,30 +118,30 @@ public class PopulateDatabase {
         yogaA.setName("Yoga A");
         yogaA.setPrice(10);
         yogaA = yogaClassDAO.create(yogaA);
-
+        
         YogaClass yogaB = new YogaClass();
         yogaB.setName("Yoga B");
         yogaB.setPrice(20);
         yogaB.addPrerequisite(yogaA);
         yogaB = yogaClassDAO.create(yogaB);
-
+        
         YogaClass yogaC = new YogaClass();
         yogaC.setName("Yoga C");
         yogaC.setPrice(30);
         yogaC.addPrerequisite(yogaA);
         yogaC = yogaClassDAO.create(yogaC);
-
+        
         YogaClass yogaD = new YogaClass();
         yogaD.setName("Yoga D");
         yogaD.setPrice(40);
         yogaD.addPrerequisite(yogaA);
         yogaD = yogaClassDAO.create(yogaD);
-
+        
         YogaClass yogaE = new YogaClass();
         yogaE.setName("Yoga E");
         yogaE.setPrice(50);
         yogaE = yogaClassDAO.create(yogaE);
-
+        
         YogaClass yogaF = new YogaClass();
         yogaF.setName("Yoga F");
         yogaF.setPrice(60);
@@ -155,7 +155,7 @@ public class PopulateDatabase {
         section1A.setStart("08:00am");
         section1A.setEnd("09:00am");
         section1A = sectionDAO.create(section1A);
-
+        
         Section section1B = new Section(semester1, yogaB, f);
         section1B.setMaxStudents(20);
         section1B.setLocation("Hall B");
@@ -163,7 +163,7 @@ public class PopulateDatabase {
         section1B.setStart("08:00am");
         section1B.setEnd("09:00am");
         section1B = sectionDAO.create(section1B);
-
+        
         Section section1C = new Section(semester1, yogaC, f);
         section1C.setMaxStudents(20);
         section1C.setLocation("Hall C");
@@ -171,7 +171,7 @@ public class PopulateDatabase {
         section1C.setStart("08:00am");
         section1C.setEnd("09:00am");
         section1C = sectionDAO.create(section1C);
-
+        
         Section section1D = new Section(semester1, yogaD, f);
         section1D.setMaxStudents(20);
         section1D.setLocation("Hall D");
@@ -179,7 +179,7 @@ public class PopulateDatabase {
         section1D.setStart("08:00am");
         section1D.setEnd("09:00am");
         section1D = sectionDAO.create(section1D);
-
+        
         Section section1E = new Section(semester1, yogaE, f);
         section1E.setMaxStudents(20);
         section1E.setLocation("Hall E");
@@ -187,7 +187,7 @@ public class PopulateDatabase {
         section1E.setStart("08:00am");
         section1E.setEnd("09:00am");
         section1E = sectionDAO.create(section1E);
-
+        
         Section section1F = new Section(semester1, yogaF, f);
         section1F.setMaxStudents(20);
         section1F.setLocation("Hall F");
@@ -200,11 +200,11 @@ public class PopulateDatabase {
         WaiverRequest waiverB = new WaiverRequest(yogaB, c);
         waiverB.setStatus(WaiverRequest.Constants.STATUS_PENDING);
         waiverB = waiverRequestDAO.create(waiverB);
-
+        
         WaiverRequest waiverC = new WaiverRequest(yogaC, c);
         waiverC.setStatus(WaiverRequest.Constants.STATUS_PENDING);
         waiverC = waiverRequestDAO.create(waiverC);
-
+        
         WaiverRequest waiverD = new WaiverRequest(yogaD, c);
         waiverD.setStatus(WaiverRequest.Constants.STATUS_PENDING);
         waiverD = waiverRequestDAO.create(waiverD);
@@ -214,7 +214,7 @@ public class PopulateDatabase {
         enrolled.setDate("2014-08-08");
         enrolled.setStatus(EnrolledSection.Constants.STATUS_ENROLLED);
         enrolled = enrolledSectionDAO.create(enrolled);
-
+        
         EnrolledSection waitlisted = new EnrolledSection(c, section1F);
         waitlisted.setDate("2014-08-08");
         waitlisted.setStatus(EnrolledSection.Constants.STATUS_WAITLISTED);
@@ -236,13 +236,15 @@ public class PopulateDatabase {
         // Order
         Order order = new Order();
         order.setCustomer(c);
+        order.setStatus(Order.Constants.STATUS_PROCESSING);
+        order.setTotalPrice(23);
 
         // Order Item
         OrderItem item = new OrderItem();
         item.setOrder(order);
         item.setQuantity(1);
         item.setProduct(product);
-
+        
         order = orderDAO.create(order);
     }
 
