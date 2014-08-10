@@ -46,6 +46,7 @@
                                 <tr>
                                     <td>Password:</td>
                                     <td><input type='password' name='password' /></td>
+                                    <td><a href="<c:url value='/forgot-password' />">Forgot Password</a></td>
                                 </tr>
                                 <tr>
                                     <td><input name="submit" type="submit"
