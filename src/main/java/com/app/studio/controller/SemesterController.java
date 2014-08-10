@@ -29,14 +29,14 @@ public class SemesterController {
     }
 
     @RequestMapping(value = "/semesters", method = RequestMethod.GET)
-    public String listSemesters(Model model) {
+    public String requestToListOfSemesters(Model model) {
         model.addAttribute("semester", new Semester());
         model.addAttribute("listSemetsters", this.semesterService.listOfAllSemesters());
         return "semester";
     }
 
     @RequestMapping(value = "/semesters/edit/{id}", method = RequestMethod.GET)
-    public String editSemesters(@PathVariable("id") int id, Model model) {
+    public String requestToUpdateSemester(@PathVariable("id") int id, Model model) {
         Semester sem = new Semester();
         sem = semesterService.getSemeterByID(id);
         model.addAttribute("semester", sem);
@@ -45,10 +45,11 @@ public class SemesterController {
     }
 
     @RequestMapping(value = "/semesters/remove/{id}", method = RequestMethod.GET)
-    public String removeSemesters(@PathVariable("id") int id, Model model) {
+    public String requestToRemoveSemester(@PathVariable("id") int id, Model model) {
         Semester sem = semesterService.getSemeterByID(id);
         try {
             semesterService.deleteSemester(sem);
+            model.addAttribute("msg", "Semester is successfully deleted");
         } catch (RequiredDataNotPresent ex) {
             model.addAttribute("error", ex.toString());
         }
@@ -58,7 +59,7 @@ public class SemesterController {
     }
 
     @RequestMapping(value = "/semesters/add", method = RequestMethod.POST)
-    public String addCustomer(@ModelAttribute("semester") Semester c, Model model) {
+    public String requestToCreateSemester(@ModelAttribute("semester") Semester c, Model model) {
         String error = "";
         try {
             if (c.getId() == 0) {
