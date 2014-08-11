@@ -15,8 +15,6 @@
         <link rel="stylesheet" type="text/css" href=${cssUrl}>
         <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.0/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" /> 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
         <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
         <c:url var="jsUrl" value='/js/jquery.ptTimeSelect.js'></c:url>
         <c:url var="jsCssUrl" value='/js/jquery.ptTimeSelect.css'></c:url>
@@ -25,7 +23,7 @@
         <script type="text/javascript">
             jQuery(document).ready(function() {
 
-                $(".timeSection").ptTimeSelect().css({'font-size': 'smaller'});
+                $(".timeSection").ptTimeSelect();
 
             });
         </script>
