@@ -123,7 +123,7 @@
     <beans:bean id="yogaClassDAO" class="com.app.studio.dao.impl.YogaClassDAOImpl">
         <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
     </beans:bean>
-
+    
     <beans:bean id="shoppingCartItemDAO" class="com.app.studio.dao.impl.ShoppingCartItemDAOImpl">
         <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
     </beans:bean>
@@ -167,6 +167,13 @@
     
     <beans:bean id="userService" class="com.app.studio.service.impl.UserServiceImpl">
         <beans:property name="userDAO" ref="userDAO"></beans:property>
+    </beans:bean>
+    
+    <beans:bean id="shoppingCartService" class="com.app.studio.service.impl.ShoppingCartServiceImpl">
+        <beans:property name="shoppingCartDAO" ref="shoppingCartDAO"></beans:property>
+        <beans:property name="customerDAO" ref="customerDAO"></beans:property>
+        <beans:property name="productDAO" ref="productDAO"></beans:property>
+        <beans:property name="shoppingCartItemDAO" ref="shoppingCartItemDAO"></beans:property>
     </beans:bean>
     
     <beans:bean id="orderService" class="com.app.studio.service.impl.OrderServiceImpl">

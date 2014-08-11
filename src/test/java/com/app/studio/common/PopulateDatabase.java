@@ -105,6 +105,28 @@ public class PopulateDatabase {
         c = customerDAO.create(c);
         System.out.println("Created customer " + c.getId());
 
+        // Customer2
+        User customerUser2 = new User("c2", "c", "Customer2", "User2",
+                "What is your favorit car?", "Benz");
+        customerUser2 = userDAO.create(customerUser2);
+        Customer c2 = new Customer(customerUser2);
+        c2.setAddress("Fairfield, IA");
+        c2.setSignUpDate("2014-08-07");
+        c2.setAdvisor(f);
+        c2 = customerDAO.create(c2);
+        System.out.println("Created customer " + c2.getId());
+
+        // Customer2
+        User customerUser3 = new User("c3", "c", "Customer3", "User3",
+                "What is your favorit car?", "Benz");
+        customerUser3 = userDAO.create(customerUser3);
+        Customer c3 = new Customer(customerUser3);
+        c3.setAddress("Fairfield, IA");
+        c3.setSignUpDate("2014-08-07");
+        c3.setAdvisor(f);
+        c3 = customerDAO.create(c3);
+        System.out.println("Created customer " + c3.getId());
+
         // Semester
         Semester semester1 = new Semester();
         semester1.setStartdate("2014-09-01");

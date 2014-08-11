@@ -23,38 +23,44 @@
             <div id="content-container">
                 <%@include file="template/sidebar.jsp"%>
                 <div id="content">
+                    <c:if test="${not empty error}">
+                        <div class="error">${error}</div>
+                    </c:if>
+                    <c:if test="${not empty msg}">
+                        <div class="msg">${msg}</div>
+                    </c:if>
                     <table>
                         &nbsp;&nbsp;&nbsp;
-                    <h2>
-                        Product List
-                    </h2>
+                        <h2>
+                            Product List
+                        </h2>
                         &nbsp;
-                    <table class="tg">
-                        <tr>
-                            <th width="80">Product ID</th>
-                            <th width="120">Image Source</th>
-                            <th width="120">Product Name</th>
-                            <th width="120">Product Type</th>
-                            <th width="120">Price</th>
-                            <th width="120">Available Quantity</th>
-                            <th width="120">Description</th>
-                            <th width="100">Option</th>
-                        </tr>
-                        <c:if test="${!empty listProducts}">
-                            <c:forEach items="${listProducts}" var="product">
-                                <tr>
-                                    <td>${product.id}</td>
-                                    <td><img src=${product.imageSrc} height="100" width="100"></td>
-                                    <td>${product.name}</td>
-                                    <td>${product.type}</td>
-                                    <td>${product.price}</td>
-                                    <td>${product.availableQuantity}</td>
-                                    <td>${product.description}</td>
-                                    <td><a href="<c:url value='/view-products' />">ADD To Cart</a></td></td>
-                                </tr>
-                            </c:forEach>
-                        </c:if>
-                    </table>
+                        <table class="tg">
+                            <tr>
+                                <th width="80">Product ID</th>
+                                <th width="120">Image Source</th>
+                                <th width="120">Product Name</th>
+                                <th width="120">Product Type</th>
+                                <th width="120">Price</th>
+                                <th width="120">Available Quantity</th>
+                                <th width="120">Description</th>
+                                <th width="100">Option</th>
+                            </tr>
+                            <c:if test="${!empty listProducts}">
+                                <c:forEach items="${listProducts}" var="product">
+                                    <tr>
+                                        <td>${product.id}</td>
+                                        <td><img src=${product.imageSrc} height="100" width="100"></td>
+                                        <td>${product.name}</td>
+                                        <td>${product.type}</td>
+                                        <td>${product.price}</td>
+                                        <td>${product.availableQuantity}</td>
+                                        <td>${product.description}</td>
+                                        <td><a href="<c:url value='/add-to-shoppingcart/${product.id}/' />">ADD To Cart</a></td></td>
+                                    </tr>
+                                </c:forEach>
+                            </c:if>
+                        </table>
 
                 </div>
                 <!--<%@include file="template/right-side.jsp"%>-->

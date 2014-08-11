@@ -26,6 +26,9 @@
                     <c:url var="addProduct" value="/products/add"></c:url>
                     <form:form action="${addProduct}" commandName="product">
                         <table>
+                            <h2>
+                                Manage Product List
+                            </h2>
                             <c:if test="${product.id > 0}">
                                 <tr>
                                     <td><form:label path="id">
