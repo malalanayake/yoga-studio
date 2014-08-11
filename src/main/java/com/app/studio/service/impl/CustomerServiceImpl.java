@@ -72,7 +72,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     @Transactional
     public Customer addCustomer(Customer c) throws RequiredDataNotPresent, RecordAlreadyExistException {
-        c.setSignUpDate(new Date().toString());
+        c.setSignUpDate(DateUtils.today());
         User u = c.getUser();
         if (!u.getFirstName().equals("") && !u.getLastName().equals("") && !u.getUsername().equals("") && !u.getPassword().equals("")
                 && !u.getSequrityQuestion().equals("") && !u.getAnswer().equals("")) {
