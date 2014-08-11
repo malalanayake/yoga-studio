@@ -62,6 +62,18 @@ public class SecurityController {
     public String listCustomersw(Model model) {
         return "main";
     }
+    
+     @RequestMapping(value = "/about", method = RequestMethod.GET)
+    public String about(Model model) {
+        return "about";
+    }
+    
+     @RequestMapping(value = "/contact-us", method = RequestMethod.GET)
+    public String contactUs(Model model) {
+        return "contact-us";
+    }
+    
+    
 
     // FORGOT PASSWORD
     //ASK USERNAME

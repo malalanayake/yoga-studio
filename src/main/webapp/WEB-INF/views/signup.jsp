@@ -32,6 +32,13 @@
                     <h1>Sign Up  </h1>
                     <h2>Please fill all the mandatory fields  </h2>
 
+                    <c:if test="${not empty error}">
+                        <div class="error">${error}</div>
+                    </c:if>
+                    <c:if test="${not empty msg}">
+                        <div class="msg">${msg}</div>
+                    </c:if>
+
                     <c:url var="addAction" value="/signup/add"></c:url>
                     <form:form action="${addAction}" commandName="user">
 
@@ -81,7 +88,7 @@
 
                             <tr>
                                 <td><input name="submit" type="submit"
-                                                       value="submit" /></td>
+                                           value="submit" /></td>
                                 <td><a href="<c:url value='/login' />">Go to Login</a></td>
                             </tr>
                         </table>
@@ -89,12 +96,7 @@
 
                     </form:form>
 
-                    <c:if test="${not empty error}">
-                        <div class="error">${error}</div>
-                    </c:if>
-                    <c:if test="${not empty msg}">
-                        <div class="msg">${msg}</div>
-                    </c:if>
+
 
                 </div>
                 <!--<%@include file="template/right-side.jsp"%>-->
