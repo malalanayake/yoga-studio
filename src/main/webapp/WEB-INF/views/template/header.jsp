@@ -126,21 +126,22 @@
             <ul class="menu">
                 <li><a href="<c:url value='/main' />"><span class="iconic"></span> Home</a></li>
                 <li><a href="<c:url value='/about' />"><span class="iconic"></span> About</a></li>
+
+                <li><a href="<c:url value='/contact-us' />"><span class="iconic"></span> Contact</a></li>
+
                 <li><a href="#"><span class="iconic"></span> Services</a>
                     <ul>
-                        <li><a href="#">View Products</a></li>
-                        <li><a href="<c:url value='/view-products' />">View Yoga Classes</a></li>
-                    </ul>
+                        <c:if test="${pageContext.request.userPrincipal.name != null}">
+                            <li><a href="#">View Products</a></li>
+                            </c:if>
+                        <li><a href="<c:url value='/view-classes' />">View Yoga Classes</a></li>
+                    </ul>                
                 </li>
-                <li><a href="<c:url value='/contact-us' />"><span class="iconic"></span> Contact</a></li>
-                    <c:if test="${pageContext.request.userPrincipal.name != null}">
-                    <li> <a href="javascript:formSubmit()"><span class="iconic"></span> Logout</a> </li>
-                    </c:if>
-                    <c:if test="${pageContext.request.userPrincipal.name == null}">
+                <li> <a href="javascript:formSubmit()"><span class="iconic"></span> Logout</a> </li>
+
+                <c:if test="${pageContext.request.userPrincipal.name == null}">
                     <li> <a href="<c:url value='/login' />"> <span class="iconic"></span>Login</a> </li>
                     </c:if>
-
-
             </ul>
             <div class="clearfix"></div>
         </nav>

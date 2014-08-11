@@ -33,6 +33,7 @@
                 <li><a href="<c:url value='/enrolled-sections' />">View Enrolled Sections</a></li>
                 <li><a href="<c:url value='/available-sections' />">View Available Sections</a></li>
                 <li><a href="<c:url value='/view-products' />">View Products</a></li>
+                 <li><a href="<c:url value='/view-shoppingcart' />">View Shopping Cart</a></li>
                 </sec:authorize>
 
             <sec:authorize ifNotGranted="ROLE_ANONYMOUS">

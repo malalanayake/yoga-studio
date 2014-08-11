@@ -8,6 +8,6 @@
 <!DOCTYPE html>
 <html>
     <div id="footer">
-        Copyright © Yoga studio, 2014
+        Copyright © Yoga studio, 2014 - Powered by lotus team.
     </div>
 </html>

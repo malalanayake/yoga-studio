@@ -46,12 +46,14 @@
                                 <tr>
                                     <td>Password:</td>
                                     <td><input type='password' name='password' /></td>
-                                    <td><a href="<c:url value='/forgot-password' />">Forgot Password</a></td>
                                 </tr>
                                 <tr>
-                                    <td><input name="submit" type="submit"
-                                               value="submit" /></td>
+                                    <td colspan="2"><input name="submit" type="submit"
+                                               value="submit" /></td>     
+                                </tr>
+                                <tr>
                                     <td><a href="<c:url value='/signup' />">SignUp</a></td>
+                                    <td><a href="<c:url value='/forgot-password' />">Forgot Password</a></td>
                                 </tr>
                             </table>
 
