@@ -24,9 +24,9 @@
                 <sec:authorize ifAnyGranted="ROLE_ADMIN">  
                     <li><a href="<c:url value='/semesters' />"><span>Manage Semesters</span></a></li>
                     <li><a href="<c:url value='/yogaclasses' />"><span>Manage Yoga Classes</span></a></li>
+                    <li><a href="<c:url value='/faculties' />"><span>Manage Faculties</span></a></li>
                     <li><a href="<c:url value='/sections' />"><span>Manage Sections</span></a></li>
                     <li><a href="<c:url value='/products' />"><span>Manage Products</span></a></li>
-                    <li><a href="<c:url value='/faculties' />"><span>Manage Faculties</span></a></li>
                     <li><a href="<c:url value='/view-customers' />"><span>View Customers</span></a></li>
                     <li><a href="<c:url value='/view-orders' />"><span>View Orders</span></a></li>
                     <li><a href="<c:url value='/manage-profile' />"><span>Manage My Profile</span></a></li>

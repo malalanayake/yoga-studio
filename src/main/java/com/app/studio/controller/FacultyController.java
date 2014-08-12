@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
+ * Controller which is controlling the faculties
  *
  * @author Yen
  */
@@ -38,12 +39,28 @@ public class FacultyController {
         return "waiver";
     }
 
+    /**
+     * Approve waivers
+     *
+     * @param id
+     * @param user
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/waivers/approve/{id}", method = RequestMethod.GET)
     public String approveWaiver(@PathVariable("id") int id, Principal user, Model model) {
         submitWaiverResponse(id, user.getName(), model, true);
         return "waiver";
     }
 
+    /**
+     * Reject waivers
+     *
+     * @param id
+     * @param user
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/waivers/reject/{id}", method = RequestMethod.GET)
     public String rejectWaiver(@PathVariable("id") int id, Principal user, Model model) {
         submitWaiverResponse(id, user.getName(), model, false);
@@ -82,6 +99,13 @@ public class FacultyController {
         return message.toString();
     }
 
+    /**
+     * List Advisees
+     *
+     * @param user
+     * @param model
+     * @return
+     */
     /* ************************* ADVISEES ************************* */
     @RequestMapping(value = "/advisees", method = RequestMethod.GET)
     public String listAdvisees(Principal user, Model model) {
@@ -93,6 +117,13 @@ public class FacultyController {
         return "advisee";
     }
 
+    /**
+     * Assige Sections
+     *
+     * @param user
+     * @param model
+     * @return
+     */
     /* ************************* ASSIGNED SECTIONS ************************* */
     @RequestMapping(value = "/assigned-sections", method = RequestMethod.GET)
     public String listSections(Principal user, Model model) {
@@ -100,6 +131,13 @@ public class FacultyController {
         return "assigned-section";
     }
 
+    /**
+     * Show students
+     *
+     * @param user
+     * @param model
+     * @return
+     */
     /* ************************* STUDENTS ************************* */
     @RequestMapping(value = "/students", method = RequestMethod.GET)
     public String listStudents(Principal user, Model model) {
@@ -115,6 +153,12 @@ public class FacultyController {
         }
     }
 
+    /**
+     * View Faculties
+     *
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/faculties", method = RequestMethod.GET)
     public String requestListOfFaculties(Model model) {
         model.addAttribute("user", new User());
@@ -122,6 +166,13 @@ public class FacultyController {
         return "faculty";
     }
 
+    /**
+     * Add or update faculties
+     *
+     * @param u
+     * @param model
+     * @return
+     */
     @RequestMapping("/faculties/add")
     public String requestToAddNewFaculties(@ModelAttribute("user") User u, Model model) {
         try {
@@ -145,6 +196,13 @@ public class FacultyController {
         return "faculty";
     }
 
+    /**
+     * Present faculty data in edit mode
+     *
+     * @param id
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/faculties/edit/{id}", method = RequestMethod.GET)
     public String requestToUpdateFaculty(@PathVariable("id") int id, Model model) {
         Faculty fac = null;
@@ -161,6 +219,13 @@ public class FacultyController {
         return "faculty";
     }
 
+    /**
+     * Remove faculty
+     *
+     * @param id
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/faculties/remove/{id}", method = RequestMethod.GET)
     public String requestToDeleteFaculty(@PathVariable("id") int id, Model model) {
         Faculty faculty = null;

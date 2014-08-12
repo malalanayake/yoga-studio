@@ -134,7 +134,7 @@
 
                     <table class="tg">
                         <tr>
-                            <th width="80">Semester ID</th>
+                            <th width="80">ID</th>
                             <th width="120">Start Date</th>
                             <th width="120">End Date</th>
                             <th width="120">Signup Date</th>
