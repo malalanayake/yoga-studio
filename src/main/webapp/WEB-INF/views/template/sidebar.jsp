@@ -45,6 +45,7 @@
                     <li><a href="<c:url value='/enrolled-sections' />"><span>View Enrolled Sections</span></a></li>
                     <li><a href="<c:url value='/view-products' />"><span>View Products</span></a></li>
                     <li><a href="<c:url value='/view-shoppingcart' />"><span>View Shopping Cart</span></a></li>
+                    <li><a href="<c:url value='/view-orders-customer' />"><span>View My Orders</span></a></li>
                     <li><a href="<c:url value='/manage-profile' />"><span>Manage My Profile</span></a></li>
                 </sec:authorize>
             </ul>

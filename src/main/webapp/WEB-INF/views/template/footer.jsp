@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <html>
     <div id="footer">
-        Copyright © Yoga studio, 2014 - Powered by lotus team.
+        <c:url var="urlPowered" value='/poweredby'></c:url>                             
+        Copyright © Yoga studio, 2014 - <a href="${urlPowered}">Powered by lotus team</a>.
     </div>
 </html>

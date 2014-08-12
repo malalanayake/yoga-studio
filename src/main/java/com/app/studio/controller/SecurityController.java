@@ -30,6 +30,13 @@ public class SecurityController {
         this.userService = userService;
     }
 
+    /**
+     * Access denied
+     *
+     * @param user
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/access-denied", method = RequestMethod.GET)
     public String listCustomers(Principal user, Model model) {
         if (user != null) {
@@ -41,7 +48,14 @@ public class SecurityController {
         return "access-denied";
     }
 
-    //Spring Security see this :
+    /**
+     * Login page
+     *
+     * @param error
+     * @param logout
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(
             @RequestParam(value = "error", required = false) String error,
@@ -58,22 +72,49 @@ public class SecurityController {
         return "login";
     }
 
+    /**
+     * Main page
+     *
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/main", method = RequestMethod.GET)
     public String listCustomersw(Model model) {
         return "main";
     }
-    
-     @RequestMapping(value = "/about", method = RequestMethod.GET)
+
+    /**
+     * About page
+     *
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/about", method = RequestMethod.GET)
     public String about(Model model) {
         return "about";
     }
-    
-     @RequestMapping(value = "/contact-us", method = RequestMethod.GET)
+
+    /**
+     * Contact us page
+     *
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/contact-us", method = RequestMethod.GET)
     public String contactUs(Model model) {
         return "contact-us";
     }
-    
-    
+
+    /**
+     * Powered by page
+     *
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/poweredby", method = RequestMethod.GET)
+    public String listPoweredBy(Model model) {
+        return "powered_by";
+    }
 
     // FORGOT PASSWORD
     //ASK USERNAME
@@ -87,7 +128,7 @@ public class SecurityController {
     @RequestMapping(value = "/forgot-password/answer", method = RequestMethod.POST)
     public String checkUserValues(@ModelAttribute("user") User u, Model model) {
         if (!u.getUsername().equals("")) {
-            if (u.getSequrityQuestion()==null) {
+            if (u.getSequrityQuestion() == null) {
                 User user = userService.getUserByUserName(u.getUsername());
                 if (user == null) {
                     model.addAttribute("user", new User());
@@ -119,22 +160,17 @@ public class SecurityController {
 
         return "forgot-password";
     }
-    
+
     //ASK FOR PASSWORD
     @RequestMapping(value = "/reset-password", method = RequestMethod.POST)
     public String askPassword(Model model, User u) throws RequiredDataNotPresent {
-        
+
         User user = userService.getUserByUserName(u.getUsername());
         user.setPassword(u.getPassword());
         userService.updateUser(user);
         model.addAttribute("msg", "Password changed succesfully, now you can login with your new Password");
- 
+
         return "/login";
     }
-    
-    
-    
-    
-    
 
 }

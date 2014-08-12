@@ -33,6 +33,7 @@
         <intercept-url pattern="/view-products/**" access="ROLE_CUSTOMER" />
         <intercept-url pattern="/add-to-shoppingcart/**" access="ROLE_CUSTOMER" />
         <intercept-url pattern="/view-shoppingcart/**" access="ROLE_CUSTOMER" />
+        <intercept-url pattern="/view-orders-customer/**" access="ROLE_CUSTOMER" />
         
         <form-login login-page="/login" default-target-url="/main"
                     authentication-failure-url="/login?error" username-parameter="username"
