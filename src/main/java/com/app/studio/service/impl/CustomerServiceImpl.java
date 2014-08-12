@@ -265,6 +265,7 @@ public class CustomerServiceImpl implements CustomerService {
         if (advisor != null) {
             System.out.println("################ Assigning faculty=" + advisor.getId());
             cust.setAdvisor(advisor);
+            customerDAO.update(cust);
         } else {
             throw new RequiredDataNotPresent("There are no available advisors to be assigned.");
         }
