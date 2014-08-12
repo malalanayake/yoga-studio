@@ -45,6 +45,13 @@ public interface SemesterService {
      * @return
      */
     public List<Semester> listOfAllSemesters();
-    
+
+    /**
+     * List of current and future semesters
+     *
+     * @return
+     */
+    public List<Semester> listOfCurrentAndFutureSemesters();
+
     public Semester getSemeterByID(int id);
 }

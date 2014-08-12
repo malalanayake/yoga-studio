@@ -33,7 +33,7 @@
                         <c:otherwise>
                             <table class="tg">
                                 <tr>
-                                    <th>Semester ID</th>
+                                    <th>Semester</th>
                                     <th>Class Name</th>
                                     <th>Section ID</th>
                                     <th>Prerequisites</th>
@@ -44,7 +44,7 @@
                                 </tr>
                                 <c:forEach items="${listSections}" var="section">
                                     <tr>
-                                        <td>${section.semester.id}</td>
+                                        <td>${section.semester.startdate} - ${section.semester.enddate}</td>
                                         <td>${section.yogaClass.name}</td>
                                         <td>${section.id}</td>
                                         <td>

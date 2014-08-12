@@ -90,4 +90,11 @@ public class SemesterDAOImpl implements SemesterDAO {
         List<Semester> semList = session.getNamedQuery(Semester.Constants.NAME_QUERY_FIND_BY_SIGN_UP_DATE).list();
         return semList;
     }
+
+    @Override
+    public List<Semester> getCurrentAndFutureSemesters() {
+        Session session = this.sessionFactory.getCurrentSession();
+        List<Semester> semList = session.getNamedQuery(Semester.Constants.NAME_QUERY_FIND_CURRENT_AND_FUTURE).list();
+        return semList;
+    }
 }

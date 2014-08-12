@@ -80,4 +80,11 @@ public class SemesterController {
         return "semester";
 
     }
+
+    @RequestMapping(value = "/view-classes", method = RequestMethod.GET)
+    public String listCurrentAndFutureClasses(Model model) {
+        model.addAttribute("listSemesters", this.semesterService.listOfCurrentAndFutureSemesters());
+        return "all-yoga-class";
+    }
+
 }

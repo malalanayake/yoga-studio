@@ -30,25 +30,23 @@
                     <li><a href="<c:url value='/view-customers' />"><span>View Customers</span></a></li>
                     <li><a href="<c:url value='/view-orders' />"><span>View Orders</span></a></li>
                     <li><a href="<c:url value='/manage-profile' />"><span>Manage My Profile</span></a></li>
-                    </sec:authorize>
-                    <sec:authorize ifAnyGranted="ROLE_FACULTY">  
+                </sec:authorize>
+                <sec:authorize ifAnyGranted="ROLE_FACULTY">  
                     <li><a href="<c:url value='/waivers' />"><span>Manage Waiver Requests</span></a></li>
                     <li><a href="<c:url value='/advisees' />"><span>View Advisees</span></a></li>
                     <li><a href="<c:url value='/assigned-sections' />"><span>View Assigned Sections</span></a></li>
                     <li><a href="<c:url value='/students' />"><span>View Students</span></a></li>
                     <li><a href="<c:url value='/manage-profile' />"><span>Manage My Profile</span></a></li>
-                    </sec:authorize>
-                    <sec:authorize ifAnyGranted="ROLE_CUSTOMER">
+                </sec:authorize>
+                <sec:authorize ifAnyGranted="ROLE_CUSTOMER">
                     <li><a href="<c:url value='/enroll' />"><span>Enroll</span></a></li>
                     <li><a href="<c:url value='/add-waiver-request' />"><span>Add Waiver Request</span></a></li>
                     <li><a href="<c:url value='/drop-section' />"><span>Drop Section</span></a></li>
                     <li><a href="<c:url value='/enrolled-sections' />"><span>View Enrolled Sections</span></a></li>
-                    <li><a href="<c:url value='/available-sections' />"><span>View Available Sections</span></a></li>
                     <li><a href="<c:url value='/view-products' />"><span>View Products</span></a></li>
                     <li><a href="<c:url value='/view-shoppingcart' />"><span>View Shopping Cart</span></a></li>
                     <li><a href="<c:url value='/manage-profile' />"><span>Manage My Profile</span></a></li>
-                    </sec:authorize>
-
+                </sec:authorize>
             </ul>
         </div>
     </div>

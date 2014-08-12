@@ -7,9 +7,12 @@ import com.app.studio.dao.FacultyDAO;
 import com.app.studio.dao.SectionDAO;
 import com.app.studio.dao.SemesterDAO;
 import com.app.studio.dao.UserDAO;
+import com.app.studio.exception.IncompletePrerequisitesException;
 import com.app.studio.exception.RecordAlreadyExistException;
 import com.app.studio.exception.RequiredDataNotPresent;
 import com.app.studio.exception.UnauthorizedOperation;
+import com.app.studio.exception.WaiverPendingException;
+import com.app.studio.exception.WaiverRejectedException;
 import com.app.studio.model.Customer;
 import com.app.studio.model.EnrolledSection;
 import com.app.studio.model.Faculty;
@@ -189,21 +192,25 @@ public class CustomerServiceImpl implements CustomerService {
         }
 
         // Remove enrollment record
+        int sectionID = enrolled.getSection().getId();
+        String status = enrolled.getStatus();
         enrolled = this.enrolledSectionDAO.remove(enrolledSectionID);
         System.out.println("############## Dropped enrollment: " + enrolled.toString());
 
-        // Add waitlisted to the list
-        Set<EnrolledSection> students = enrolled.getSection().getSetOfEnrolledSections();
-        for (EnrolledSection student : students) {
-            if (EnrolledSection.Constants.STATUS_WAITLISTED.equals(student.getStatus())) {
-                student.setStatus(EnrolledSection.Constants.STATUS_ENROLLED);
-                student = enrolledSectionDAO.update(student);
-                System.out.println("############## Changed from WAITLISTED to ENROLLED: " + student.toString());
-                break;
+        // If status=ENROLLED dropped the class, change a WAITLISTED to ENROLLED
+        Section section = sectionDAO.getById(sectionID);
+        if (EnrolledSection.Constants.STATUS_ENROLLED.equals(status)) {
+            for (EnrolledSection student : section.getSetOfEnrolledSections()) {
+                if (EnrolledSection.Constants.STATUS_WAITLISTED.equals(student.getStatus())) {
+                    student.setStatus(EnrolledSection.Constants.STATUS_ENROLLED);
+                    student = enrolledSectionDAO.update(student);
+                    System.out.println("############## Changed from WAITLISTED to ENROLLED: " + student.toString());
+                    break;
+                }
             }
         }
 
-        return enrolled.getSection();
+        return section;
     }
 
     @Override
@@ -280,11 +287,11 @@ public class CustomerServiceImpl implements CustomerService {
                 hasWaiver = true;
                 if (WaiverRequest.Constants.STATUS_REJECTED.equals(waiver.getStatus())) {
                     // Waiver Rejected
-                    throw new UnauthorizedOperation("Your waiver for " + yogaClass.getName()
+                    throw new WaiverRejectedException("Your waiver for " + yogaClass.getName()
                             + " has been rejected. Please select another class to enroll in.");
                 } else if (WaiverRequest.Constants.STATUS_PENDING.equals(waiver.getStatus())) {
                     // Waiver Pending
-                    throw new UnauthorizedOperation("Your waiver for " + yogaClass.getName()
+                    throw new WaiverPendingException("Your waiver for " + yogaClass.getName()
                             + " is still pending approval. Please wait for your advisor's approval, or select another class to enroll in.");
                 } else {
                     // Waiver Approved
@@ -295,8 +302,8 @@ public class CustomerServiceImpl implements CustomerService {
         }
         // No waiver submitted
         if (!hasWaiver) {
-            throw new UnauthorizedOperation("You are not yet qualified to enroll in " + yogaClass.getName()
-                    + " due to incomplete prerequisites. Please submit a waiver request if you wish to enroll in this class.");
+            throw new IncompletePrerequisitesException("You are not yet qualified to enroll in " + yogaClass.getName()
+                    + ". You must have completed all prerequisites before this class starts. Please submit a waiver request if you wish to enroll in this class.");
         }
     }
 

@@ -71,6 +71,12 @@ public class SemesterServiceImpl implements SemesterService {
         return semesterDAO.list();
     }
 
+    @Override
+    @Transactional
+    public List<Semester> listOfCurrentAndFutureSemesters() {
+        return semesterDAO.getCurrentAndFutureSemesters();
+    }
+
     public SemesterDAO getSemesterDAO() {
         return semesterDAO;
     }

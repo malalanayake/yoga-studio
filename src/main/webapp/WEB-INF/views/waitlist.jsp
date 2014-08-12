@@ -25,7 +25,7 @@
                 <div id="content">
                     <c:url var="waitlist" value="/waitlist"></c:url>
                     <form:form action="${waitlist}" commandName="section">
-                        <p>${section.yogaClass.name} - Section ${section.id} for Semester ${section.semester.id}
+                        <p>${section.yogaClass.name} - Section ${section.id} for Semester ${section.semester.startdate} - ${section.semester.enddate}
                         is full. Would you like to be waitlisted for this class?</p>
                         <input type="submit" name="waitlist" value="<spring:message text="Yes"/>" />
                         <input type="submit" name="waitlist" value="<spring:message text="No"/>" />

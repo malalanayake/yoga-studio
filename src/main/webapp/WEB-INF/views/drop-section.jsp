@@ -39,7 +39,7 @@
                         <c:otherwise>
                             <table class="tg">
                                 <tr>
-                                    <th>Semester ID</th>
+                                    <th>Semester</th>
                                     <th>Class Name</th>
                                     <th>Section ID</th>
                                     <th>Prerequisites</th>
@@ -48,11 +48,12 @@
                                     <th>Location</th>
                                     <th>Capacity</th>
                                     <th>Enrollment Date</th>
+                                    <th>Status</th>
                                     <th>Drop</th>
                                 </tr>
                                 <c:forEach items="${enrolledSections}" var="enrolled">
                                     <tr>
-                                        <td>${enrolled.section.semester.id}</td>
+                                        <td>${enrolled.section.semester.startdate} - ${enrolled.section.semester.enddate}</td>
                                         <td>${enrolled.section.yogaClass.name}</td>
                                         <td>${enrolled.section.id}</td>
                                         <td>
@@ -67,6 +68,7 @@
                                         <td>${enrolled.section.location}</td>
                                         <td>${enrolled.section.maxStudents}</td>
                                         <td>${enrolled.date}</td>
+                                        <td>${enrolled.status}</td>
                                         <td><a href="<c:url value='/drop-section/${enrolled.id}' />">Click to drop</a></td>
                                     </tr>
                                 </c:forEach>

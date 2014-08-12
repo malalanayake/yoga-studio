@@ -56,4 +56,11 @@ public interface SemesterDAO {
      * @return
      */
     public List<Semester> getBySignUpDate();
+
+    /**
+     * Get list of current and future semesters
+     *
+     * @return
+     */
+    public List<Semester> getCurrentAndFutureSemesters();
 }

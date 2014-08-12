@@ -22,13 +22,15 @@ import javax.persistence.Table;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "findBySemesterSignUpDate", query = "select s from Semester s where s.signUpDate >= CURDATE()")})
+    @NamedQuery(name = "findBySemesterSignUpDate", query = "select s from Semester s where s.signUpDate >= CURDATE()"),
+    @NamedQuery(name = "findCurrentAndFutureSemesters", query = "select s from Semester s where CURDATE() <= s.startdate OR curdate() <= s.enddate")})
 @Table(name = "SEMESTER")
 public class Semester {
 
     public static interface Constants {
 
         public static final String NAME_QUERY_FIND_BY_SIGN_UP_DATE = "findBySemesterSignUpDate";
+        public static final String NAME_QUERY_FIND_CURRENT_AND_FUTURE = "findCurrentAndFutureSemesters";
     }
 
     @Id

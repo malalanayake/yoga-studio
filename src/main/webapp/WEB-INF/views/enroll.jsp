@@ -35,7 +35,7 @@
                     <c:if test="${(!empty enrolledSections) || (!empty availableSections)}">
                         <table class="tg">
                             <tr>
-                                <th>Semester ID</th>
+                                <th>Semester</th>
                                 <th>Class Name</th>
                                 <th>Section ID</th>
                                 <th>Prerequisites</th>
@@ -48,7 +48,7 @@
                             </tr>
                             <c:forEach items="${enrolledSections}" var="enrolled">
                                 <tr>
-                                    <td>${enrolled.section.semester.id}</td>
+                                    <td>${enrolled.section.semester.startdate} - ${enrolled.section.semester.enddate}</td>
                                     <td>${enrolled.section.yogaClass.name}</td>
                                     <td>${enrolled.section.id}</td>
                                     <td>
@@ -68,7 +68,7 @@
                             </c:forEach>
                             <c:forEach items="${availableSections}" var="section">
                                 <tr>
-                                    <td>${section.semester.id}</td>
+                                    <td>${section.semester.startdate} - ${section.semester.enddate}</td>
                                     <td>${section.yogaClass.name}</td>
                                     <td>${section.id}</td>
                                     <td>

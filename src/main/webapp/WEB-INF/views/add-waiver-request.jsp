@@ -6,6 +6,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page session="true"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -56,7 +57,14 @@
                                     <td>${yogaClass.id}</td>
                                     <td>${yogaClass.name}</td>
                                     <td>${yogaClass.price}</td>
-                                    <td><a href="<c:url value='/add-waiver-request/${yogaClass.id}' />">Submit</a></td>
+                                    <c:choose>
+                                        <c:when test="${fn:length(yogaClass.setOfPrerequisites) gt 0}">
+                                            <td><a href="<c:url value='/add-waiver-request/${yogaClass.id}' />">Submit</a></td>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <td>N/A</td>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </tr>
                             </c:forEach>
                         </c:if>

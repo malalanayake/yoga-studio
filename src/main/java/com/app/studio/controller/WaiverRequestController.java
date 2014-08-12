@@ -57,12 +57,15 @@ public class WaiverRequestController {
 
     @RequestMapping(value = "/add-waiver-request/{id}", method = RequestMethod.GET)
     public String addWaiverRequest(@PathVariable("id") int yogaClassID, Principal user, Model model) throws RequiredDataNotPresent {
-        Customer customer = customerService.getCustomerByUsername(user.getName());
-        YogaClass yogaClass = yogaClassService.getYogaClassByID(yogaClassID);
+        try {
+            Customer customer = customerService.getCustomerByUsername(user.getName());
+            YogaClass yogaClass = yogaClassService.getYogaClassByID(yogaClassID);
 
-        this.waiverRequestService.createNewWaiverRequest(yogaClass, customer);
-        model.addAttribute("msg", "Waiver Request was created and sent successfully");
-
+            this.waiverRequestService.createNewWaiverRequest(yogaClass, customer);
+            model.addAttribute("msg", "Waiver Request was created and sent successfully");
+        } catch (RequiredDataNotPresent ex) {
+            model.addAttribute("error", ex.getMessage());
+        }
         getYogaClasses(user.getName(), model);
         return "add-waiver-request";
     }

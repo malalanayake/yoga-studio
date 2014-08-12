@@ -32,30 +32,32 @@
                         </c:when>
                         <c:otherwise>
                             <c:forEach items="${listSections}" var="section">
-                                <h3>Semester ${section.semester.id}: ${section.yogaClass.name} - Section ${section.id}</h3>
-                                <c:choose>
-                                    <c:when test="${empty section.setOfEnrolledSections}">
-                                        <p>There are currently no students enrolled in this class.</p>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <table class="tg">
-                                            <tr>
-                                                <th>Customer ID</th>
-                                                <th>Name</th>
-                                                <th>Enrollment Date</th>
-                                                <th>Enrollment Status</th>
-                                            </tr>
-                                            <c:forEach items="${section.setOfEnrolledSections}" var="enrolled">
+                                <div id="content-inner">
+                                    <h3>Semester ${section.semester.startdate} - ${section.semester.enddate}: ${section.yogaClass.name} - Section ${section.id}</h3>
+                                    <c:choose>
+                                        <c:when test="${empty section.setOfEnrolledSections}">
+                                            <p>There are currently no students enrolled in this class.</p>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <table class="tg">
                                                 <tr>
-                                                    <td>${enrolled.customer.id}</td>
-                                                    <td>${enrolled.customer.user.firstName} ${enrolled.customer.user.lastName}</td>
-                                                    <td>${enrolled.date}</td>
-                                                    <td>${enrolled.status}</td>
+                                                    <th>Customer ID</th>
+                                                    <th>Name</th>
+                                                    <th>Enrollment Date</th>
+                                                    <th>Enrollment Status</th>
                                                 </tr>
-                                            </c:forEach>
-                                        </table>
-                                    </c:otherwise>
-                                </c:choose>
+                                                <c:forEach items="${section.setOfEnrolledSections}" var="enrolled">
+                                                    <tr>
+                                                        <td>${enrolled.customer.id}</td>
+                                                        <td>${enrolled.customer.user.firstName} ${enrolled.customer.user.lastName}</td>
+                                                        <td>${enrolled.date}</td>
+                                                        <td>${enrolled.status}</td>
+                                                    </tr>
+                                                </c:forEach>
+                                            </table>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div>
                             </c:forEach>
                         </c:otherwise>
                     </c:choose>

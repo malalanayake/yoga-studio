@@ -97,7 +97,8 @@ public class CustomerController {
             if (isEnrolled) {
                 model.addAttribute("msg", "You have been successfully enrolled in "
                         + section.getYogaClass().getName() + " - Section " + section.getId()
-                        + " for Semester " + section.getSemester().getId());
+                        + " for Semester " + section.getSemester().getStartdate()
+                        + " - " + section.getSemester().getEnddate());
                 getOpenEnrollments(user.getName(), model);
                 return "enroll";
             } else {
@@ -120,7 +121,8 @@ public class CustomerController {
                 Section section = this.customerService.waitlist(user.getName(), s.getId());
                 model.addAttribute("msg", "You have been successfully waitlisted in "
                         + section.getYogaClass().getName() + " - Section " + section.getId()
-                        + " for Semester " + section.getSemester().getId());
+                        + " for Semester " + section.getSemester().getStartdate()
+                        + " - " + section.getSemester().getEnddate());
             } catch (RequiredDataNotPresent ex) {
                 model.addAttribute("error", ex.getMessage());
             }
@@ -137,15 +139,9 @@ public class CustomerController {
         return "enrolled-section";
     }
 
-    @RequestMapping(value = "/available-sections", method = RequestMethod.GET)
-    public String listAvailableSections(Principal user, Model model) {
-        model.addAttribute("availableSections", this.customerService.listAvailableSections());
-        return "available-section";
-    }
-
     @RequestMapping(value = "/drop-section", method = RequestMethod.GET)
     public String listDropSections(Principal user, Model model) {
-        getEnrolledWithoutWaitlist(user.getName(), model);
+        model.addAttribute("enrolledSections", this.customerService.getCustomerByUsername(user.getName()).getSetOfEnrolledSections());
         return "drop-section";
     }
 
@@ -155,11 +151,12 @@ public class CustomerController {
             Section section = this.customerService.drop(id);
             model.addAttribute("msg", "You have successfully dropped "
                     + section.getYogaClass().getName() + " - Section " + section.getId()
-                    + " for Semester " + section.getSemester().getId());
+                    + " for Semester " + section.getSemester().getStartdate()
+                    + " - " + section.getSemester().getEnddate());
         } catch (Exception ex) {
             model.addAttribute("error", ex.getMessage());
         }
-        getEnrolledWithoutWaitlist(user.getName(), model);
+        model.addAttribute("enrolledSections", this.customerService.getCustomerByUsername(user.getName()).getSetOfEnrolledSections());
         return "drop-section";
     }
 
@@ -178,15 +175,4 @@ public class CustomerController {
         model.addAttribute("enrolledSections", enrolledSections);
         model.addAttribute("availableSections", availableSections);
     }
-
-    private void getEnrolledWithoutWaitlist(String username, Model model) {
-        Set<EnrolledSection> enrolledList = this.customerService.getCustomerByUsername(username).getSetOfEnrolledSections();
-        for (EnrolledSection enrolled : enrolledList) {
-            if (EnrolledSection.Constants.STATUS_WAITLISTED.equals(enrolled.getStatus())) {
-                enrolledList.remove(enrolled);
-            }
-        }
-        model.addAttribute("enrolledSections", enrolledList);
-    }
-
 }
