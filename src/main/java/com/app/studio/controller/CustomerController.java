@@ -67,17 +67,9 @@ public class CustomerController {
         } catch (RecordAlreadyExistException ex) {
             model.addAttribute("error", ex.getMessage());
         }
-        return "signup";
+        return "login";
     }
 
-    // DEVELOPMENT
-    /* private void getYogaClasses(String username, Model model) {
-     try {
-     model.addAttribute("listWaivers", this.YogaClassService.getFacultyByUsername(username).getSetOfWaiverRequests());
-     } catch (RequiredDataNotPresent ex) {
-     model.addAttribute("error", ex.getMessage());
-     }
-     }*/
     @RequestMapping(value = "/request-waive-prerequisites", method = RequestMethod.GET)
     public String addWaiverRequest(Model model) {
         return "waiverrequest";

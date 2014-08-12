@@ -31,7 +31,7 @@ public class SemesterServiceImpl implements SemesterService {
                 && !semester.getStartdate().equals("")) {
             sem = semesterDAO.create(semester);
         } else {
-            throw new RequiredDataNotPresent("Required data not presenet to create semester");
+            throw new RequiredDataNotPresent("Required data not present to create semester");
         }
         return sem;
     }
