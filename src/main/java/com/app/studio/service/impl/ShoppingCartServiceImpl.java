@@ -10,15 +10,14 @@ import com.app.studio.model.Product;
 import com.app.studio.model.ShoppingCart;
 import com.app.studio.model.ShoppingCartItem;
 import com.app.studio.service.ShoppingCartService;
-import java.util.Collection;
-import java.util.List;
+import java.util.Iterator;
 import java.util.Set;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author ahmadreza
+ * @author aTabibi
  */
 @Service
 public class ShoppingCartServiceImpl implements ShoppingCartService {
@@ -113,8 +112,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     @Transactional
-    public ShoppingCart remove(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void removeShoppingCartItem(int id) {
+        this.shoppingCartItemDAO.remove(id);
     }
 
     @Override
@@ -134,5 +133,16 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             }
         }
         return sum;
+    }
+
+    @Override
+    @Transactional
+    public void removeAllShoppingCartItem(ShoppingCart shoppingCart) {
+        Set<ShoppingCartItem> list = shoppingCart.getSetOfShoppingCartItems();
+        Iterator<ShoppingCartItem> temp = list.iterator();
+        while(temp.hasNext()) {
+            int index = temp.next().getId();
+            this.shoppingCartItemDAO.remove(index);
+        }
     }
 }

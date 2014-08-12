@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  *
- * @author ahmadreza
+ * @author aTabibi
  */
 @Controller
 public class ShoppingCartController {
@@ -71,4 +71,16 @@ public class ShoppingCartController {
         return "view-shoppingcart";
     }
 
+    @RequestMapping(value = "/view-shoppingcart/remove/{id}", method = RequestMethod.GET)
+    public String requestToRemoveShoppingCartItem(@PathVariable("id") int id) {
+        this.shoppingCartService.removeShoppingCartItem(id);
+        return "redirect:/view-shoppingcart";
+    }
+
+    @RequestMapping(value = "/view-shoppingcart/removeall", method = RequestMethod.GET)
+    public String requestToRemoveAllShoppingCartItem(Principal user) {
+        Customer customer = customerService.getCustomerByUsername(user.getName());
+        this.shoppingCartService.removeAllShoppingCartItem(customer.getShoppingCart());
+        return "redirect:/view-shoppingcart";
+    }
 }

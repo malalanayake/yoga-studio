@@ -28,7 +28,7 @@ public class ShoppingCart {
     private int id;
     @OneToOne(fetch = FetchType.EAGER)
     private Customer customer;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "shoppingCart")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "shoppingCart")
     private Set<ShoppingCartItem> setOfShoppingCartItems;
 
     public ShoppingCart() {

@@ -10,7 +10,7 @@ import java.util.Set;
 
 /**
  *
- * @author ahmadreza
+ * @author aTabibi
  */
 public interface ShoppingCartService {
 
@@ -20,7 +20,9 @@ public interface ShoppingCartService {
 
     public ShoppingCart updateShoppingCart(ShoppingCart shoppingCart);
 
-    public ShoppingCart remove(int id);
+    public void removeShoppingCartItem(int id);
+    
+    public void removeAllShoppingCartItem(ShoppingCart shoppingCart);
 
     public Set<ShoppingCartItem> listOfAllShoppingCartItems(Customer customer);
 

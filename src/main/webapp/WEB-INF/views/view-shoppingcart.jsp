@@ -1,6 +1,6 @@
 <%-- 
     Document   : main
-    Created on : Aug 4, 2014, 10:01:25 PM
+    Created on : Aug 5, 2014, 10:01:25 PM
     Author     : aTabibi
 --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -30,13 +30,6 @@
                         </h2>
                         <tr><p>UserName: ${username.username}</p>&nbsp; 
                         </tr>
-                        <tr>
-                            <td colspan="2">
-                                <c:if test="${shoppingCartItem.id gt 0}">
-                                    <input type="submit"
-                                           value="<spring:message text="Edit Product"/>" />
-                                </c:if>
-                        </tr>
                     </table>
                     <table class="tg">
                         <tr>
@@ -55,8 +48,8 @@
                                     <td>${shoppingcartitem.quantity}</td>
                                     <td>${shoppingcartitem.product.price}</td>
                                     <td><a
-                                            href="<c:url value='/view-shoppingcart' />">Delete</a></td>
-                                    <td><a href="<c:url value='/view-shoppingcart' />">Check Out</a></td></td>
+                                            href="<c:url value='/view-shoppingcart/remove/${shoppingcartitem.id}' />">Delete</a></td>
+                                    <td><a href="<c:url value='/view-shoppingcart/remove/${shoppingcartitem.id}' />">Check Out</a></td></td>
                                 </tr>
                             </c:forEach>
                         </c:if>
@@ -68,8 +61,10 @@
                         &nbsp;
                         <tr> <td> &nbsp;</td> </tr>
                         <tr>
-                            <td>&nbsp;<input type="submit"
-                                             value="<spring:message text="Check Out All Orders"/>"/></td>
+                            <td>&nbsp;
+
+                                <a href="<c:url value='/view-shoppingcart/removeall' />">Check Out All</a></td>
+
                         </tr> 
                     </table>
                 </div>
