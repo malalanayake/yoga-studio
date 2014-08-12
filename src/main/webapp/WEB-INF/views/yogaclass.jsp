@@ -32,14 +32,15 @@
                     <h2>
                         Manage Yoga Classes
                     </h2>
-                    <c:url var="addAction" value="/yogaclasses/add"></c:url>
-                    <form:form action="${addAction}" commandName="yogaClass">
+                    <table>
+                        <c:url var="addAction" value="/yogaclasses/add"></c:url>
+                        <form:form action="${addAction}" commandName="yogaClass">
 
-                        <table>
+
                             <c:if test="${yogaClass.id > 0}">
                                 <tr>
                                     <td><form:label path="id">
-                                            <spring:message text="ID" />
+                                            <spring:message text="YogaClass ID" />
                                         </form:label></td>
                                     <td><form:input path="id" readonly="true" 
                                                 disabled="true" /><form:hidden path="id" /></td>
@@ -76,26 +77,28 @@
 
                             </tr>
                             <tr>
-                                <td colspan='2'>
+                                <td></td>
+                                <td>
                                     <c:if test="${yogaClass.id gt 0}">
                                         <input type="submit" value="<spring:message text="Done Editing"/>" />
                                     </c:if>
                                     <c:if test="${yogaClass.id == 0}">
                                         <input type="submit" value="<spring:message text="Add New Yoga Class"/>" />
-                                    </c:if></td>
+                                    </c:if>
+                                </td>
                             </tr>
-                        </table>
-                    </form:form>
 
-                    <c:url var="addPreAction" value="/yogaclasses/add/pre"></c:url>
-                    <form:form action="${addPreAction}" commandName="yogaClass">
-                        <table>
+                        </form:form>
+
+                        <c:url var="addPreAction" value="/yogaclasses/add/pre"></c:url>
+                        <form:form action="${addPreAction}" commandName="yogaClass">
+
                             <c:if test="${yogaClass.id > 0}">
                                 <c:if test="${!empty listYogaClasses}">
 
                                     <tr>
                                         <td><form:label path="id">
-                                                <spring:message text="ID" />
+                                                <spring:message text="YogaClass ID" />
                                             </form:label></td>
                                         <td><form:input path="id" readonly="true" 
                                                     disabled="true" /><form:hidden path="id" /></td>
@@ -126,16 +129,15 @@
                                     </tr>
 
                                 </c:if>
-                            </c:if>
-                        </table>
-                    </form:form>
-
+                            </c:if>                
+                        </form:form>
+                    </table>
 
                     <c:if test="${!empty yogaClass.setOfPrerequisites}">
                         <table class="tg">
                             <tr>
                                 <th width="80">ID</th>
-                                <th width="120">Prerequisites Name</th>
+                                <th width="200">Prerequisites Name</th>
                                 <th width="120">Price</th>
                                 <th width="60">Delete</th>
                             </tr>

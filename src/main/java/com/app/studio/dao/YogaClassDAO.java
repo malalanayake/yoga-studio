@@ -50,10 +50,10 @@ public interface YogaClassDAO {
     public YogaClass remove(int id);
 
     /**
-     * Get list of yoga classes which is contain the given name
+     * Get yoga class which is contain the given name
      *
      * @param name
      * @return
      */
-    public List<YogaClass> getByName(String name);
+    public YogaClass getByName(String name);
 }

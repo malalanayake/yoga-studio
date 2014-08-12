@@ -11,6 +11,7 @@ import java.util.Set;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
+ * Yoga Class Implementation
  *
  * @author jCalles
  */
@@ -31,7 +32,7 @@ public class YogaClassServiceImpl implements YogaClassService {
     public YogaClass createYogaClass(YogaClass yogaClass) throws RequiredDataNotPresent, RecordAlreadyExistException {
         YogaClass yoga = null;
         if (!yogaClass.getName().equals("") && (yogaClass.getPrice() > 0)) {
-            if (yogaClassDAO.getByName(yogaClass.getName()) != null) {
+            if (yogaClassDAO.getByName(yogaClass.getName()) == null) {
                 yoga = yogaClassDAO.create(yogaClass);
             } else {
                 throw new RecordAlreadyExistException("Yoga class name already exist");

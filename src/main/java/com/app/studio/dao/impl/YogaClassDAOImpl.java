@@ -84,11 +84,15 @@ public class YogaClassDAOImpl implements YogaClassDAO {
     }
 
     @Override
-    public List<YogaClass> getByName(String name) {
-      Session session = this.sessionFactory.getCurrentSession();
-        List<YogaClass> userList = session.getNamedQuery(YogaClass.Constants.NAME_QUERY_FIND_BY_NAME)
+    public YogaClass getByName(String name) {
+        Session session = this.sessionFactory.getCurrentSession();
+        List<YogaClass> userList = null;
+        userList = session.getNamedQuery(YogaClass.Constants.NAME_QUERY_FIND_BY_NAME)
                 .setParameter(YogaClass.Constants.PARAM_NAME, name).list();
-      
-        return userList;
+        if (!userList.isEmpty()) {
+            return userList.get(0);
+        } else {
+            return null;
+        }
     }
 }

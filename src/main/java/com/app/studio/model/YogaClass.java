@@ -23,7 +23,7 @@ import javax.persistence.Table;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "findByYogaClassName", query = "select u from YogaClass u where u.name like:yogaClassName")})
+    @NamedQuery(name = "findByYogaClassName", query = "select u from YogaClass u where u.name=:yogaClassName")})
 @Table(name = "YOGA_CLASS")
 public class YogaClass {
 
@@ -63,7 +63,7 @@ public class YogaClass {
     }
 
     public void addPrerequisite(YogaClass yogaClass) {
-        this.setOfPrerequisites.add(yogaClass); 
+        this.setOfPrerequisites.add(yogaClass);
     }
 
     public Set<YogaClass> getSetOfPrerequisites() {
@@ -134,7 +134,7 @@ public class YogaClass {
 
     @Override
     public String toString() {
-        return ""+this.name+":"+this.price;
+        return "" + this.name + ":" + this.price;
     }
 
 }

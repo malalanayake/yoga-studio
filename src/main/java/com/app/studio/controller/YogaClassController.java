@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
+ * Controller class for manage the yoga classes
  *
  * @author dmalalanayake
  */
@@ -31,6 +32,12 @@ public class YogaClassController {
         this.yogaClassService = yogaClassService;
     }
 
+    /**
+     * Load the yoga classes into view
+     *
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/yogaclasses", method = RequestMethod.GET)
     public String requestListOfYogaClasses(Model model) {
         model.addAttribute("yogaClass", new YogaClass());
@@ -38,6 +45,13 @@ public class YogaClassController {
         return "yogaclass";
     }
 
+    /**
+     * Add or Update Yoga class
+     *
+     * @param c
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/yogaclasses/add", method = RequestMethod.POST)
     public String requestToCreateYogaClass(@ModelAttribute("yogaClass") YogaClass c, Model model) {
         String error = "";
@@ -62,6 +76,14 @@ public class YogaClassController {
         return "yogaclass";
     }
 
+    /**
+     * Add new pre requisites on Yoga class
+     *
+     * @param yoga
+     * @param pre
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/yogaclasses/add/pre", method = RequestMethod.POST)
     public String addPreReqYogaClass(@ModelAttribute("id") int yoga, @ModelAttribute("preRequesits") int pre, Model model) {
         YogaClass yogaClass = new YogaClass();
@@ -80,6 +102,13 @@ public class YogaClassController {
         return "yogaclass";
     }
 
+    /**
+     * Load the yoga class in edit mode
+     *
+     * @param id
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/yogaclasses/edit/{id}", method = RequestMethod.GET)
     public String requestToUpdateYogaClass(@PathVariable("id") int id, Model model) {
         YogaClass yogaClass = new YogaClass();
@@ -93,6 +122,14 @@ public class YogaClassController {
         return "yogaclass";
     }
 
+    /**
+     * Remove the pre requisites form given yoga class
+     *
+     * @param yoga
+     * @param pre
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/yogaclasses/remove/pre/{yoga}/{pre}", method = RequestMethod.GET)
     public String removePreRequesits(@PathVariable("yoga") int yoga, @PathVariable("pre") int pre, Model model) {
         YogaClass yogaClass = new YogaClass();
@@ -109,6 +146,13 @@ public class YogaClassController {
         return "yogaclass";
     }
 
+    /**
+     * Remove yoga class
+     *
+     * @param id
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/yogaclasses/remove/{id}", method = RequestMethod.GET)
     public String requestToDeleteYogaClass(@PathVariable("id") int id, Model model) {
         YogaClass yogaClass = new YogaClass();
