@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
+ * Control the orders
  *
  * @author malalanayake
  */
@@ -26,6 +27,12 @@ public class OrderController {
         this.orderService = orderService;
     }
 
+    /**
+     * View Orders
+     *
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/view-orders", method = RequestMethod.GET)
     public String listOrders(Model model) {
         model.addAttribute("order", new Order());
@@ -33,6 +40,13 @@ public class OrderController {
         return "view-orders";
     }
 
+    /**
+     * View Orders by ID
+     *
+     * @param id
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/view-orders/{id}", method = RequestMethod.GET)
     public String viewOrderItems(@PathVariable("id") int id, Model model) {
         Order order = this.orderService.getById(id);

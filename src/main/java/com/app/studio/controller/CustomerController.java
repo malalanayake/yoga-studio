@@ -37,7 +37,7 @@ public class CustomerController {
 
     @RequestMapping(value = "/view-customers", method = RequestMethod.GET)
     public String listCustomers(Model model) {
-        //model.addAttribute("customer", new Customer(new User("")));
+
         model.addAttribute("listCustomers", this.customerService.listCustomers());
         return "view_customer";
     }
