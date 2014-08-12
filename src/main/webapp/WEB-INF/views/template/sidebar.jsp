@@ -9,37 +9,47 @@
 <%@ page session="true"%>
 <!DOCTYPE html>
 <html>
+    <head>
+        <meta charset='utf-8'>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <c:url var="cssMenuUrl" value='/css/styles-side-menu.css'></c:url>
+        <link rel="stylesheet" href="${cssMenuUrl}">
+        <c:url var="jsMenuUrl" value='/js/script-side-menu.js'></c:url>
+        <script src="${jsMenuUrl}"></script>
+    </head>
     <div id="section-navigation">
-        <ul>
-            <sec:authorize ifAnyGranted="ROLE_ADMIN">  
-                <li><a href="<c:url value='/semesters' />">Manage Semesters</a></li>
-                <li><a href="<c:url value='/yogaclasses' />">Manage Yoga Classes</a></li>
-                <li><a href="<c:url value='/sections' />">Manage Sections</a></li>
-                <li><a href="<c:url value='/products' />">Manage Products</a></li>
-                <li><a href="<c:url value='/faculties' />">Manage Faculties</a></li>
-                <li><a href="<c:url value='/view-customers' />">View Customers</a></li>
-                <li><a href="<c:url value='/view-orders' />">View Orders</a></li>
-                </sec:authorize>
-                <sec:authorize ifAnyGranted="ROLE_FACULTY">  
-                <li><a href="<c:url value='/waivers' />">Manage Waiver Requests</a></li>
-                <li><a href="<c:url value='/advisees' />">View Advisees</a></li>
-                <li><a href="<c:url value='/assigned-sections' />">View Assigned Sections</a></li>
-                <li><a href="<c:url value='/students' />">View Students</a></li>
-                </sec:authorize>
-                <sec:authorize ifAnyGranted="ROLE_CUSTOMER">
-                <li><a href="<c:url value='/enroll' />">Enroll</a></li>
-                <li><a href="<c:url value='/add-waiver-request' />">Add Waiver Request</a></li>
-                <li><a href="<c:url value='/drop-section' />">Drop Section</a></li>
-                <li><a href="<c:url value='/enrolled-sections' />">View Enrolled Sections</a></li>
-                <li><a href="<c:url value='/available-sections' />">View Available Sections</a></li>
-                <li><a href="<c:url value='/view-products' />">View Products</a></li>
-                 <li><a href="<c:url value='/view-shoppingcart' />">View Shopping Cart</a></li>
-                </sec:authorize>
+        <div id='cssmenu'>
+            <ul>
+                <sec:authorize ifAnyGranted="ROLE_ADMIN">  
+                    <li><a href="<c:url value='/semesters' />"><span>Manage Semesters</span></a></li>
+                    <li><a href="<c:url value='/yogaclasses' />"><span>Manage Yoga Classes</span></a></li>
+                    <li><a href="<c:url value='/sections' />"><span>Manage Sections</span></a></li>
+                    <li><a href="<c:url value='/products' />"><span>Manage Products</span></a></li>
+                    <li><a href="<c:url value='/faculties' />"><span>Manage Faculties</span></a></li>
+                    <li><a href="<c:url value='/view-customers' />"><span>View Customers</span></a></li>
+                    <li><a href="<c:url value='/view-orders' />"><span>View Orders</span></a></li>
+                    <li><a href="<c:url value='/manage-profile' />"><span>Manage My Profile</span></a></li>
+                    </sec:authorize>
+                    <sec:authorize ifAnyGranted="ROLE_FACULTY">  
+                    <li><a href="<c:url value='/waivers' />"><span>Manage Waiver Requests</span></a></li>
+                    <li><a href="<c:url value='/advisees' />"><span>View Advisees</span></a></li>
+                    <li><a href="<c:url value='/assigned-sections' />"><span>View Assigned Sections</span></a></li>
+                    <li><a href="<c:url value='/students' />"><span>View Students</span></a></li>
+                    <li><a href="<c:url value='/manage-profile' />"><span>Manage My Profile</span></a></li>
+                    </sec:authorize>
+                    <sec:authorize ifAnyGranted="ROLE_CUSTOMER">
+                    <li><a href="<c:url value='/enroll' />"><span>Enroll</span></a></li>
+                    <li><a href="<c:url value='/add-waiver-request' />"><span>Add Waiver Request</span></a></li>
+                    <li><a href="<c:url value='/drop-section' />"><span>Drop Section</span></a></li>
+                    <li><a href="<c:url value='/enrolled-sections' />"><span>View Enrolled Sections</span></a></li>
+                    <li><a href="<c:url value='/available-sections' />"><span>View Available Sections</span></a></li>
+                    <li><a href="<c:url value='/view-products' />"><span>View Products</span></a></li>
+                    <li><a href="<c:url value='/view-shoppingcart' />"><span>View Shopping Cart</span></a></li>
+                    <li><a href="<c:url value='/manage-profile' />"><span>Manage My Profile</span></a></li>
+                    </sec:authorize>
 
-            <sec:authorize ifNotGranted="ROLE_ANONYMOUS">
-                <li><a href="<c:url value='/manage-profile' />">Manage My Profile</a></li>
-                </sec:authorize>
-
-        </ul>
+            </ul>
+        </div>
     </div>
 </html>
