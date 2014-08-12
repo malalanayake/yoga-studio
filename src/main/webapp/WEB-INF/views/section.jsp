@@ -149,13 +149,44 @@
                                 <td><form:label path="start">
                                         <spring:message text="Start Time" />
                                     </form:label></td>
-                                <td><form:input id="start" name="start" path="start" /></td>
+                                <td><form:select path="start">
+                                        <form:option value="8:00AM">8:00AM</form:option>
+                                        <form:option value="9:00AM">9:00AM</form:option>
+                                        <form:option value="10:00AM">10:00AM</form:option>
+                                        <form:option value="11:00AM">11:00AM</form:option>
+                                        <form:option value="12:00PM">12:00PM</form:option>
+                                        <form:option value="1:00PM">1:00PM</form:option>
+                                        <form:option value="2:00PM">2:00PM</form:option>
+                                        <form:option value="3:00PM">3:00PM</form:option>
+                                        <form:option value="4:00PM">4:00PM</form:option>
+                                        <form:option value="5:00PM">5:00PM</form:option>
+                                        <form:option value="6:00PM">6:00PM</form:option>
+                                        <form:option value="7:00PM">7:00PM</form:option>
+                                        <form:option value="8:00PM">8:00PM</form:option>
+                                        <form:option value="9:00PM">9:00PM</form:option>
+                                    </form:select>
+                                </td>
                             </tr>
                             <tr>
                                 <td><form:label path="end">
                                         <spring:message text="End Time" />
                                     </form:label></td>
-                                <td><form:input id="end" name="end" path="end" /></td>
+                                <td><form:select path="end">
+                                        <form:option value="8:00AM">8:00AM</form:option>
+                                        <form:option value="9:00AM">9:00AM</form:option>
+                                        <form:option value="10:00AM">10:00AM</form:option>
+                                        <form:option value="11:00AM">11:00AM</form:option>
+                                        <form:option value="12:00PM">12:00PM</form:option>
+                                        <form:option value="1:00PM">1:00PM</form:option>
+                                        <form:option value="2:00PM">2:00PM</form:option>
+                                        <form:option value="3:00PM">3:00PM</form:option>
+                                        <form:option value="4:00PM">4:00PM</form:option>
+                                        <form:option value="5:00PM">5:00PM</form:option>
+                                        <form:option value="6:00PM">6:00PM</form:option>
+                                        <form:option value="7:00PM">7:00PM</form:option>
+                                        <form:option value="8:00PM">8:00PM</form:option>
+                                        <form:option value="9:00PM">9:00PM</form:option>
+                                    </form:select></td>
                             </tr>
 
                             <tr>
