@@ -5,12 +5,17 @@
  */
 package com.app.studio.service.impl;
 
+import com.app.studio.common.DateUtils;
 import com.app.studio.dao.SemesterDAO;
 import com.app.studio.exception.RecordAlreadyExistException;
 import com.app.studio.exception.RequiredDataNotPresent;
 import com.app.studio.model.Semester;
 import com.app.studio.service.SemesterService;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,7 +34,22 @@ public class SemesterServiceImpl implements SemesterService {
         Semester sem = null;
         if (!semester.getEnddate().equals("") && !semester.getSignUpDate().equals("")
                 && !semester.getStartdate().equals("")) {
-            sem = semesterDAO.create(semester);
+            Date endDate;
+            Date startDate;
+            Date signUpDate;
+            try {
+                endDate = DateUtils.parse(semester.getEnddate());
+                startDate = DateUtils.parse(semester.getStartdate());
+                signUpDate = DateUtils.parse(semester.getSignUpDate());
+            } catch (ParseException ex) {
+                throw new RequiredDataNotPresent("You have enterd different values for date");
+            }
+
+            if (startDate.before(endDate) && signUpDate.before(startDate)) {
+                sem = semesterDAO.create(semester);
+            } else {
+                throw new RequiredDataNotPresent("Error in either start date is not before end date or signup date is not before start date");
+            }
         } else {
             throw new RequiredDataNotPresent("Required data not present to create semester");
         }
@@ -43,7 +63,22 @@ public class SemesterServiceImpl implements SemesterService {
         if (!semester.getEnddate().equals("") && !semester.getSignUpDate().equals("")
                 && !semester.getStartdate().equals("")) {
             if (semester.getId() > 0) {
-                sem = semesterDAO.update(semester);
+                Date endDate;
+                Date startDate;
+                Date signUpDate;
+                try {
+                    endDate = DateUtils.parse(semester.getEnddate());
+                    startDate = DateUtils.parse(semester.getStartdate());
+                    signUpDate = DateUtils.parse(semester.getSignUpDate());
+                } catch (ParseException ex) {
+                    throw new RequiredDataNotPresent("You have enterd different values for date");
+                }
+
+                if (startDate.before(endDate) && signUpDate.before(startDate)) {
+                    sem = semesterDAO.update(semester);
+                } else {
+                    throw new RequiredDataNotPresent("Error in either start date is not before end date or signup date is not before start date");
+                }
             } else {
                 throw new RequiredDataNotPresent("Primery key not present");
             }
