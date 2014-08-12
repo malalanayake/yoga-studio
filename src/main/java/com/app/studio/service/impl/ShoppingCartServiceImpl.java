@@ -1,11 +1,15 @@
 package com.app.studio.service.impl;
 
 import com.app.studio.dao.CustomerDAO;
+import com.app.studio.dao.OrderDAO;
+import com.app.studio.dao.OrderItemDAO;
 import com.app.studio.dao.ProductDAO;
 import com.app.studio.dao.ShoppingCartDAO;
 import com.app.studio.dao.ShoppingCartItemDAO;
 import com.app.studio.exception.RequiredDataNotPresent;
 import com.app.studio.model.Customer;
+import com.app.studio.model.Order;
+import com.app.studio.model.OrderItem;
 import com.app.studio.model.Product;
 import com.app.studio.model.ShoppingCart;
 import com.app.studio.model.ShoppingCartItem;
@@ -14,6 +18,7 @@ import java.util.Iterator;
 import java.util.Set;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import static com.app.studio.model.Order.Constants.STATUS_PROCESSING;
 
 /**
  *
@@ -26,6 +31,24 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     private CustomerDAO customerDAO;
     private ProductDAO productDAO;
     private ShoppingCartItemDAO shoppingCartItemDAO;
+    private OrderItemDAO orderItemDAO;
+    private OrderDAO orderDAO;
+
+    public OrderItemDAO getOrderItemDAO() {
+        return orderItemDAO;
+    }
+
+    public void setOrderItemDAO(OrderItemDAO orderItemDAO) {
+        this.orderItemDAO = orderItemDAO;
+    }
+
+    public OrderDAO getOrderDAO() {
+        return orderDAO;
+    }
+
+    public void setOrderDAO(OrderDAO orderDAO) {
+        this.orderDAO = orderDAO;
+    }
 
     public ShoppingCartItemDAO getShoppingCartItemDAO() {
         return shoppingCartItemDAO;
@@ -118,6 +141,22 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     @Transactional
+    public void checkOut(Customer customer, Product product) {
+        OrderItem orderItem = new OrderItem();
+        orderItem.setProduct(product);
+        orderItem.setQuantity(shoppingCartItemDAO.list().iterator().next().getQuantity());
+        orderItem = orderItemDAO.create(orderItem);
+
+        Order order = new Order(customer);
+        order.setTotalPrice(product.getPrice());
+        order.setStatus(STATUS_PROCESSING);
+        order = orderDAO.create(order);
+        order.addOrderItem(orderItem);
+        orderItem.setOrder(order);
+    }
+
+    @Override
+    @Transactional
     public Set<ShoppingCartItem> listOfAllShoppingCartItems(Customer customer) {
         return customer.getShoppingCart().getSetOfShoppingCartItems();
     }
@@ -140,9 +179,31 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     public void removeAllShoppingCartItem(ShoppingCart shoppingCart) {
         Set<ShoppingCartItem> list = shoppingCart.getSetOfShoppingCartItems();
         Iterator<ShoppingCartItem> temp = list.iterator();
-        while(temp.hasNext()) {
+        while (temp.hasNext()) {
             int index = temp.next().getId();
             this.shoppingCartItemDAO.remove(index);
         }
     }
+
+    @Override
+    @Transactional
+    public void checkOutAll(ShoppingCart shoppingCart) {
+
+        Set<ShoppingCartItem> list = shoppingCart.getSetOfShoppingCartItems();
+        Order order = new Order(shoppingCart.getCustomer());
+        order.setTotalPrice(list.iterator().next().getProduct().getPrice());
+        order.setStatus(STATUS_PROCESSING);
+        order = orderDAO.create(order);
+        for(int i=0;i<list.size();i++) {
+            ShoppingCartItem index = list.iterator().next();
+            OrderItem orderItem = new OrderItem();
+            orderItem.setProduct(index.getProduct());
+            orderItem.setQuantity(index.getQuantity());
+            orderItem = orderItemDAO.create(orderItem);
+
+            order.addOrderItem(orderItem);
+            orderItem.setOrder(order);
+        }
+    }
+
 }

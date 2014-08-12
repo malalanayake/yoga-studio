@@ -21,11 +21,15 @@ public interface ShoppingCartService {
     public ShoppingCart updateShoppingCart(ShoppingCart shoppingCart);
 
     public void removeShoppingCartItem(int id);
-    
+
     public void removeAllShoppingCartItem(ShoppingCart shoppingCart);
 
     public Set<ShoppingCartItem> listOfAllShoppingCartItems(Customer customer);
 
     public int calculatePrice(Customer customer);
+
+    public void checkOut(Customer customer, Product product);
+    
+    public void checkOutAll(ShoppingCart shoppingCart);
 
 }

@@ -1,6 +1,6 @@
 <%-- 
     Document   : main
-    Created on : Aug 4, 2014, 10:01:25 PM
+    Created on : Aug 4, 2014, 10:21:25 PM
     Author     : aTabibi
 --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -23,12 +23,18 @@
             <div id="content-container">
                 <%@include file="template/sidebar.jsp"%>
                 <div id="content">
+                    <c:if test="${not empty error}">
+                        <div class="error">${error}</div>
+                    </c:if>
+                    <c:if test="${not empty msg}">
+                        <div class="msg">${msg}</div>
+                    </c:if>
+                    <h2>
+                        Manage Product List
+                    </h2>
                     <c:url var="addProduct" value="/products/add"></c:url>
                     <form:form action="${addProduct}" commandName="product">
                         <table>
-                            <h2>
-                                Manage Product List
-                            </h2>
                             <c:if test="${product.id > 0}">
                                 <tr>
                                     <td><form:label path="id">

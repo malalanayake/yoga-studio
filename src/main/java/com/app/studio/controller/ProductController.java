@@ -34,13 +34,13 @@ public class ProductController {
         model.addAttribute("listProducts", this.productService.listOfAllProducts());
         return "product";
     }
-    
+
     @RequestMapping(value = "/view-products", method = RequestMethod.GET)
     public String listProducts2(Model model) {
         model.addAttribute("listProducts", this.productService.listOfAllProducts());
         return "view-products";
     }
-    
+
     @RequestMapping(value = "/products/edit/{id}")
     public String requestToUpdateProduct(@PathVariable("id") int id, Model model) {
         Product pro = new Product();
@@ -49,32 +49,32 @@ public class ProductController {
         model.addAttribute("listProducts", this.productService.listOfAllProducts());
         return "product";
     }
-    
 
     @RequestMapping(value = "/products/remove/{id}")
     public String requestToRemoveProduct(@PathVariable("id") int id) {
-            this.productService.deleteProduct(id);
+        this.productService.deleteProduct(id);
         return "redirect:/products";
     }
 
     @RequestMapping(value = "/products/add")
-    public String requestToAddNewProduct(@ModelAttribute("product") Product c) {
-        String error = "";
+    public String requestToAddNewProduct(@ModelAttribute("product") Product c, Model model) throws RequiredDataNotPresent {
         try {
             if (c.getId() == 0) {
-
                 this.productService.createNewProduct(c);
-
+                model.addAttribute("msg", c.getName() + " succesfully created");
             } else {
                 this.productService.updateProduct(c);
+                model.addAttribute("msg", c.getName() + "Product succesfully updated");
             }
         } catch (RequiredDataNotPresent ex) {
-            error = ex.toString();
+            model.addAttribute("error", ex.getMessage());
+            model.addAttribute("listProducts", this.productService.listOfAllProducts());
         } catch (RecordAlreadyExistException ex) {
-            error = ex.toString();
+            model.addAttribute("error", ex.getMessage());
+            model.addAttribute("listProducts", this.productService.listOfAllProducts());
         }
-
-        return "redirect:/products";
-
+        model.addAttribute("product", new Product());
+        model.addAttribute("listProducts", this.productService.listOfAllProducts());
+        return "product";
     }
 }

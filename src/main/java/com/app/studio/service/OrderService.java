@@ -6,6 +6,7 @@ import com.app.studio.model.Customer;
 import com.app.studio.model.Order;
 import com.app.studio.model.OrderItem;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Interface which is going to provide the Order service operations
@@ -77,6 +78,20 @@ public interface OrderService {
      * @return
      */
     public List<Order> listOfAllOrders();
+
+    /**
+     * List all orders for Customer
+     *
+     * @return
+     */
+    public Set<Order> listOfAllOrdersCustomer(Customer customer);
+
+    /**
+     * List all orderItems for Customer
+     *
+     * @return
+     */
+    public Set<OrderItem> listOfAllOrderItemsCustomer(Order order);
 
     /**
      * List all orders according to the status

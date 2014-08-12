@@ -49,7 +49,7 @@
                                     <td>${shoppingcartitem.product.price}</td>
                                     <td><a
                                             href="<c:url value='/view-shoppingcart/remove/${shoppingcartitem.id}' />">Delete</a></td>
-                                    <td><a href="<c:url value='/view-shoppingcart/remove/${shoppingcartitem.id}' />">Check Out</a></td></td>
+                                    <td><a href="<c:url value='/view-shoppingcart/add-to-orderitem/${shoppingcartitem.id}/${shoppingcartitem.product.id}' />">Check Out</a></td></td>
                                 </tr>
                             </c:forEach>
                         </c:if>
@@ -63,7 +63,7 @@
                         <tr>
                             <td>&nbsp;
 
-                                <a href="<c:url value='/view-shoppingcart/removeall' />">Check Out All</a></td>
+                                <a href="<c:url value='view-shoppingcart/add-all-to-orderitem' />">Check Out All</a></td>
 
                         </tr> 
                     </table>

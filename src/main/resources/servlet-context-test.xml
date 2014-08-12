@@ -175,10 +175,13 @@
         <beans:property name="customerDAO" ref="customerDAO"></beans:property>
         <beans:property name="productDAO" ref="productDAO"></beans:property>
         <beans:property name="shoppingCartItemDAO" ref="shoppingCartItemDAO"></beans:property>
+        <beans:property name="orderDAO" ref="orderDAO"></beans:property>
+        <beans:property name="orderItemDAO" ref="orderItemDAO"></beans:property>
     </beans:bean>
     
     <beans:bean id="orderService" class="com.app.studio.service.impl.OrderServiceImpl">
         <beans:property name="orderDAO" ref="orderDAO"></beans:property>
+        <beans:property name="customerDAO" ref="customerDAO"></beans:property>
     </beans:bean>
     <!-- Set the package where the annotated classes located at ex @Controller -->
     <context:component-scan base-package="com.app.studio" />
