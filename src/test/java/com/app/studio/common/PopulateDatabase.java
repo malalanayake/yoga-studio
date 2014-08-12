@@ -79,7 +79,7 @@ public class PopulateDatabase {
     @Rollback(false)
     public void testCreate() {
         // Admin
-        User adminUser = new User("a", "a", "Admin1", "User",
+        User adminUser = new User("admin", "admin", "Michael", "Smith",
                 "What is your favorit car?", "Benz");
         adminUser = userDAO.create(adminUser);
         Administrator a = new Administrator(adminUser);
@@ -87,95 +87,140 @@ public class PopulateDatabase {
         System.out.println("Created admin " + a.getId());
 
         // Faculty
-        User facultyUser = new User("f", "f", "Faculty1", "User",
-                "What is your favorit car?", "Benz");
+        User facultyUser = new User("jlerman", "123", "Joseph", "Lerman",
+                "What is your favorit car?", "Mercedes");
         facultyUser = userDAO.create(facultyUser);
-        Faculty f = new Faculty(facultyUser);
-        f = facultyDAO.create(f);
-        System.out.println("Created faculty " + f.getId());
+        Faculty f1 = new Faculty(facultyUser);
+        f1 = facultyDAO.create(f1);
+        System.out.println("Created faculty " + f1.getId());
+
+        User facultyUser2 = new User("ecorazza", "123", "Erick", "Corazza",
+                "What is the middle name of your mother?", "Susie");
+        facultyUser2 = userDAO.create(facultyUser2);
+        Faculty f2 = new Faculty(facultyUser2);
+        f2 = facultyDAO.create(f2);
+        System.out.println("Created faculty " + f2.getId());
+
+        User facultyUser3 = new User("jstone", "123", "James", "Stone",
+                "What is your favorite Yoga Pose?", "Lotus");
+        facultyUser3 = userDAO.create(facultyUser3);
+        Faculty f3 = new Faculty(facultyUser3);
+        f3 = facultyDAO.create(f3);
+        System.out.println("Created faculty " + f3.getId());
 
         // Customer
-        User customerUser = new User("c", "c", "Customer1", "User",
-                "What is your favorit car?", "Benz");
+        User customerUser = new User("yplagata", "123", "Yen", "Plagata",
+                "What is your favorit band?", "Beattles");
         customerUser = userDAO.create(customerUser);
-        Customer c = new Customer(customerUser);
-        c.setAddress("Fairfield, IA");
-        c.setSignUpDate("2014-08-07");
-        c.setAdvisor(f);
-        c = customerDAO.create(c);
-        System.out.println("Created customer " + c.getId());
+        Customer c1 = new Customer(customerUser);
+        c1.setAddress("Fairfield, IA");
+        c1.setSignUpDate("2014-08-08");
+        c1.setAdvisor(f1);
+        c1 = customerDAO.create(c1);
+        System.out.println("Created customer " + c1.getId());
 
         // Customer2
-        User customerUser2 = new User("c2", "c", "Customer2", "User2",
-                "What is your favorit car?", "Benz");
+        User customerUser2 = new User("jcalles", "123", "Juan", "Calles",
+                "What is your favorit car?", "BMW");
         customerUser2 = userDAO.create(customerUser2);
         Customer c2 = new Customer(customerUser2);
         c2.setAddress("Fairfield, IA");
-        c2.setSignUpDate("2014-08-07");
-        c2.setAdvisor(f);
+        c2.setSignUpDate("2013-01-05");
+        c2.setAdvisor(f2);
         c2 = customerDAO.create(c2);
         System.out.println("Created customer " + c2.getId());
 
-        // Customer2
-        User customerUser3 = new User("c3", "c", "Customer3", "User3",
-                "What is your favorit car?", "Benz");
+        // Customer3
+        User customerUser3 = new User("dyepez", "123", "Diana", "Yepez",
+                "What is your favorit food?", "Pizza");
         customerUser3 = userDAO.create(customerUser3);
         Customer c3 = new Customer(customerUser3);
         c3.setAddress("Fairfield, IA");
-        c3.setSignUpDate("2014-08-07");
-        c3.setAdvisor(f);
+        c3.setSignUpDate("2010-08-11");
+        c3.setAdvisor(f1);
         c3 = customerDAO.create(c3);
         System.out.println("Created customer " + c3.getId());
 
+        // Customer4
+        User customerUser4 = new User("sparker", "123", "Sarah", "Parker",
+                "What is your favorit food?", "Sushi");
+        customerUser4 = userDAO.create(customerUser4);
+        Customer c4 = new Customer(customerUser4);
+        c4.setAddress("Fairfield, IA");
+        c4.setSignUpDate("2010-08-11");
+        c4.setAdvisor(f1);
+        c4 = customerDAO.create(c4);
+        System.out.println("Created customer " + c4.getId());
+
+        // Customer5
+        User customerUser5 = new User("lperez", "123", "Lindsay", "Perez",
+                "What is your favorit food?", "Tamales");
+        customerUser5 = userDAO.create(customerUser5);
+        Customer c5 = new Customer(customerUser5);
+        c5.setAddress("Fairfield, IA");
+        c5.setSignUpDate("2010-08-11");
+        c5.setAdvisor(f1);
+        c5 = customerDAO.create(c5);
+        System.out.println("Created customer " + c5.getId());
+
         // Semester
         Semester semester1 = new Semester();
-        semester1.setStartdate("2014-09-01");
-        semester1.setEnddate("2014-09-30");
-        semester1.setSignUpDate("2014-09-27");
+        semester1.setStartdate("2014-08-15");
+        semester1.setEnddate("2014-09-15");
+        semester1.setSignUpDate("2014-08-11");
         semester1 = semesterDAO.create(semester1);
 
         Semester semester2 = new Semester();
-        semester2.setStartdate("2014-11-01");
-        semester2.setEnddate("2014-11-30");
-        semester2.setSignUpDate("2014-11-27");
+        semester2.setStartdate("2014-10-06");
+        semester2.setEnddate("2014-11-04");
+        semester2.setSignUpDate("2014-10-01");
         semester2 = semesterDAO.create(semester2);
 
         // Yoga Class
         YogaClass yogaA = new YogaClass();
-        yogaA.setName("Yoga A");
+        yogaA.setName("Introduction to Yoga");
         yogaA.setPrice(10);
         yogaA = yogaClassDAO.create(yogaA);
 
         YogaClass yogaB = new YogaClass();
-        yogaB.setName("Yoga B");
+        yogaB.setName("Prenatal Preparing for Birth");
         yogaB.setPrice(20);
-        yogaB.addPrerequisite(yogaA);
         yogaB = yogaClassDAO.create(yogaB);
 
         YogaClass yogaC = new YogaClass();
-        yogaC.setName("Yoga C");
-        yogaC.setPrice(30);
-        yogaC.addPrerequisite(yogaA);
+        yogaC.setName("Sacred Expansion");
+        yogaC.setPrice(15);
         yogaC = yogaClassDAO.create(yogaC);
 
         YogaClass yogaD = new YogaClass();
-        yogaD.setName("Yoga D");
-        yogaD.setPrice(40);
+        yogaD.setName("Gravity and Grace");
+        yogaD.setPrice(15);
         yogaD.addPrerequisite(yogaA);
+        yogaD.addPrerequisite(yogaC);
         yogaD = yogaClassDAO.create(yogaD);
 
         YogaClass yogaE = new YogaClass();
-        yogaE.setName("Yoga E");
-        yogaE.setPrice(50);
+        yogaE.setName("Hot Yoga");
+        yogaE.setPrice(25);
+        yogaE.addPrerequisite(yogaC);
         yogaE = yogaClassDAO.create(yogaE);
 
         YogaClass yogaF = new YogaClass();
-        yogaF.setName("Yoga F");
-        yogaF.setPrice(60);
+        yogaF.setName("Advanced Positions");
+        yogaF.addPrerequisite(yogaA);
+        yogaF.addPrerequisite(yogaC);
+        yogaF.setPrice(25);
         yogaF = yogaClassDAO.create(yogaF);
+        
+        YogaClass yogaG = new YogaClass();
+        yogaG.setName("Yoga SCI");
+        yogaG.addPrerequisite(yogaE);
+        yogaG.setPrice(25);
+        yogaG = yogaClassDAO.create(yogaG);
+        
 
         // Section
-        Section section1A = new Section(semester1, yogaA, f);
+        Section section1A = new Section(semester2, yogaA, f1);
         section1A.setMaxStudents(20);
         section1A.setLocation("Hall A");
         section1A.setSchedule("MON");
@@ -183,72 +228,112 @@ public class PopulateDatabase {
         section1A.setEnd("09:00am");
         section1A = sectionDAO.create(section1A);
 
-        Section section1B = new Section(semester1, yogaB, f);
-        section1B.setMaxStudents(20);
+        Section section1B = new Section(semester2, yogaB, f1);
+        section1B.setMaxStudents(15);
         section1B.setLocation("Hall B");
         section1B.setSchedule("TUE");
         section1B.setStart("08:00am");
         section1B.setEnd("09:00am");
         section1B = sectionDAO.create(section1B);
 
-        Section section1C = new Section(semester1, yogaC, f);
-        section1C.setMaxStudents(20);
+        Section section1C = new Section(semester2, yogaC, f2);
+        section1C.setMaxStudents(2);
         section1C.setLocation("Hall C");
         section1C.setSchedule("WED");
         section1C.setStart("08:00am");
         section1C.setEnd("09:00am");
         section1C = sectionDAO.create(section1C);
 
-        Section section1D = new Section(semester1, yogaD, f);
-        section1D.setMaxStudents(20);
+        Section section1D = new Section(semester1, yogaD, f2);
+        section1D.setMaxStudents(15);
         section1D.setLocation("Hall D");
         section1D.setSchedule("THR");
         section1D.setStart("08:00am");
         section1D.setEnd("09:00am");
         section1D = sectionDAO.create(section1D);
 
-        Section section1E = new Section(semester1, yogaE, f);
-        section1E.setMaxStudents(20);
+        Section section1E = new Section(semester2, yogaE, f3);
+        section1E.setMaxStudents(15);
         section1E.setLocation("Hall E");
         section1E.setSchedule("FRI");
         section1E.setStart("08:00am");
         section1E.setEnd("09:00am");
         section1E = sectionDAO.create(section1E);
 
-        Section section1F = new Section(semester1, yogaF, f);
+        Section section1F = new Section(semester2, yogaF, f3);
         section1F.setMaxStudents(20);
         section1F.setLocation("Hall F");
         section1F.setSchedule("SAT");
         section1F.setStart("08:00am");
         section1F.setEnd("09:00am");
         section1F = sectionDAO.create(section1F);
-
+        
+        Section section1G = new Section(semester2, yogaF, f3);
+        section1G.setMaxStudents(20);
+        section1G.setLocation("Hall G");
+        section1G.setSchedule("SUN");
+        section1G.setStart("08:00am");
+        section1G.setEnd("09:00am");
+        section1G = sectionDAO.create(section1G);
+        
+       
         // Waivers
-        WaiverRequest waiverB = new WaiverRequest(yogaB, c);
+        WaiverRequest waiverB = new WaiverRequest(yogaC, c1);
         waiverB.setStatus(WaiverRequest.Constants.STATUS_PENDING);
         waiverB = waiverRequestDAO.create(waiverB);
 
-        WaiverRequest waiverC = new WaiverRequest(yogaC, c);
-        waiverC.setStatus(WaiverRequest.Constants.STATUS_PENDING);
-        waiverC = waiverRequestDAO.create(waiverC);
-
-        WaiverRequest waiverD = new WaiverRequest(yogaD, c);
-        waiverD.setStatus(WaiverRequest.Constants.STATUS_PENDING);
+        WaiverRequest waiverD = new WaiverRequest(yogaF, c1);
+        waiverD.setStatus(WaiverRequest.Constants.STATUS_APPROVED);
         waiverD = waiverRequestDAO.create(waiverD);
+        
+        WaiverRequest waiverF = new WaiverRequest(yogaD, c1);
+        waiverF.setStatus(WaiverRequest.Constants.STATUS_REJECTED);
+        waiverF = waiverRequestDAO.create(waiverF);
+        
 
         // Enrolled Section
-        EnrolledSection enrolled = new EnrolledSection(c, section1E);
-        enrolled.setDate("2014-08-08");
+        EnrolledSection enrolled = new EnrolledSection(c1, section1A);
+        enrolled.setDate("2014-08-12");
         enrolled.setStatus(EnrolledSection.Constants.STATUS_ENROLLED);
         enrolled = enrolledSectionDAO.create(enrolled);
 
-        EnrolledSection waitlisted = new EnrolledSection(c, section1F);
-        waitlisted.setDate("2014-08-08");
-        waitlisted.setStatus(EnrolledSection.Constants.STATUS_WAITLISTED);
-        waitlisted = enrolledSectionDAO.create(waitlisted);
+        EnrolledSection enrolled2 = new EnrolledSection(c1, section1B);
+        enrolled2.setDate("2014-08-12");
+        enrolled2.setStatus(EnrolledSection.Constants.STATUS_ENROLLED);
+        enrolled2 = enrolledSectionDAO.create(enrolled2);
+
+        EnrolledSection enrolled3 = new EnrolledSection(c2, section1A);
+        enrolled3.setDate("2014-08-12");
+        enrolled3.setStatus(EnrolledSection.Constants.STATUS_ENROLLED);
+        enrolled3 = enrolledSectionDAO.create(enrolled3);
+
+        EnrolledSection enrolled4 = new EnrolledSection(c2, section1C);
+        enrolled4.setDate("2014-08-12");
+        enrolled4.setStatus(EnrolledSection.Constants.STATUS_ENROLLED);
+        enrolled4 = enrolledSectionDAO.create(enrolled4);
+
+        EnrolledSection enrolled5 = new EnrolledSection(c3, section1A);
+        enrolled5.setDate("2014-08-12");
+        enrolled5.setStatus(EnrolledSection.Constants.STATUS_ENROLLED);
+        enrolled5 = enrolledSectionDAO.create(enrolled5);
+
+        EnrolledSection enrolled6 = new EnrolledSection(c3, section1C);
+        enrolled6.setDate("2014-08-12");
+        enrolled6.setStatus(EnrolledSection.Constants.STATUS_ENROLLED);
+        enrolled6 = enrolledSectionDAO.create(enrolled6);
+
+        EnrolledSection enrolled7 = new EnrolledSection(c4, section1D);
+        enrolled7.setDate("2014-08-12");
+        enrolled7.setStatus(EnrolledSection.Constants.STATUS_ENROLLED);
+        enrolled7 = enrolledSectionDAO.create(enrolled7);
+
+        EnrolledSection enrolled8 = new EnrolledSection(c4, section1C);
+        enrolled8.setDate("2014-08-12");
+        enrolled8.setStatus(EnrolledSection.Constants.STATUS_WAITLISTED);
+        enrolled8 = enrolledSectionDAO.create(enrolled8);
 
         // Shopping Cart
-        ShoppingCart cart = new ShoppingCart(c);
+        ShoppingCart cart = new ShoppingCart(c1);
         cart = shoppingCartDAO.create(cart);
 
         // Product
@@ -262,7 +347,7 @@ public class PopulateDatabase {
 
         // Order
         Order order = new Order();
-        order.setCustomer(c);
+        order.setCustomer(c1);
         order.setStatus(Order.Constants.STATUS_PROCESSING);
         order.setTotalPrice(23);
 
