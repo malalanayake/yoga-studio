@@ -54,50 +54,50 @@
                             <li id="first" class="firstanimation">
                                 <a href="#">
                                     <c:url var="imgUrl1" value='/images/img_1.jpg'></c:url>
-                                    <img src="${imgUrl1}" alt="Cougar"/>
+                                    <img src="${imgUrl1}" alt="Lotus"/>
                                 </a>
                                 <div class="tooltip">
-                                    <h1>Cougar</h1>
+                                    <h1>Lotus</h1>
                                 </div>
                             </li>
 
                             <li id="second" class="secondanimation">
                                 <a href="#">
                                     <c:url var="imgUrl2" value='/images/img_2.jpg'></c:url>
-                                    <img src="${imgUrl1}" alt="Lions"/>
+                                    <img src="${imgUrl2}" alt="Warrior"/>
                                 </a>
                                 <div class="tooltip">
-                                    <h1>Lions</h1>
+                                    <h1>Warrior</h1>
                                 </div>
                             </li>
 
                             <li id="third" class="thirdanimation">
                                 <a href="#">
                                     <c:url var="imgUrl3" value='/images/img_3.jpg'></c:url>
-                                    <img src="${imgUrl3}" alt="Snowalker"/>
+                                    <img src="${imgUrl3}" alt="Columns"/>
                                 </a>
                                 <div class="tooltip">
-                                    <h1>Snowalker</h1>
+                                    <h1>Columns</h1>
                                 </div>
                             </li>
 
                             <li id="fourth" class="fourthanimation">
                                 <a href="#">
                                     <c:url var="imgUrl4" value='/images/img_4.jpg'></c:url>
-                                    <img src="${imgUrl4}" alt="Howling"/>
+                                    <img src="${imgUrl4}" alt="Sunrise"/>
                                 </a>
                                 <div class="tooltip">
-                                    <h1>Howling</h1>
+                                    <h1>Sunrise</h1>
                                 </div>
                             </li>
 
                             <li id="fifth" class="fifthanimation">
                                 <a href="#">
                                     <c:url var="imgUrl5" value='/images/img_5.jpg'></c:url>
-                                    <img src="${imgUrl5}" alt="Sunbathing"/>
+                                    <img src="${imgUrl5}" alt="Cloud"/>
                                 </a>
                                 <div class="tooltip">
-                                    <h1>Sunbathing</h1>
+                                    <h1>Cloud</h1>
                                 </div>
                             </li>
                         </ul>
