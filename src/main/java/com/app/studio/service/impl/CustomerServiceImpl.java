@@ -85,6 +85,7 @@ public class CustomerServiceImpl implements CustomerService {
                 return this.customerDAO.create(c);
             } else {
                 throw new RecordAlreadyExistException("User already exists");
+                
             }
         } else {
             throw new RequiredDataNotPresent("You have to complete all the fields");

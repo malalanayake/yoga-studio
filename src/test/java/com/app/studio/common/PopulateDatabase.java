@@ -159,7 +159,6 @@ public class PopulateDatabase {
         Customer c5 = new Customer(customerUser5);
         c5.setAddress("Fairfield, IA");
         c5.setSignUpDate("2010-08-11");
-        c5.setAdvisor(f1);
         c5 = customerDAO.create(c5);
         System.out.println("Created customer " + c5.getId());
 
@@ -186,17 +185,16 @@ public class PopulateDatabase {
         yogaB.setName("Prenatal Preparing for Birth");
         yogaB.setPrice(20);
         yogaB = yogaClassDAO.create(yogaB);
-
+        
         YogaClass yogaC = new YogaClass();
         yogaC.setName("Sacred Expansion");
-        yogaC.setPrice(15);
+        yogaC.setPrice(20);
         yogaC = yogaClassDAO.create(yogaC);
-
+        
         YogaClass yogaD = new YogaClass();
         yogaD.setName("Gravity and Grace");
         yogaD.setPrice(15);
         yogaD.addPrerequisite(yogaA);
-        yogaD.addPrerequisite(yogaC);
         yogaD = yogaClassDAO.create(yogaD);
 
         YogaClass yogaE = new YogaClass();
@@ -217,6 +215,12 @@ public class PopulateDatabase {
         yogaG.addPrerequisite(yogaE);
         yogaG.setPrice(25);
         yogaG = yogaClassDAO.create(yogaG);
+        
+        YogaClass yogaH = new YogaClass();
+        yogaH.setName("Yoga for Sidhis");
+        yogaH.addPrerequisite(yogaG);
+        yogaH.setPrice(50);
+        yogaH = yogaClassDAO.create(yogaH);
         
 
         // Section
@@ -268,7 +272,7 @@ public class PopulateDatabase {
         section1F.setEnd("09:00am");
         section1F = sectionDAO.create(section1F);
         
-        Section section1G = new Section(semester2, yogaF, f3);
+        Section section1G = new Section(semester2, yogaG, f3);
         section1G.setMaxStudents(20);
         section1G.setLocation("Hall G");
         section1G.setSchedule("SUN");
@@ -276,19 +280,29 @@ public class PopulateDatabase {
         section1G.setEnd("09:00am");
         section1G = sectionDAO.create(section1G);
         
+        Section section1H = new Section(semester2, yogaH, f3);
+        section1H.setMaxStudents(20);
+        section1H.setLocation("Hall G");
+        section1H.setSchedule("SUN");
+        section1H.setStart("10:00am");
+        section1H.setEnd("12:00am");
+        section1H = sectionDAO.create(section1H);
+        
+        
+        
        
         // Waivers
-        WaiverRequest waiverB = new WaiverRequest(yogaC, c1);
-        waiverB.setStatus(WaiverRequest.Constants.STATUS_PENDING);
-        waiverB = waiverRequestDAO.create(waiverB);
+       
 
         WaiverRequest waiverD = new WaiverRequest(yogaF, c1);
         waiverD.setStatus(WaiverRequest.Constants.STATUS_APPROVED);
         waiverD = waiverRequestDAO.create(waiverD);
         
-        WaiverRequest waiverF = new WaiverRequest(yogaD, c1);
+        WaiverRequest waiverF = new WaiverRequest(yogaG, c1);
         waiverF.setStatus(WaiverRequest.Constants.STATUS_REJECTED);
         waiverF = waiverRequestDAO.create(waiverF);
+        
+        
         
 
         // Enrolled Section
@@ -301,6 +315,12 @@ public class PopulateDatabase {
         enrolled2.setDate("2014-08-12");
         enrolled2.setStatus(EnrolledSection.Constants.STATUS_ENROLLED);
         enrolled2 = enrolledSectionDAO.create(enrolled2);
+        
+        EnrolledSection enrolled9 = new EnrolledSection(c1, section1D);
+        enrolled9.setDate("2014-08-12");
+        enrolled9.setStatus(EnrolledSection.Constants.STATUS_ENROLLED);
+        enrolled9 = enrolledSectionDAO.create(enrolled9);
+        
 
         EnrolledSection enrolled3 = new EnrolledSection(c2, section1A);
         enrolled3.setDate("2014-08-12");
@@ -322,11 +342,7 @@ public class PopulateDatabase {
         enrolled6.setStatus(EnrolledSection.Constants.STATUS_ENROLLED);
         enrolled6 = enrolledSectionDAO.create(enrolled6);
 
-        EnrolledSection enrolled7 = new EnrolledSection(c4, section1D);
-        enrolled7.setDate("2014-08-12");
-        enrolled7.setStatus(EnrolledSection.Constants.STATUS_ENROLLED);
-        enrolled7 = enrolledSectionDAO.create(enrolled7);
-
+      
         EnrolledSection enrolled8 = new EnrolledSection(c4, section1C);
         enrolled8.setDate("2014-08-12");
         enrolled8.setStatus(EnrolledSection.Constants.STATUS_WAITLISTED);
@@ -338,13 +354,41 @@ public class PopulateDatabase {
 
         // Product
         Product product = new Product();
-        product.setName("Yoga Mat");
+        product.setName("Yoga Carpet");
         product.setType("Exercise");
+        product.setImageSrc("http://cdn.shopclues.com/images/detailed/777/yogacomposite_1373652579.jpg");
         product.setPrice(10);
         product.setAvailableQuantity(50);
-        product.setDescription("Purple yoga mat");
+        product.setDescription("Blue Yoga Carpet");
         product = productDAO.create(product);
-
+        
+        Product product2 = new Product();
+        product2.setName("Yoga Shoes");
+        product2.setType("Shoes");
+        product2.setImageSrc("http://cf-resrc.outsideonline.com/S=W800,U/C=W100P,H100P/O=90,P/http://media.outsideonline.com/images/nike-studio_fe.jpg");
+        product2.setPrice(20);
+        product2.setAvailableQuantity(50);
+        product2.setDescription("Amazing Yoga Shoes");
+        product2 = productDAO.create(product2);
+        
+        Product product3 = new Product();
+        product3.setName("Yoga Carpet");
+        product3.setType("Exercise");
+        product3.setImageSrc("http://www.hometone.com/wp-content/uploads/2013/05/gaiam-yoga-mat1_5oLnJ_1822.jpg");
+        product3.setPrice(16);
+        product3.setAvailableQuantity(10);
+        product3.setDescription("Green Yoga Carpet");
+        product3 = productDAO.create(product3);
+        
+        Product product4 = new Product();
+        product4.setName("Yoga Kit");
+        product4.setType("Exercise");
+        product4.setImageSrc("http://www.awesomlife.com/images/yogamatpg2.jpg");
+        product4.setPrice(40);
+        product4.setAvailableQuantity(6);
+        product4.setDescription("Yoga Kit");
+        product4 = productDAO.create(product4);
+       
         // Order
         Order order = new Order();
         order.setCustomer(c1);
@@ -355,7 +399,7 @@ public class PopulateDatabase {
         OrderItem item = new OrderItem();
         item.setOrder(order);
         item.setQuantity(1);
-        item.setProduct(product);
+        item.setProduct(product2);
 
         order = orderDAO.create(order);
     }
@@ -381,25 +425,45 @@ public class PopulateDatabase {
         assertEquals(cart.getId(), c.getShoppingCart().getId());
         assertEquals(cart.getId(), cart.getCustomer().getShoppingCart().getId());
 
-        Product product1 = new Product();
-        product1.setName("Yoga Mat");
-        product1.setType("Exercise");
-        product1.setPrice(10);
-        product1.setAvailableQuantity(50);
-        product1.setDescription("Purple yoga mat");
-        product1 = productDAO.create(product1);
-
+        Product product = new Product();
+        product.setName("Yoga Carpet");
+        product.setType("Exercise");
+        product.setImageSrc("http://cdn.shopclues.com/images/detailed/777/yogacomposite_1373652579.jpg");
+        product.setPrice(10);
+        product.setAvailableQuantity(50);
+        product.setDescription("Blue Yoga Carpet");
+        product = productDAO.create(product);
+        
         Product product2 = new Product();
-        product2.setName("Yoga Pants");
-        product2.setType("Apparel");
-        product2.setPrice(10);
+        product2.setName("Yoga Shoes");
+        product2.setType("Shoes");
+        product2.setImageSrc("http://cf-resrc.outsideonline.com/S=W800,U/C=W100P,H100P/O=90,P/http://media.outsideonline.com/images/nike-studio_fe.jpg");
+        product2.setPrice(20);
         product2.setAvailableQuantity(50);
-        product2.setDescription("Black yoga pants");
+        product2.setDescription("Amazing Yoga Shoes");
         product2 = productDAO.create(product2);
-
+        
+        Product product3 = new Product();
+        product3.setName("Yoga Carpet");
+        product3.setType("Exercise");
+        product3.setImageSrc("http://www.hometone.com/wp-content/uploads/2013/05/gaiam-yoga-mat1_5oLnJ_1822.jpg");
+        product3.setPrice(16);
+        product3.setAvailableQuantity(10);
+        product3.setDescription("Green Yoga Carpet");
+        product3 = productDAO.create(product3);
+        
+        Product product4 = new Product();
+        product4.setName("Yoga Kit");
+        product4.setType("Exercise");
+        product4.setImageSrc("http://www.awesomlife.com/images/yogamatpg2.jpg");
+        product4.setPrice(40);
+        product4.setAvailableQuantity(6);
+        product4.setDescription("Yoga Kit");
+        product4 = productDAO.create(product4);
+        
         // Shopping Cart Tests
         ShoppingCartItem item1 = new ShoppingCartItem();
-        item1.setProduct(product1);
+        item1.setProduct(product);
         item1.setQuantity(1);
         item1.setShoppingCart(cart);
         item1 = shoppingCartItemDAO.create(item1);

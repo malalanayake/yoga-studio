@@ -66,6 +66,7 @@ public class CustomerController {
             model.addAttribute("error", ex.getMessage());
         } catch (RecordAlreadyExistException ex) {
             model.addAttribute("error", ex.getMessage());
+            return "signup";
         }
         return "login";
     }
