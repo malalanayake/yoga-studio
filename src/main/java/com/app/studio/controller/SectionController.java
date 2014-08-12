@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
+ * Controlling the sections
  *
  * @author malalanayake
  */
@@ -55,6 +56,12 @@ public class SectionController {
         this.semesterService = semesterService;
     }
 
+    /**
+     * View all section
+     *
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/sections", method = RequestMethod.GET)
     public String requestToListOfSections(Model model) {
         YogaClass yogs = new YogaClass();
@@ -73,6 +80,13 @@ public class SectionController {
         return "section";
     }
 
+    /**
+     * Add or Update section
+     *
+     * @param s
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/sections/add", method = RequestMethod.POST)
     public String requestToAddNewSection(@ModelAttribute("section") Section s, Model model) {
         String error = "";
@@ -111,6 +125,13 @@ public class SectionController {
         return "section";
     }
 
+    /**
+     * Load section data to edit mode
+     *
+     * @param id
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/sections/edit/{id}", method = RequestMethod.GET)
     public String requestToUpdateSection(@PathVariable("id") int id, Model model) {
         Section sec = new Section();
@@ -120,6 +141,13 @@ public class SectionController {
         return "section";
     }
 
+    /**
+     * Remove section data
+     *
+     * @param id
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/sections/remove/{id}", method = RequestMethod.GET)
     public String requestToDeleteSection(@PathVariable("id") int id, Model model) {
         Section sec = yogaSectionService.getSectionByID(id);
