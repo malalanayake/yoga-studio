@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
+ * Controlling the semesters
  *
  * @author dmalalanayake
  */
@@ -28,6 +29,12 @@ public class SemesterController {
         this.semesterService = semesterService;
     }
 
+    /**
+     * Load the semester view
+     *
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/semesters", method = RequestMethod.GET)
     public String requestToListOfSemesters(Model model) {
         model.addAttribute("semester", new Semester());
@@ -35,6 +42,13 @@ public class SemesterController {
         return "semester";
     }
 
+    /**
+     * Load the semester data into edit mode
+     *
+     * @param id
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/semesters/edit/{id}", method = RequestMethod.GET)
     public String requestToUpdateSemester(@PathVariable("id") int id, Model model) {
         Semester sem = new Semester();
@@ -44,6 +58,13 @@ public class SemesterController {
         return "semester";
     }
 
+    /**
+     * Remove the given semester data
+     *
+     * @param id
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/semesters/remove/{id}", method = RequestMethod.GET)
     public String requestToRemoveSemester(@PathVariable("id") int id, Model model) {
         Semester sem = semesterService.getSemeterByID(id);
@@ -58,6 +79,13 @@ public class SemesterController {
         return "redirect:/semesters";
     }
 
+    /**
+     * Add or Update given semester data
+     *
+     * @param c
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/semesters/add", method = RequestMethod.POST)
     public String requestToCreateSemester(@ModelAttribute("semester") Semester c, Model model) {
         String error = "";
@@ -81,6 +109,12 @@ public class SemesterController {
 
     }
 
+    /**
+     * View all yoga classes
+     *
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/view-classes", method = RequestMethod.GET)
     public String listCurrentAndFutureClasses(Model model) {
         model.addAttribute("listSemesters", this.semesterService.listOfCurrentAndFutureSemesters());
