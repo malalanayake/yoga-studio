@@ -15,6 +15,9 @@
         <link rel="stylesheet" type="text/css" href=${cssUrl}>
         <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.0/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" /> 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.22/themes/redmond/jquery-ui.css" />
         <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
         <c:url var="jsUrl" value='/js/jquery.ptTimeSelect.js'></c:url>
         <c:url var="jsCssUrl" value='/js/jquery.ptTimeSelect.css'></c:url>
@@ -22,13 +25,14 @@
         <script src=${jsUrl}></script>
         <script type="text/javascript">
             jQuery(document).ready(function() {
-
-                $(".timeSection").ptTimeSelect();
-
+                // find the input fields and apply the time select to them.
+                $('input[name="start"]').ptTimeSelect({
+                    hoursLabel: 'HRS'
+                });
             });
         </script>
         <style type="text/css">
-            .timeSection {
+            .timeSectionData {
                 width: 216px;
                 height: auto;
                 margin: 5px auto 0;
@@ -145,13 +149,13 @@
                                 <td><form:label path="start">
                                         <spring:message text="Start Time" />
                                     </form:label></td>
-                                <td><form:input cssClass="timeSection" id="start" name="start" path="start" /></td>
+                                <td><form:input id="start" name="start" path="start" /></td>
                             </tr>
                             <tr>
                                 <td><form:label path="end">
                                         <spring:message text="End Time" />
                                     </form:label></td>
-                                <td><form:input cssClass="timeSection"  id="end" name="end" path="end" /></td>
+                                <td><form:input id="end" name="end" path="end" /></td>
                             </tr>
 
                             <tr>
