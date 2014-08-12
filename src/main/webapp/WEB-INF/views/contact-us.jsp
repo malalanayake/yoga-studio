@@ -27,32 +27,28 @@
 
                     <br>
                     <p align="justify"> <strong> Do you have any question? Please Call Us! </strong>  </p>
-                    </br>
 
                     <br>
                     <p align="justify"> Telephones: (641) - 7776321 , (312)-2867970 </p>
-                    </br> 
+
 
                     <br>
                     <p align="justify"> <strong>  You can find us in our social networks </strong>   </p>
-                    </br>
+
 
                     <br>
                     <c:url var="imgTwitter" value='/images/twitter.png'></c:url>
                     <p align="justify"> <img src="${imgTwitter}" alt="twitter" width="42" height="42">  @lotusyogastudio</p>
-                    </br> 
-                    
+
+
                     <br>
                     <c:url var="imgFacebook" value='/images/facebook.png'></c:url>
                     <p align="justify"> <img src="${imgFacebook}" alt="facebook" width="42" height="42">    lotusyogastudio</p>
-                    </br> 
-                    
-                    
+
 
                     <br>
                     <p align="justify"> <strong> You can find our location on Google Maps, 1000 N, 4th Street, Fairfield, IA. 52557</strong>  </p>
-                    </br>
-
+                    <br>
                     <style>
                         #map_canvas {
                             width: 500px;
@@ -79,6 +75,6 @@
                 <%@include file="template/footer.jsp"%>
             </div>
         </div>
-        
+
     </body>
 </html>
