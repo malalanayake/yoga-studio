@@ -132,7 +132,7 @@
                 <li><a href="#"><span class="iconic"></span> Services</a>
                     <ul>
                         <c:if test="${pageContext.request.userPrincipal.name != null}">
-                            <li><a href="#">View Products</a></li>
+                            <li><a href="/view-products">View Products</a></li>
                             </c:if>
                         <li><a href="<c:url value='/view-classes' />">View Yoga Classes</a></li>
                     </ul>                
