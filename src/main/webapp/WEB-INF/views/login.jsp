@@ -26,8 +26,8 @@
                 <body onload='document.loginForm.username.focus();'>
                     <div id="login-box">
 
-                        <h3>Login with Username and Password</h3>
-                        <br>
+                        <h3>Login</h3>
+                        
                         <c:if test="${not empty error}">
                             <div class="error">${error}</div>
                         </c:if>
@@ -37,26 +37,27 @@
 
                         <form name='loginForm'
                               action="<c:url value='j_spring_security_check' />" method='POST'>
-
+                            <fieldset>
+                                <p>
+                                    <strong>Username:</strong>
+                                    <input type='text' name='username' value='' />
+                                </p>
+                                <p>
+                                    <strong>Password:</strong>
+                                    <input type='password' name='password' />
+                                </p>
+                            </fieldset>
                             <table>
                                 <tr>
-                                    <td>User:</td>
-                                    <td><input type='text' name='username' value=''></td>
+                                    <td> </td>
+                                    <td><input id="loginButton" name="submit" type="submit" value="Submit" /></td>
                                 </tr>
                                 <tr>
-                                    <td>Password:</td>
-                                    <td><input type='password' name='password' /></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2"><input name="submit" type="submit"
-                                               value="submit" /></td>     
-                                </tr>
-                                <tr>
-                                    <td><a href="<c:url value='/signup' />">SignUp</a></td>
+                                    <td><a href="<c:url value='/signup' />">Sign Up</a></td>
                                     <td><a href="<c:url value='/forgot-password' />">Forgot Password</a></td>
                                 </tr>
                             </table>
-
+                            
                             <input type="hidden" name="${_csrf.parameterName}"
                                    value="${_csrf.token}" />
                         </form>

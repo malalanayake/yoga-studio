@@ -80,7 +80,7 @@
     margin: 0 0 0 30px;
 }
 
-#content h2 { margin: 25px 0; }
+#content h2 { margin: 15px 0; }
 
 #content-inner { margin: 20px 0; }
 
@@ -171,8 +171,38 @@
     width: 300px;
     padding: 20px;
     margin: 100px auto;
-    background: #fff;
+    background: #dedede;
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
-    border: 1px solid #000;
+    border: 1px solid #dedede;
+    border-radius: 10px;
+}
+
+#login-box h3 {
+    font-weight: bold;
+    margin: 20px 0;
+    text-align: center;
+}
+
+#login-box strong {
+    float: left;
+    width: 7em;
+}
+
+#login-box p {
+    margin: 5px;
+}
+
+#login-box table {
+    margin-left: auto;
+    margin-right: auto;
+    width: 65%;
+}
+
+#login-box td {
+    text-align: right;
+}
+
+#loginButton {
+    width: 10em;
 }
