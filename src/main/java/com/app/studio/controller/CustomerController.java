@@ -68,7 +68,7 @@ public class CustomerController {
             model.addAttribute("error", ex.getMessage());
             return "signup";
         }
-        return "login";
+        return "redirect:/login";
     }
 
     @RequestMapping(value = "/request-waive-prerequisites", method = RequestMethod.GET)
