@@ -23,9 +23,13 @@
             <div id="content-container">
                 <%@include file="template/sidebar.jsp"%>
                 <div id="content">
-                    <h1>
+                    <h2>
                         Welcome to Yoga Studio
-                    </h1>
+                    </h2>
+                    
+                    <c:url var="imgUrl" value='/images/yoga_main.jpg'></c:url>
+                                <img src="${imgUrl}" alt="Lotus Team" style="width: auto;max-height: 40%;" />
+                  
 
                 </div>
                 <!--<%@include file="template/right-side.jsp"%>-->
