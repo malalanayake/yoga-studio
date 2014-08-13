@@ -25,11 +25,6 @@ public class OrderController {
     private OrderService orderService;
     private CustomerService customerService;
 
-    @Autowired(required = true)
-    @Qualifier(value = "customerService")
-    public CustomerService getCustomerService() {
-        return customerService;
-    }
 
     @Autowired(required = true)
     @Qualifier(value = "customerService")
